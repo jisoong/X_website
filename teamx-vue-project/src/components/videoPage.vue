@@ -20,7 +20,7 @@ export default {
         return require(`../assets/video/${this.singerId}_${this.albumId}.mp4`);
 
       } else {
-        return require('../assets/video/1_1.mp4');
+        return require('../assets/video/test.mp4');
       }
     }
 }
