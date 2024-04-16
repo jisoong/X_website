@@ -2,7 +2,6 @@
   <div>
       <h1>{{ singerName }}의 {{ albumName }}</h1>
       <video v-if="videoSource" :src="videoSource" controls autoplay></video>
-      <!-- <video v-if="videoSource" :src="videoSource" controls ></video> -->
       <div v-else>
         <p>비디오를 찾을 수 없습니다.</p>
       </div>
@@ -33,4 +32,5 @@ video{
 }
 
 </style>
-  
+
+

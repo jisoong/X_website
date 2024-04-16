@@ -66,9 +66,9 @@
         </div>
     </div>
     <div class="videoRoom">
-      <video src="../assets/video/test.mp4" autoplay loop muted>
+      <!-- <video src="../assets/video/test.mp4" autoplay loop muted>
         
-      </video>
+      </video> -->
     </div>
 
 
