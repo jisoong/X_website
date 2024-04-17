@@ -26,7 +26,7 @@
         // this.selectMusicPage = true;
       },
       onClickMoveIntroPage() {
-        this.$router.push('/introPage')
+        this.$router.push('/')
       }
     }
   };

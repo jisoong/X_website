@@ -39,14 +39,14 @@ export default {
       isSectionClicked: false, 
       albums: [
         { id: '10cm', cover: require('../assets/img/10cm.jpeg'), alt: '10cm album cover', song: '폰서트' },
-        { id: 2, cover: require('../assets/img/lee.jpeg'), alt: 'Lee album cover', song: '하늘을 달리다' },
+        { id: 'lee', cover: require('../assets/img/lee.jpeg'), alt: 'Lee album cover', song: '하늘을 달리다' },
         { id: 3, cover: require('../assets/img/shin.jpg'), alt: 'Shin album cover', song: '그대에게' },
         { id: 4, cover: require('../assets/img/choi.jpeg'), alt: 'Choi album cover', song: '숲' },
         { id: 5, cover: require('../assets/img/geeks.jpeg'), alt: 'Geeks album cover', song: 'officially missing you' }
       ],
       singers: [
       { id: 'kim', image: require('../assets/img/kim.jpeg'), alt: 'Kim singer', name: '김광석' },
-      { id: 2, image: require('../assets/img/mujin.jpeg'), alt: 'Mujin singer', name: '이무진' },
+      { id: 'mujin', image: require('../assets/img/mujin.jpeg'), alt: 'Mujin singer', name: '이무진' },
       { id: 3, image: require('../assets/img/yerin.jpeg'), alt: 'Yerin singer', name: '백예린'},
       { id: 4, image: require('../assets/img/bibi.jpeg'), alt: 'IU singer', name: '비비'}
       ]
@@ -67,17 +67,14 @@ export default {
     selectAlbum(album) {
       this.selectedAlbum = album;
       this.isSectionClicked = true;
-      console.log(this.isSectionClicked)
     },
     albumClick() {
       if (this.selectedSinger !== null) {
         this.isSectionClicked = false;
-        console.log(this.isSectionClicked)
       }
     },
     artistClick() {
       this.isSectionClicked = true;
-      console.log(this.isSectionClicked)
     },
     goToSecondPage() {
       // Pass selectedSinger and selectedAlbum to second page
@@ -95,7 +92,7 @@ export default {
 .next_btt{
   font-size: 16px;
   padding: 15px;
-  border-radius: 45%;
+  border-radius: 45px;
   color:#172BFF;
   border-color: #172BFF;
   background-color: rgba(255, 255, 255);
