@@ -79,7 +79,6 @@ export default {
     goToSecondPage() {
       // Pass selectedSinger and selectedAlbum to second page
       this.$router.push({ name: 'videoPage', params: { singerId: this.selectedSinger.id, singerName: this.selectedSinger.name,albumId: this.selectedAlbum.id, albumName: this.selectedAlbum.song } });
-      console.log(this.selectedAlbum.song)
     },
     goToMain(){
       this.$router.push('/')
