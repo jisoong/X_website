@@ -2,9 +2,9 @@ import { createRouter, createWebHistory} from 'vue-router'
 
 const routes = [
     {
-        path: '/selectMusic',
-        name: 'selectMusic',
-        component:()=>import('../components/selectMusic.vue'),
+        path: '/selectWatch',
+        name: 'selectWatch',
+        component:()=>import('../components/selectWatch.vue'),
         props: true
     },
     {
@@ -17,6 +17,23 @@ const routes = [
         name: 'videoPage',
         component:()=>import('../components/videoPage.vue'),
         props: true
+    },
+    {
+        path: '/selectListen',
+        name: 'selectListen',
+        component:()=>import('../components/selectListen.vue'),
+        // props: true
+    },
+    {
+        path: '/listenMusic/:singerId/:albumId/:albumName/:singerName',
+        name: 'listenMusic',
+        component:()=>import('../components/listenMusic.vue'),
+        props: true
+    },
+    {
+        path: '/ourTeam',
+        name: 'ourTeam',
+        component:()=>import('../components/ourTeam.vue'),
     },
 ]
 

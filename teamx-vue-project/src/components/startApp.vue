@@ -21,12 +21,15 @@
         }
         this.isPlaying = !this.isPlaying;
       },
-      onClickMoveMusicPage() {
-        this.$router.push('/selectMusic');
+      onClickMoveWatchPage() {
+        this.$router.push('/selectWatch');
         // this.selectMusicPage = true;
       },
-      onClickMoveIntroPage() {
-        this.$router.push('/')
+      onClickMoveListenPage() {
+        this.$router.push('/selectListen')
+      },
+      onClickMoveOurPage() {
+        this.$router.push('/ourTeam')
       }
     }
   };
@@ -35,8 +38,8 @@
 <template>
     <div class="container back">
         <div class="bg box">
-            <img class="half-circle1" @click="onClickMoveMusicPage" src="../assets/img/Ellipse 1.png" alt="">
-            <img class="half-circle2" @click="onClickMoveMusicPage" src="../assets/img/Ellipse 2.png" alt="">    
+            <img class="half-circle1" @click="onClickMoveWatchPage" src="../assets/img/Ellipse 1.png" alt="">
+            <img class="half-circle2" @click="onClickMoveListenPage" src="../assets/img/Ellipse 2.png" alt="">    
         </div>
         <div id="app">
         <pre>
@@ -51,21 +54,21 @@
         <p class="intro_text">원하는 서비스를 선택해 해주세요</p>
         </div>
         <div class="text">
-            <div class="watch" @click="onClickMoveMusicPage">
+            <div class="watch" @click="onClickMoveWatchPage">
             <p> Watch </p>
             <p> M/V</p>
             </div>
-            <div class="listen">
+            <div class="listen" @click="onClickMoveListenPage">
             <p> Listen </p>
             <p> Music </p>
             </div>
         </div>
-        <div class="team">
-            <p>Our</p>
-            <p>Team</p>
+        <div class="team" @click="onClickMoveOurPage">
+            <p>About us</p>
         </div>
     </div>
     <div class="videoRoom">
+      <!-- 비디오 들어가야함 -->
       <!-- <video src="../assets/video/test.mp4" autoplay loop muted>
         
       </video> -->
@@ -93,29 +96,30 @@
     height:100vh;
     position: absolute;
 }
-  .intro_text {
-      text-align: center;
-      margin-top: 3%;
-      margin-bottom:3%;
-      color:#172BFF;
-  }
+.intro_text {
+    text-align: center;
+    margin-top: 3%;
+    margin-bottom:3%;
+    color:#172BFF;
+}
 
-  button {
-      display: block;
-      margin: 0 auto;
-  }
+button {
+    display: block;
+    margin: 0 auto;
+}
 
-  .text{
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      position: relative;
-      justify-content: space-between;
-      color: white;
-      margin-top:-18vh;
-      font-size:23px;
-  }
+.text{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    justify-content: space-between;
+    color: white;
+    margin-top:-18vh;
+    font-size:23px;
+    pointer-events: none; /* 클릭 이벤트 비활성화 */
+}
 
   .soundBtt {
     width: 7%;

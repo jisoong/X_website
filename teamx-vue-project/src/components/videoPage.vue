@@ -21,13 +21,13 @@
       </div>
     </div>
     <div class="qr-container">
-      <img :src="instaqrImage" :alt="instaQRImage" class="qr">
-      <img :src="ytubeqrImage" :alt="ytubeQRImage" class="qr">
+      <img :src="instaqrImage" :alt="instaQRImage" class="insta-qr">
+      <img :src="ytubeqrImage" :alt="ytubeQRImage" class="ytube-qr">
     </div>
     <button class="select-again" @click="goToSelectPage" > 다시 선택하러 가기 </button>
     <button class="goto-main" @click="goToMainPage" > 메인으로 돌아가기 </button>
       <!-- <h1>{{ singerName }}의 {{ albumName }}</h1> -->
-    <img class="footer-logo" src="../assets/img/teamX_mainBI.png" alt="">
+    <img class="footer-logo" src="../assets/img/BI.png" alt="">
   </div>
 </template>
 
@@ -97,7 +97,7 @@ export default {
       });
     },
     goToSelectPage() {
-      this.$router.push('/selectMusic')
+      this.$router.push('/selectWatch')
     },
     goToMainPage() {
       this.$router.push('/')
@@ -129,7 +129,7 @@ export default {
 
 .video-text{
   margin-top: 50px;
-  padding: 4%;
+  padding: 40px;
   background-color: #f0f0f0;
   border-radius: 50px;
   display: flex;
@@ -138,10 +138,10 @@ export default {
 
 video{
   margin-top: 10vh;
-  width:60%;
-  padding: 4%;
+  width:65%;
+  /* padding: 4%; */
   background-color: #f0f0f0;
-  border-radius: 50px;
+  /* border-radius: 50px; */
 }
 
 .song-title{
@@ -170,9 +170,21 @@ video{
 }
 
 .qr{
-  width: 200px;
-  margin-left: 60px;
+
 }
+
+.insta-qr{
+  margin-right:15px;
+  width: 200px;
+  height: 100%;
+}
+
+.ytube-qr{
+  margin-left:15px;
+  width: 200px;
+  height: 100%
+}
+
 
 button{
   margin-top: 50px;
