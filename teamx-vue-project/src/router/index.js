@@ -25,7 +25,7 @@ const routes = [
         // props: true
     },
     {
-        path: '/listenMusic/:singerId/:albumId/:albumName/:singerName',
+        path: '/listenMusic/:singerIds/:albumId/:albumName/:singerNames',
         name: 'listenMusic',
         component:()=>import('../components/listenMusic.vue'),
         props: true

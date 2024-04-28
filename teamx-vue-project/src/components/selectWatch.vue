@@ -39,10 +39,10 @@ export default {
       isSectionClicked: false, 
       albums: [
         { id: '10cm', cover: require('../assets/img/10cm.jpeg'), alt: '10cm album cover', song: '폰서트' },
-        { id: 'lee', cover: require('../assets/img/lee.jpeg'), alt: 'Lee album cover', song: '하늘을 달리다' },
-        { id: 3, cover: require('../assets/img/shin.jpg'), alt: 'Shin album cover', song: '그대에게' },
-        { id: 4, cover: require('../assets/img/choi.jpeg'), alt: 'Choi album cover', song: '숲' },
-        { id: 5, cover: require('../assets/img/geeks.jpeg'), alt: 'Geeks album cover', song: 'officially missing you' }
+        { id: 'shin', cover: require('../assets/img/shin.jpg'), alt: 'Shin album cover', song: '그대에게' },
+        { id: 3, cover: require('../assets/img/choi.jpeg'), alt: 'Choi album cover', song: '숲' },
+        { id: 4, cover: require('../assets/img/geeks.jpeg'), alt: 'Geeks album cover', song: 'officially missing you' },
+        { id: 5, cover: require('../assets/img/bluesky.jpeg'), alt: 'Bluesky album cover', song: 'Mr. Blue Sky' },
       ],
       singers: [
       { id: 'kim', image: require('../assets/img/kim.jpeg'), alt: 'Kim singer', name: '김광석' },
@@ -143,7 +143,7 @@ export default {
   color:#172BFF;
   text-align: center;
   font-size: 30px;
-  margin-top: 4vh;
+  margin-top: 10vh;
   padding-bottom: 50px;
 }
 

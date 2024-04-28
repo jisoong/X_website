@@ -83,13 +83,13 @@ export default {
             ytubeqrImage: require('../assets/img/kim_10cm_ytube_qr.png'),
             artistImage: require('../assets/img/kim_10cm.png'),
           });
-        } else if(this.singerId === 'mujin' && this.albumId === 'lee') {
+        } else if(this.singerId === 'mujin' && this.albumId === 'shin') {
           resolve({
-            originArtist: '원곡 아티스트: 이적',
-            albumDescription: '원곡 이적의 하늘을 달리다 이무진 버전의 앨범 설명입니다.',
-            instaqrImage: require('../assets/img/mujin_lee_insta_qr.png'),
-            ytubeqrImage: require('../assets/img/mujin_lee_ytube_qr.png'),
-            artistImage: require('../assets/img/mujin_lee.png'),
+            originArtist: '원곡 아티스트: 신해철',
+            albumDescription: '원곡 신해철의 그대에게 이무진 버전의 앨범 설명입니다.',
+            instaqrImage: require('../assets/img/mujin_shin_insta_qr.png'),
+            ytubeqrImage: require('../assets/img/mujin_shin_ytube_qr.png'),
+            artistImage: require('../assets/img/mujin_shin.png'),
           });
         } else {
           reject(new Error('가수와 앨범 정보에 해당하는 데이터를 찾을 수 없습니다.'));

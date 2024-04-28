@@ -20,7 +20,9 @@
         <div class="box big-box" :class="{ 'disabled': !isSectionClicked }"></div>
         <div class="scrollable" :class="{ 'disabled': !isSectionClicked }">
           <div class="artist" v-for="singer in singers" :key="singer.id">
-            <img class="singerimg" :src="singer.image" @click="selectSinger(singer)" :class="{ selected: singer === selectedSinger }">
+            <!-- <img class="singerimg" :src="singer.image" @click="selectSinger(singer)" :class="{ selected: singer === selectedSingers }"> -->
+            <img class="singerimg" :src="singer.image" @click="selectSinger(singer)" :class="{ selected: isSelectedSinger(singer) }">
+
             <p class="artist-name">{{ singer.name }}</p>
           </div>
         </div>
@@ -34,7 +36,8 @@
   export default {
     data() {
       return {
-        selectedSinger: null,
+        // selectedSinger: null,
+        selectedSingers: [],
         selectedAlbum: null,
         isSectionClicked: false, 
         albums: [
@@ -49,14 +52,14 @@
         singers: [
         { id: 'kim', image: require('../assets/img/kim.jpeg'), alt: 'Kim singer', name: '김광석' },
         { id: 'mujin', image: require('../assets/img/mujin.jpeg'), alt: 'Mujin singer', name: '이무진' },
-        { id: 3, image: require('../assets/img/yerin.jpeg'), alt: 'Yerin singer', name: '백예린'},
+        { id: 'yerin', image: require('../assets/img/yerin.jpeg'), alt: 'Yerin singer', name: '백예린'},
         { id: 4, image: require('../assets/img/bibi.jpeg'), alt: 'IU singer', name: '비비'}
         ]
       };
     },
     computed: {
       isButtonDisabled() {
-        return this.selectedSinger === null || this.selectedAlbum === null;
+        return this.selectedSingers.length != 2 || this.selectedAlbum === null;
       },
       selectText() {
           return this.isSectionClicked ? '원하는 아티스트를 골라주세요' : '원하는 음악을 골라주세요';
@@ -64,24 +67,51 @@
     },
     methods: {
       selectSinger(singer) {
-        this.selectedSinger = singer;
+        // 이미 선택된 가수인지 확인
+        const index = this.selectedSingers.findIndex(item => item.id === singer.id);
+        if (index === -1) {
+          // 선택된 가수 배열에 추가
+          this.selectedSingers.push(singer);
+        } else {
+          // 이미 선택된 가수이면 선택 해제
+          this.selectedSingers.splice(index, 1);
+        }
+      },
+      isSelectedSinger(singer) {
+        return this.selectedSingers.some(selectedSinger => selectedSinger.id === singer.id);
       },
       selectAlbum(album) {
         this.selectedAlbum = album;
         this.isSectionClicked = true;
       },
       albumClick() {
-        // if (this.selectedSinger !== null) {
-        //   this.isSectionClicked = false;
-        // }
-        this.isSectionClicked = false;
+        if (this.selectedSingers.length === 2) {
+          this.isSectionClicked = false;
+        }
+        // this.isSectionClicked = false;
       },
       artistClick() {
         this.isSectionClicked = true;
       },
       goToSecondPage() {
-        // Pass selectedSinger and selectedAlbum to second page
-        this.$router.push({ name: 'listenMusic', params: { singerId: this.selectedSinger.id, singerName: this.selectedSinger.name,albumId: this.selectedAlbum.id, albumName: this.selectedAlbum.song } });
+        // this.$router.push({ name: 'listenMusic', params: { singerId: this.selectedSinger.id, singerName: this.selectedSinger.name,albumId: this.selectedAlbum.id, albumName: this.selectedAlbum.song } });
+        const selectedSingerIds = this.selectedSingers.map(singer => singer.id);
+        const selectedSingerNames = this.selectedSingers.map(singer => singer.name);
+        
+        // 선택된 앨범의 정보
+        const albumId = this.selectedAlbum.id;
+        const albumName = this.selectedAlbum.song;
+
+        // 다음 페이지로 데이터를 전달
+        this.$router.push({ 
+          name: 'listenMusic', 
+          params: { 
+            singerIds: selectedSingerIds.join(','), // 배열을 문자열로 변환하여 전달
+            albumId: albumId, // 마찬가지로 배열을 문자열로 변환하여 전달
+            albumName: albumName,
+            singerNames: selectedSingerNames.join(',') // 배열을 문자열로 변환하여 전달
+          } 
+        });
       },
       goToMain(){
         this.$router.push('/')
@@ -145,6 +175,7 @@
     text-align: center;
     font-size: 30px;
     margin-top: 10vh;
+    margin-bottom: 30px;
     padding-bottom: 50px;
   }
   

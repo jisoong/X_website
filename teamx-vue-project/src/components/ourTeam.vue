@@ -137,9 +137,9 @@ padding-right:15px;
 }
 .logo{
   width:50px;
-  padding-top: 20px;
+  margin-top: -80px;
   padding-left: 20px;
-  /* position: fixed; */
+  position: fixed;
 }
 .introduce{
     color:#172BFF;
@@ -232,59 +232,3 @@ padding-right:15px;
   height: 100%;
 }
 </style>
-
-
-
-<!-- 슬라이드연습 -->
-<!-- <template>
-    <div class="slider">
-      <div class="slides">
-        <div class="slide" v-for="(image, index) in images" :key="index">
-          <img :src="image.url" alt="Slide Image">
-        </div>
-      </div>
-    </div>
-  </template>
-  
-  <script>
-  export default {
-    data() {
-      return {
-        images: [
-          { url: require('../assets/img/mujin.jpeg') },
-          { url: require('../assets/img/kim.jpeg') }, 
-          { url: require('../assets/img/Y.jpeg') },
-            // Add more images as needed
-        ],
-      };
-    },
-  };
-  </script>
-  
-  <style scoped>
-  .slider {
-    width: 50%;
-    overflow-x: auto;
-    white-space: nowrap;
-  }
-    img {
-    max-width: 100%;
-    height: auto;
-    }
-  .slides {
-    display: inline-block;
-  }
-  
-  .slide {
-    display: inline-block;
-    /* width: 100%; */
-  }
-  
- 
-  </style>
-   -->
-
-
-
- 
-  

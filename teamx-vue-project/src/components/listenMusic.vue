@@ -10,7 +10,7 @@
             <img class="album-cover" :src="albumImage" alt="">
         </div>
         <div class="text-container">
-            <div class="title"> {{ albumName }} - {{ singerName }} </div>
+            <div class="title"> {{ albumName }} - {{ singerNames }} </div>
             <div class="origin-artist"> 원곡 아티스트: {{ originArtist }} </div>
             <pre>
 
@@ -18,7 +18,7 @@
                 
             </pre>
             <p class="detail" v-for="i in 10" :key="i">
-            {{ albumDescription }}
+              {{ albumDescription }}
             </p>
         </div>
         <div class="qr-container">
@@ -32,8 +32,8 @@
 </template>
 
 <script>
-export default{
-  props: ['singerId', 'singerName','albumId', 'albumName'],
+export default {
+  props: ['singerIds', 'singerNames', 'albumId', 'albumName'],
   data() {
     return {
       originArtist: '', // 원곡 아티스트
@@ -45,11 +45,13 @@ export default{
   },
   computed: {
     musicSource() {
-      if (this.singerId !== undefined && this.albumId !== undefined) {
-        return require(`../assets/music/${this.singerId}_${this.albumId}.mp3`);
+      const singerIdArray = this.singerIds.split(',');
 
+      if (singerIdArray.length > 0 && this.albumId !== undefined) {
+        return require(`../assets/music/${singerIdArray[0]}_${singerIdArray[1]}_${this.albumId}.mp3`);
       } else {
-        return require('../assets/music/intro.mp3');
+        console.log(this.singerIds[0]);
+        return require('../assets/music/intro.wav');
       }
     }
   },
@@ -75,21 +77,21 @@ export default{
       // 가수와 앨범 정보를 기반으로 데이터를 가져오는 비동기 함수
       return new Promise((resolve, reject) => {
         // 가수와 앨범 정보를 기반으로 데이터를 가져오는 로직을 구현해주세요.
-        if (this.singerId === 'kim' && this.albumId === 'cocktail') {
+        if (this.singerIds === 'kim,mujin' && this.albumId === 'cocktail') {
           resolve({
             originArtist: '마로니에',
-            albumDescription: '원곡 마로니에의 칵테일 사랑 김광석 버전의 앨범 설명입니다.',
-            instaqrImage: require('../assets/img/kim_cocktail_insta_qr.png'),
-            ytubeqrImage: require('../assets/img/kim_cocktail_ytube_qr.png'),
-            albumImage: require('../assets/img/kim_cocktail.png'),
+            albumDescription: '원곡 마로니에의 칵테일 사랑 김광석,이무진 버전의 앨범 설명입니다.',
+            instaqrImage: require('../assets/img/kim_mujin_cocktail_insta_qr.png'),
+            ytubeqrImage: require('../assets/img/kim_mujin_cocktail_ytube_qr.png'),
+            albumImage: require('../assets/img/kim_mujin_cocktail.png'),
           });
-        } else if(this.singerId === 'mujin' && this.albumId === 'akmu') {
+        } else if(this.singerIds === 'mujin,yerin' && this.albumId === 'akmu') {
           resolve({
             originArtist: '악뮤',
-            albumDescription: '원곡 악뮤의 어떻게 이별까지 사랑하겠어, 널 사랑하는거지 이무진 버전의 앨범 설명입니다.',
-            instaqrImage: require('../assets/img/mujin_akmu_insta_qr.png'),
-            ytubeqrImage: require('../assets/img/mujin_akmu_ytube_qr.png'),
-            albumImage: require('../assets/img/mujin_akmu.png'),
+            albumDescription: '원곡 악뮤의 어떻게 이별까지 사랑하겠어, 널 사랑하는거지 이무진,백예린 버전의 앨범 설명입니다.',
+            instaqrImage: require('../assets/img/mujin_yerin_akmu_insta_qr.png'),
+            ytubeqrImage: require('../assets/img/mujin_yerin_akmu_ytube_qr.png'),
+            albumImage: require('../assets/img/mujin_yerin_akmu.png'),
           });
         } else {
           reject(new Error('가수와 앨범 정보에 해당하는 데이터를 찾을 수 없습니다.'));
@@ -97,14 +99,15 @@ export default{
       });
     },
     goToSelectPage() {
-      this.$router.push('/selectListen')
+      this.$router.push('/selectListen');
     },
     goToMainPage() {
-      this.$router.push('/')
+      this.$router.push('/');
     },
   }
-}
+};
 </script>
+
 
 <style scoped>
 .container {
@@ -116,7 +119,7 @@ export default{
   height: 100vh;
   /* overflow: hidden; */
   overflow-x: hidden;
-  --bg-image: url('../assets/img/10cm.jpeg');
+  /* --bg-image: url('../assets/img/10cm.jpeg'); */
 }
 
 .container::before {

@@ -2,7 +2,7 @@
   export default {
     data() {
       return {
-        isPlaying: false
+        isPlaying: true
       };
     },
     computed: {
@@ -41,30 +41,41 @@
             <img class="half-circle1" @click="onClickMoveWatchPage" src="../assets/img/Ellipse 1.png" alt="">
             <img class="half-circle2" @click="onClickMoveListenPage" src="../assets/img/Ellipse 2.png" alt="">    
         </div>
+
         <div id="app">
         <pre>
 
 
         </pre>
-        <button :class="{ 'soundBtt': true, 'sound-on': isPlaying, 'sound-off': !isPlaying }" @click="toggleSound">{{ soundButtonText }}</button>
+        <button :class="{ 'soundBtt': true, 'sound-on': isPlaying, 'sound-off': !isPlaying }" @click="toggleSound">
+          <i :class="{ 'fa-solid fa-volume-xmark': isPlaying, 'fa-solid fa-volume-high': !isPlaying }"></i>
+          {{ soundButtonText }}
+        </button>
 
-        <audio ref="audioPlayer">
-            <source src="../assets/music/intro.mp3" type="audio/mpeg">
+        <audio ref="audioPlayer" autoplay>
+            <source src="../assets/music/intro.wav" type="audio/mpeg">
         </audio>
         <p class="intro_text">원하는 서비스를 선택해 해주세요</p>
         </div>
         <div class="text">
             <div class="watch" @click="onClickMoveWatchPage">
-            <p> Watch </p>
-            <p> M/V</p>
+              <i class="fa-solid fa-chevron-left"></i>
+              <div>
+                <p>Watch</p>
+                <p>M/V</p>
+              </div>
             </div>
             <div class="listen" @click="onClickMoveListenPage">
-            <p> Listen </p>
-            <p> Music </p>
+              <i class="fa-solid fa-angle-right"></i>
+              <div>
+                <p> Listen </p>
+                <p> Music </p>
+              </div>
             </div>
         </div>
         <div class="team" @click="onClickMoveOurPage">
             <p>About us</p>
+            <i class="fa-solid fa-chevron-down"></i>
         </div>
     </div>
     <div class="videoRoom">
@@ -128,9 +139,13 @@ button {
     border-color: #172BFF;
     background-color: #172BFF; /* Set default background color */
     z-index: 10;
+    padding-top:3px;
+    padding-bottom:3px;
     margin-bottom: 3%;
   }
-
+  .fa-volume-xmark, .fa-volume-high{
+    margin-right: 7px;
+  }
   .sound-on {
     color: #172BFF;
     background-color: white;
@@ -159,9 +174,23 @@ button {
   }
   .watch{
     margin-left:3vw;
+    display: flex;
+  }
+  .fa-chevron-left{
+    margin-right:10px;
+    font-size: 40px;
+  }
+  .fa-angle-right{
+    margin-left:10px;
+    font-size: 40px;
+  }
+  .fa-chevron-down{
+    font-size: 40px
   }
   .listen{
     margin-right:3vw;
+    display: flex;
+    flex-direction: row-reverse;
   }
   .team{
     display: flex;
