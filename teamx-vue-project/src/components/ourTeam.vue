@@ -33,45 +33,14 @@
             </pre>
         </div>
         <div class="team-container">
-            <div class="profile-container">
-                <img class="profile" src="../assets/img/jin.png" alt="">
-                <p class="K name">유진</p>
-                <p class="name">Jin Yoo</p>
-                <p class="R role">AI 엔지니어</p>
-                <p class="role">앱 엔지니어</p>
-                <p class="insta">@beluga.jin</p>
-            </div>
-            <div class="profile-container">
-              <img class="profile" src="../assets/img/mingu.png" alt="">
-              <p class="K name">강민구</p>
-              <p class="name">Mingu Kang</p>
-              <p class="R role">3D 디자이너</p>
-              <p class="F role">none</p>
-              <p class="insta">@mg_0718_</p>
-            </div>
-            <div class="profile-container">
-              <img class="profile" src="../assets/img/jisu.png" alt="">
-              <p class="K name">강지수</p>
-              <p class="name">Jisu Kang</p>
-              <p class="R role">웹 엔지니어</p>
-              <p class="F role">none</p>
-              <p class="insta">@ganz1._.su</p>
-            </div>
-            <div class="profile-container">
-              <img class="profile" src="../assets/img/jio.png" alt="">
-              <p class="K name">백지오</p>
-              <p class="name">Jio Baek</p>
-              <p class="R role">2D 디자이너</p>
-              <p class="role">PM</p>
-              <p class="insta">@_jiographic_</p>
-            </div>
-            <div class="profile-container">
-              <img class="profile" src="../assets/img/subeom.png" alt="">
-              <p class="K name">서수범</p>
-              <p class="name">Subeom Seo</p>
-              <p class="R role">음향 디자이너</p>
-              <p class="F role">none</p>
-              <p class="insta">@tjtn1507</p>
+            <div class="profile-container" v-for="member in teamMembers" :key="member.name">
+                <img class="profile" :src="member.image" alt="">
+                <p class="K name">{{ member.koreanName }}</p>
+                <p class="name">{{ member.name }}</p>
+                <p class="R role">{{ member.role1 }}</p>
+                <p class="role" v-if="member.role2 !== 'none'">{{ member.role2 }}</p>
+                <p class="F role" v-else> none </p>
+                <p class="insta">{{ member.insta }}</p>
             </div>
         </div>
         <div class="slider">
@@ -96,6 +65,48 @@
 export default {
   data() {
       return {
+        teamMembers: [
+        {
+          koreanName: '유진',
+          name: 'Jin Yoo',
+          role1: 'AI 엔지니어',
+          role2: 'none',
+          insta: '@beluga.jin',
+          image: require('../assets/img/jin.png')
+        },
+        {
+          koreanName: '강민구',
+          name: 'Mingu Kang',
+          role1: '3D 디자이너',
+          role2: 'none',
+          insta: '@mg_0718_',
+          image: require('../assets/img/mingu.png')
+        },
+        {
+          koreanName: '강지수',
+          name: 'Jisu Kang',
+          role1: '웹 엔지니어',
+          role2: 'none',
+          insta: '@ganz1._.su',
+          image: require('../assets/img/jisu.png')
+        },
+        {
+          koreanName: '백지오',
+          name: 'Jio Baek',
+          role1: '2D 디자이너',
+          role2: 'PM',
+          insta: '@_jiographic_',
+          image: require('../assets/img/jio.png')
+        },
+        {
+          koreanName: '서수범',
+          name: 'Subeom Seo',
+          role1: '음향 디자이너',
+          role2: 'none',
+          insta: '@tjtn1507',
+          image: require('../assets/img/subeom.png')
+        }
+      ],
         images: [
           { url: require('../assets/img/work1.png') },
           { url: require('../assets/img/work2.png') }, 
@@ -114,65 +125,56 @@ export default {
 </script>
 
 <style scoped>
-.slider {
-  width: 50%;
-  overflow-x: auto;
-  white-space: nowrap;
-}
-.slide img{
-width: 500px;
-height: 300px;
-object-fit: cover;
-padding-left:15px;
-padding-right:15px;
-/* height: auto; */
-}
-.slides {
-  display: inline-block;
-  margin-top:200px;
-}
-
-.slide {
-  display: inline-block;
-}
 .logo{
   width:50px;
   margin-top: -80px;
   padding-left: 20px;
   position: fixed;
 }
-.introduce{
-    color:#172BFF;
-    font-size: 70px;
-    font-weight: bold;
-}
+
 .container{
     margin-top: 100px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* width: 100% */
     overflow-x: hidden;
+}
+.introduce{
+    color:#172BFF;
+    font-size: 70px;
+    font-weight: bold;
 }
 .team-img{
     margin-top:40px;
-    width:1000px;
+    width: 100%;
+    max-width: 1000px;
 }
+
 .hello{
     color:#172BFF;
     font-size: 30px;
     font-weight: bold;
     margin-top:60px;
+    text-align: center;
 }
 .detail{
-    width:1000px;
+    width: 100%;
+    max-width: 1000px;
     overflow: hidden;
-    /* letter-spacing: 0.5px; */
     line-height: 30px;
     font-size: 14px;
 }
+
 .team-container{
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.profile-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
 }
 .profile{
   width:150px;
@@ -190,11 +192,6 @@ padding-right:15px;
   font-weight: bold;
   margin-top:5px;
 }
-.profile-container{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 .R.role{
   margin-top:30px;
 }
@@ -211,6 +208,42 @@ padding-right:15px;
   font-size:20px;
   margin-top:30px;
 }
+
+.slider {
+  width: 100%;
+  max-width: 1000px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.slide img{
+  width: calc(100% - 30px);
+  max-width: 500px;
+  height: 300px;
+  object-fit: cover;
+  padding: 0 15px;
+}
+.slides {
+  display: inline-block;
+  margin-top:200px;
+}
+.slide {
+  display: inline-block;
+}
+
+.qr-container{
+  display: flex;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.qr{
+  margin-right:15px;
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+}
+
 .footer-logo{
   margin-top: 60px;
   padding-top: 80px;
@@ -221,14 +254,97 @@ padding-right:15px;
   padding-right:50vw;
   overflow-x: hidden;
 }
-.qr-container{
-  display: flex;
-  margin-top: 100px;
-  margin-bottom: 100px;
+
+
+@media (max-width: 768px) {
+  .introduce {
+    font-size: 50px;
+  }
+
+  .hello {
+    font-size: 24px;
+    margin-top: 40px;
+  }
+
+  .detail {
+    font-size: 12px;
+    line-height: 24px;
+  }
+
+  .profile {
+    width: 120px;
+    height: 120px;
+  }
+
+  .name {
+    font-size: 18px;
+  }
+
+  .role, .insta {
+    font-size: 16px;
+  }
+
+  .slider {
+    width: 90%;
+  }
+
+  .slide img {
+    max-width: 400px;
+    height: auto;
+  }
+
+  .qr {
+    max-width: 200px;
+  }
+
+  .footer-logo {
+    width: 60px;
+  }
 }
-.qr{
-  margin-right:15px;
-  width: 300px;
-  height: 100%;
+
+@media (max-width: 480px) {
+  .introduce {
+    font-size: 40px;
+  }
+
+  .hello {
+    font-size: 20px;
+    margin-top: 30px;
+  }
+
+  .detail {
+    font-size: 10px;
+    line-height: 20px;
+  }
+
+  .profile {
+    width: 100px;
+    height: 100px;
+  }
+
+  .name {
+    font-size: 16px;
+  }
+
+  .role, .insta {
+    font-size: 14px;
+  }
+
+  .slider {
+    width: 100%;
+  }
+
+  .slide img {
+    max-width: 300px;
+    height: auto;
+  }
+
+  .qr {
+    max-width: 150px;
+  }
+
+  .footer-logo {
+    width: 50px;
+  }
 }
 </style>

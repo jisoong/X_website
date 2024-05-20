@@ -1,4 +1,5 @@
 <template>
+  <div class="page">
     <header>
       <img class="logo" src="../assets/img/logo.png" @click="goToMain" alt="">
     </header>
@@ -6,7 +7,6 @@
     <h2 class="title">{{ selectText }}</h2>
     <div class="container">
       <div class="album_container" @click="albumClick">
-      <!-- <div class="album_container"> -->
         <div class="box big-box" :class="{ 'disabled': !isSectionClicked }"></div>
         <div class="scrollable" :class="{ 'disabled': isSectionClicked }" >
           <div class="album" v-for="album in albums" :key="album.id">
@@ -20,23 +20,20 @@
         <div class="box big-box" :class="{ 'disabled': !isSectionClicked }"></div>
         <div class="scrollable" :class="{ 'disabled': !isSectionClicked }">
           <div class="artist" v-for="singer in singers" :key="singer.id">
-            <!-- <img class="singerimg" :src="singer.image" @click="selectSinger(singer)" :class="{ selected: singer === selectedSingers }"> -->
             <img class="singerimg" :src="singer.image" @click="selectSinger(singer)" :class="{ selected: isSelectedSinger(singer) }">
-
             <p class="artist-name">{{ singer.name }}</p>
           </div>
         </div>
       </div>
     </div>
     <button class="next_btt" @click="goToSecondPage" :class="{ 'btt_disabled': isButtonDisabled }">선택 완료</button>
+  </div>
+</template>
   
-  </template>
-  
-  <script>
+<script>
   export default {
     data() {
       return {
-        // selectedSinger: null,
         selectedSingers: [],
         selectedAlbum: null,
         isSectionClicked: false, 
@@ -47,7 +44,6 @@
           { id: 4, cover: require('../assets/img/hot.jpeg'), alt: 'hot album cover', song: 'candy' },
           { id: 5, cover: require('../assets/img/pretty.jpeg'), alt: 'pretty album cover', song: '예뻤어' },
           { id: 6, cover: require('../assets/img/idle.jpeg'), alt: 'idle album cover', song: '나는 아픈 건 딱 질색이니까' }
-
         ],
         singers: [
         { id: 'kim', image: require('../assets/img/kim.jpeg'), alt: 'Kim singer', name: '김광석' },
@@ -94,22 +90,18 @@
         this.isSectionClicked = true;
       },
       goToSecondPage() {
-        // this.$router.push({ name: 'listenMusic', params: { singerId: this.selectedSinger.id, singerName: this.selectedSinger.name,albumId: this.selectedAlbum.id, albumName: this.selectedAlbum.song } });
-        const selectedSingerIds = this.selectedSingers.map(singer => singer.id);
-        const selectedSingerNames = this.selectedSingers.map(singer => singer.name);
-        
-        // 선택된 앨범의 정보
+        const sortedSingers = [...this.selectedSingers].sort((a, b) => a.id.localeCompare(b.id));
+        const selectedSingerIds = sortedSingers.map(singer => singer.id);
+        const selectedSingerNames = sortedSingers.map(singer => singer.name);
         const albumId = this.selectedAlbum.id;
         const albumName = this.selectedAlbum.song;
-
-        // 다음 페이지로 데이터를 전달
         this.$router.push({ 
           name: 'listenMusic', 
           params: { 
-            singerIds: selectedSingerIds.join(','), // 배열을 문자열로 변환하여 전달
-            albumId: albumId, // 마찬가지로 배열을 문자열로 변환하여 전달
+            singerIds: selectedSingerIds.join(','),
+            albumId: albumId,
             albumName: albumName,
-            singerNames: selectedSingerNames.join(',') // 배열을 문자열로 변환하여 전달
+            singerNames: selectedSingerNames.join(',')
           } 
         });
       },
@@ -120,17 +112,150 @@
   };
   </script>
   
-  <style scoped>
+<style scoped>
+  .page {
+    display: flex;
+    flex-direction: column;
+    height: 95vh;
+    justify-content: space-between;
+  }
+
+  header {
+    flex-shrink: 0;
+  }
+
+  .logo{
+    width: 50px;
+    padding: 20px;
+  }
+  
+  .title{
+    color:#172BFF;
+    text-align: center;
+    font-size: 1.5em;
+    margin-top: 2vh;
+    padding-bottom: 1vh;
+  }
+  
+  .container{
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .box {
+    position: absolute;
+  }
+  .big-box.disabled{
+    width: 40vw;
+    height: 30vw;
+    max-width: 600px;
+    max-height: 400px;
+    pointer-events: none;
+    box-shadow: 
+      inset -20px 0px 30px 20px rgba(255, 255, 255); /* 아래쪽 그림자 */
+    padding: 10px;
+  }
+
+  .scrollable {
+    width: 40vw;
+    height: 30vw;
+    max-width: 600px;
+    max-height: 400px;
+    overflow: auto;
+    padding: 10px;
+  }
+  .scrollable.disabled{
+    pointer-events: none;
+    opacity: 0.5;
+    filter: blur(4px); /* 흐림 효과 적용 */
+    width: 30vw;
+    height: 20vw;
+    max-width: 500px;
+    max-height: 250px;
+    padding: 10px;
+  }
+  .scrollable img{
+    object-fit: cover;
+    border-radius: 20%;
+    padding: 5px;
+    transition: width 0.7s, height 0.7s; /* 애니메이션 효과 */
+  }
+  .scrollable.disabled img{
+    width: 10vw;
+    height: 10vw;
+    max-width: 150px;
+    max-height: 150px;
+    padding: 5px;
+  }
+
+  .album{
+    width: 100%;
+    height: 80%;
+    display: flex;
+    align-items: center;
+  }
+  .coverimg{
+    width: 20vw;
+    height: 20vw;
+    max-width: 250px;
+    max-height: 250px;
+    padding: 5px;
+  }
+  .song-title{
+    padding-left: 50px;
+    font-size: 1.5em;
+  }
+
+  .artist_container .big-box{
+    width: 40vw;
+    height: 30vw;
+    max-width: 600px;
+    max-height: 400px;
+    pointer-events: none;
+    box-shadow: 
+      inset -20px 0px 50px 20px rgba(255, 255, 255); /* 아래쪽 그림자 */
+    padding: 10px;
+  }
+  .scrollable.disabled .artist{
+    width: 100%;
+    height: 80%;
+    display: flex;
+    align-items: center;
+  }
+
+  .artist{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+  .singerimg{
+    width: 25vw;
+    height: 25vw;
+    max-width: 300px;
+    max-height: 300px;
+    padding: 5px;
+  }
+  .selected {
+    border: 4px solid #172BFF;
+  }
+  .artist-name{
+    padding-left: 50px;
+    font-size: 1.5em;
+  }
+
   .next_btt{
-    font-size: 16px;
+    font-size: 1em;
     padding: 15px;
     border-radius: 45px;
     color:#172BFF;
     border-color: #172BFF;
     background-color: rgba(255, 255, 255);
     display: block;
-    margin: 0 auto;
-    margin-top: 70px;
+    margin: 20px auto;
     box-shadow: none;
   }
   .next_btt:hover {
@@ -139,129 +264,73 @@
     border-color: white;
   }
   .next_btt.btt_disabled {
-    background-color: #ccc; /* 비활성화 상태 배경색 */
-    color: #888; /* 비활성화 상태 텍스트 색상 */
-    pointer-events: none; /* 클릭 이벤트 비활성화 */
+    background-color: #ccc;
+    color: #888;
+    pointer-events: none;
     border-color: rgba(0,0,0,0.7);
   }
-  .box {
-    position: absolute;
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 1.2em;
+    margin-top: 5vh;
   }
-  
-  .big-box.disabled{
-    width: 600px;
-    height: 400px;
-    pointer-events: none;
-    box-shadow: 
-      inset -20px 0px 30px 20px rgba(255, 255, 255); /* 아래쪽 그림자 */
-    padding: 10px;
+
+  .scrollable,
+  .big-box.disabled {
+    width: 70vw;
+    height: 50vw;
   }
-  .artist_container .big-box{
-    width: 600px;
-    height: 400px;
-    pointer-events: none;
-    box-shadow: 
-      inset -20px 0px 50px 20px rgba(255, 255, 255); /* 아래쪽 그림자 */
-    padding: 10px;
+
+  .scrollable.disabled {
+    width: 60vw;
+    height: 30vw;
   }
-  .logo{
-    width:50px;
-    padding-top: 20px;
+
+  .coverimg,
+  .singerimg {
+    width: 40vw;
+    height: 40vw;
+  }
+
+  .song-title,
+  .artist-name {
+    font-size: 1.2em;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.0em;
+    margin-top: 3vh;
+  }
+
+  .scrollable,
+  .big-box.disabled {
+    width: 80vw;
+    height: 60vw;
+  }
+
+  .scrollable.disabled {
+    width: 70vw;
+    height: 40vw;
+  }
+
+  .coverimg,
+  .singerimg {
+    width: 50vw;
+    height: 50vw;
+  }
+
+  .song-title,
+  .artist-name {
+    font-size: 1em;
     padding-left: 20px;
   }
-  
-  .title{
-    color:#172BFF;
-    text-align: center;
-    font-size: 30px;
-    margin-top: 10vh;
-    margin-bottom: 30px;
-    padding-bottom: 50px;
-  }
-  
-  .container{
-    display: flex;
-    justify-content: center;
-  }
-  
-  .scrollable {
-    width: 600px;
-    height: 400px;
-    overflow: auto;
+
+  .next_btt {
+    font-size: 0.8em;
     padding: 10px;
   }
-  
-  .scrollable img{
-    object-fit: cover;
-    border-radius: 20%;
-    padding: 5px;
-    transition: width 0.7s, height 0.7s; /* 애니메이션 효과 */
-  }
-  
-  .album{
-    width: 100%;
-    height: 80%;
-    display: flex;
-    align-items: center;
-  }
-  
-  .artist{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-  }
-  
-  .scrollable.disabled{
-    pointer-events: none;
-    opacity: 0.5;
-    filter: blur(4px); /* 흐림 효과 적용 */
-    width:500px;
-    height:250px;
-    padding: 10px;
-  }
-  
-  .scrollable.disabled .artist{
-    width: 100%;
-    height: 80%;
-    display: flex;
-    align-items: center;
-  }
-  .coverimg{
-    width:250px;
-    height:250px;
-    padding: 5px;
-  }
-  
-  .song-title{
-    padding-left: 50px;
-    font-size: 30px;
-  }
-  
-  .singerimg{
-    width:300px;
-    height:300px;
-    padding: 5px;
-  }
-  
-  .scrollable.disabled img{
-    width:150px;
-    height:150px;
-    padding: 5px;
-  }
-  
-  .scrollable.non-clicked img{
-    width:150px;
-    height:150px;
-    padding: 5px;
-  }
-  
-  .artist-name{
-    padding-left: 50px;
-    font-size: 30px;
-  }
-  
-  .selected {
-    border: 4px solid #172BFF;
-  }
+}
   </style>

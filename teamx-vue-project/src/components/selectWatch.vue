@@ -1,33 +1,32 @@
 <template>
-  <header>
-    <img class="logo" src="../assets/img/logo.png" @click="goToMain" alt="">
-  </header>
+  <div class="page">
+    <header>
+      <img class="logo" src="../assets/img/logo.png" @click="goToMain" alt="">
+    </header>
 
-  <h2 class="title">{{ selectText }}</h2>
-  <div class="container">
-    <div class="album_container" @click="albumClick">
-    <!-- <div class="album_container"> -->
-      <div class="box big-box" :class="{ 'disabled': !isSectionClicked }"></div>
-      <div class="scrollable" :class="{ 'disabled': isSectionClicked }" >
-        <div class="album" v-for="album in albums" :key="album.id">
-          <img class="coverimg" :src="album.cover" @click="selectAlbum(album);" :class="{ selected: album === selectedAlbum }">
-          <p class="song-title">{{ album.song }}</p>
-        </div>
-
-      </div>
-    </div>
-    <div class="artist_container" @click="artistClick">
-      <div class="box big-box" :class="{ 'disabled': !isSectionClicked }"></div>
-      <div class="scrollable" :class="{ 'disabled': !isSectionClicked }">
-        <div class="artist" v-for="singer in singers" :key="singer.id">
-          <img class="singerimg" :src="singer.image" @click="selectSinger(singer)" :class="{ selected: singer === selectedSinger }">
-          <p class="artist-name">{{ singer.name }}</p>
+    <h2 class="title">{{ selectText }}</h2>
+    <div class="container">
+      <div class="album_container" @click="albumClick">
+        <div class="box big-box" :class="{ 'disabled': !isSectionClicked }"></div>
+        <div class="scrollable" :class="{ 'disabled': isSectionClicked }">
+          <div class="album" v-for="album in albums" :key="album.id">
+            <img class="coverimg" :src="album.cover" @click="selectAlbum(album);" :class="{ selected: album === selectedAlbum }">
+            <p class="song-title">{{ album.song }}</p>
+          </div>
         </div>
       </div>
+      <div class="artist_container" @click="artistClick">
+        <div class="box big-box" :class="{ 'disabled': !isSectionClicked }"></div>
+        <div class="scrollable" :class="{ 'disabled': !isSectionClicked }">
+          <div class="artist" v-for="singer in singers" :key="singer.id">
+            <img class="singerimg" :src="singer.image" @click="selectSinger(singer)" :class="{ selected: singer === selectedSinger }">
+            <p class="artist-name">{{ singer.name }}</p>
+          </div>
+        </div>
+      </div>
     </div>
+    <button class="next_btt" @click="goToSecondPage" :class="{ 'btt_disabled': isButtonDisabled }">선택 완료</button>
   </div>
-  <button class="next_btt" @click="goToSecondPage" :class="{ 'btt_disabled': isButtonDisabled }">선택 완료</button>
-
 </template>
 
 <script>
@@ -40,15 +39,15 @@ export default {
       albums: [
         { id: '10cm', cover: require('../assets/img/10cm.jpeg'), alt: '10cm album cover', song: '폰서트' },
         { id: 'shin', cover: require('../assets/img/shin.jpg'), alt: 'Shin album cover', song: '그대에게' },
-        { id: 3, cover: require('../assets/img/choi.jpeg'), alt: 'Choi album cover', song: '숲' },
-        { id: 4, cover: require('../assets/img/geeks.jpeg'), alt: 'Geeks album cover', song: 'officially missing you' },
-        { id: 5, cover: require('../assets/img/bluesky.jpeg'), alt: 'Bluesky album cover', song: 'Mr. Blue Sky' },
+        { id: 'choi', cover: require('../assets/img/choi.jpeg'), alt: 'Choi album cover', song: '숲' },
+        { id: 'geeks', cover: require('../assets/img/geeks.jpeg'), alt: 'Geeks album cover', song: 'officially missing you' },
+        { id: 'bluesky', cover: require('../assets/img/bluesky.jpeg'), alt: 'Bluesky album cover', song: 'Mr. Blue Sky' },
       ],
       singers: [
       { id: 'kim', image: require('../assets/img/kim.jpeg'), alt: 'Kim singer', name: '김광석' },
       { id: 'mujin', image: require('../assets/img/mujin.jpeg'), alt: 'Mujin singer', name: '이무진' },
-      { id: 3, image: require('../assets/img/yerin.jpeg'), alt: 'Yerin singer', name: '백예린'},
-      { id: 4, image: require('../assets/img/bibi.jpeg'), alt: 'IU singer', name: '비비'}
+      { id: 'yerin', image: require('../assets/img/yerin.jpeg'), alt: 'Yerin singer', name: '백예린'},
+      { id: 'bibi', image: require('../assets/img/bibi.jpeg'), alt: 'IU singer', name: '비비'}
       ]
     };
   },
@@ -79,7 +78,6 @@ export default {
       this.isSectionClicked = true;
     },
     goToSecondPage() {
-      // Pass selectedSinger and selectedAlbum to second page
       this.$router.push({ name: 'videoPage', params: { singerId: this.selectedSinger.id, singerName: this.selectedSinger.name,albumId: this.selectedAlbum.id, albumName: this.selectedAlbum.song } });
     },
     goToMain(){
@@ -90,146 +88,233 @@ export default {
 </script>
 
 <style scoped>
-.next_btt{
-  font-size: 16px;
-  padding: 15px;
-  border-radius: 45px;
-  color:#172BFF;
-  border-color: #172BFF;
-  background-color: rgba(255, 255, 255);
-  display: block;
-  margin: 0 auto;
-  margin-top: 70px;
-  box-shadow: none;
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 95vh;
+  justify-content: space-between;
 }
-.next_btt:hover {
-  background-color: #172BFF; 
-  color: white; 
-  border-color: white;
+
+header {
+  flex-shrink: 0;
 }
-.next_btt.btt_disabled {
-  background-color: #ccc; /* 비활성화 상태 배경색 */
-  color: #888; /* 비활성화 상태 텍스트 색상 */
-  pointer-events: none; /* 클릭 이벤트 비활성화 */
-  border-color: rgba(0,0,0,0.7);
+
+.logo {
+  width: 50px;
+  padding: 20px;
 }
+
+.title {
+  color: #172BFF;
+  text-align: center;
+  font-size: 1.5em;
+  margin-top: 2vh;
+  padding-bottom: 1vh;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
 .box {
   position: absolute;
 }
-
-.big-box.disabled{
-  width: 600px;
-  height: 400px;
+.big-box.disabled {
+  width: 40vw;
+  height: 30vw;
+  max-width: 600px;
+  max-height: 400px;
   pointer-events: none;
-  box-shadow: 
-    inset -20px 0px 30px 20px rgba(255, 255, 255); /* 아래쪽 그림자 */
+  box-shadow: inset -20px 0px 30px 20px rgba(255, 255, 255);
   padding: 10px;
-}
-.artist_container .big-box{
-  width: 600px;
-  height: 400px;
-  pointer-events: none;
-  box-shadow: 
-    inset -20px 0px 50px 20px rgba(255, 255, 255); /* 아래쪽 그림자 */
-  padding: 10px;
-}
-.logo{
-  width:50px;
-  padding-top: 20px;
-  padding-left: 20px;
-}
-
-.title{
-  color:#172BFF;
-  text-align: center;
-  font-size: 30px;
-  margin-top: 10vh;
-  padding-bottom: 50px;
-}
-
-.container{
-  display: flex;
-  justify-content: center;
 }
 
 .scrollable {
-  width: 600px;
-  height: 400px;
+  width: 40vw;
+  height: 30vw;
+  max-width: 600px;
+  max-height: 400px;
   overflow: auto;
   padding: 10px;
 }
 
-.scrollable img{
+.scrollable img {
   object-fit: cover;
   border-radius: 20%;
   padding: 5px;
-  transition: width 0.7s, height 0.7s; /* 애니메이션 효과 */
+  transition: width 0.7s, height 0.7s;
 }
 
-.album{
+.scrollable.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+  filter: blur(4px);
+  width: 30vw;
+  height: 20vw;
+  max-width: 500px;
+  max-height: 250px;
+  padding: 10px;
+}
+
+.scrollable.disabled img {
+  width: 10vw;
+  height: 10vw;
+  max-width: 150px;
+  max-height: 150px;
+  padding: 5px;
+}
+
+.album {
   width: 100%;
   height: 80%;
   display: flex;
   align-items: center;
 }
 
-.artist{
+.coverimg {
+  width: 20vw;
+  height: 20vw;
+  max-width: 250px;
+  max-height: 250px;
+  padding: 5px;
+}
+
+.song-title {
+  padding-left: 50px;
+  font-size: 1.5em;
+}
+
+.selected {
+  border: 4px solid #172BFF;
+}
+
+.artist_container .big-box {
+  width: 40vw;
+  height: 30vw;
+  max-width: 600px;
+  max-height: 400px;
+  pointer-events: none;
+  box-shadow: inset -20px 0px 50px 20px rgba(255, 255, 255);
+  padding: 10px;
+}
+
+.artist {
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
 }
 
-.scrollable.disabled{
-  pointer-events: none;
-  opacity: 0.5;
-  filter: blur(4px); /* 흐림 효과 적용 */
-  width:500px;
-  height:250px;
-  padding: 10px;
-}
-
-.scrollable.disabled .artist{
+.scrollable.disabled .artist {
   width: 100%;
   height: 80%;
   display: flex;
   align-items: center;
 }
-.coverimg{
-  width:250px;
-  height:250px;
+
+.singerimg {
+  width: 25vw;
+  height: 25vw;
+  max-width: 300px;
+  max-height: 300px;
   padding: 5px;
 }
 
-.song-title{
+.artist-name {
   padding-left: 50px;
-  font-size: 30px;
+  font-size: 1.5em;
 }
 
-.singerimg{
-  width:300px;
-  height:300px;
-  padding: 5px;
+.next_btt {
+  font-size: 1em;
+  padding: 15px;
+  border-radius: 45px;
+  color: #172BFF;
+  border-color: #172BFF;
+  background-color: rgba(255, 255, 255);
+  display: block;
+  margin: 20px auto;
+  box-shadow: none;
 }
 
-.scrollable.disabled img{
-  width:150px;
-  height:150px;
-  padding: 5px;
+.next_btt:hover {
+  background-color: #172BFF;
+  color: white;
+  border-color: white;
 }
 
-.scrollable.non-clicked img{
-  width:150px;
-  height:150px;
-  padding: 5px;
+.next_btt.btt_disabled {
+  background-color: #ccc;
+  color: #888;
+  pointer-events: none;
+  border-color: rgba(0, 0, 0, 0.7);
 }
 
-.artist-name{
-  padding-left: 50px;
-  font-size: 30px;
+@media (max-width: 768px) {
+  .title {
+    font-size: 1.2em;
+    margin-top: 5vh;
+  }
+
+  .scrollable,
+  .big-box.disabled {
+    width: 70vw;
+    height: 50vw;
+  }
+
+  .scrollable.disabled {
+    width: 60vw;
+    height: 30vw;
+  }
+
+  .coverimg,
+  .singerimg {
+    width: 40vw;
+    height: 40vw;
+  }
+
+  .song-title,
+  .artist-name {
+    font-size: 1.2em;
+  }
 }
 
-.selected {
-  border: 4px solid #172BFF;
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.0em;
+    margin-top: 3vh;
+  }
+
+  .scrollable,
+  .big-box.disabled {
+    width: 80vw;
+    height: 60vw;
+  }
+
+  .scrollable.disabled {
+    width: 70vw;
+    height: 40vw;
+  }
+
+  .coverimg,
+  .singerimg {
+    width: 50vw;
+    height: 50vw;
+  }
+
+  .song-title,
+  .artist-name {
+    font-size: 1em;
+    padding-left: 20px;
+  }
+
+  .next_btt {
+    font-size: 0.8em;
+    padding: 10px;
+  }
 }
 </style>
