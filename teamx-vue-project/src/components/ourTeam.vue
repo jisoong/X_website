@@ -108,10 +108,10 @@ export default {
         }
       ],
         images: [
-          { url: require('../assets/img/work1.png') },
-          { url: require('../assets/img/work2.png') }, 
-          { url: require('../assets/img/work3.png') },
-          { url: require('../assets/img/work4.png') },
+          { url: require('@/assets/img/work1.png') },
+          { url: require('@/assets/img/work2.png') }, 
+          { url: require('@/assets/img/work3.png') },
+          { url: require('@/assets/img/work4.png') },
             // Add more images as needed
         ],
       };
