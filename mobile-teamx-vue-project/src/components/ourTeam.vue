@@ -159,7 +159,8 @@ export default {
     overflow: hidden;
     /* letter-spacing: 0.5px; */
     line-height: 30px;
-    font-size: 12px;
+    font-size: 0.8em;
+    text-align: justify;
 }
 .team-container{
     display: flex;
@@ -262,5 +263,26 @@ a:visited, a:active {
   padding-left:50vw;
   padding-right:50vw;
   overflow-x: hidden;
+}
+
+@media (min-width: 768px) {
+  .logo{
+    width: 40px;
+  }
+  .footer-logo{
+    width: 50px;
+  }
+}
+@media (min-width: 1024px) {
+  .logo{
+    width: 50px;
+  }
+  .footer-logo{
+    width: 70px;
+  }
+  .profile{
+    width:100px;
+    height: 100px;
+  }
 }
 </style>

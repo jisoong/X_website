@@ -5,12 +5,12 @@
 
     <div class="container" :style="{ '--bg-image': 'url(' + albumImage + ')' }">
         <div class="album-container">
-            <img class="lp" src="../assets/img/lp.png" alt="">
+            <img :class="['lp', { spinning: isPlaying }]" src="../assets/img/lp.png" alt="">
             <img class="album-cover" :src="albumImage" alt="">
         </div>
         <div class="audio-player">
           <!-- <audio ref="audioPlayer" controls autoplay> -->
-          <audio ref="audioPlayer" controls>
+          <audio ref="audioPlayer" controls @play="onPlay" @pause="onPause">
             <source v-if="musicSource" :src="musicSource" type="audio/mpeg">
           </audio>
         </div>
@@ -49,6 +49,7 @@ export default {
   props: ['singerIds', 'singerNames', 'albumId', 'albumName'],
   data() {
     return {
+      isPlaying: false,
       originArtist: '', // 원곡 아티스트
       albumDescription: '', // 앨범 설명
       instaqrImage: '', // QR 이미지 배열
@@ -134,6 +135,12 @@ export default {
     goToMainPage() {
       this.$router.push('/');
     },
+    onPlay() {
+      this.isPlaying = true;
+    },
+    onPause() {
+      this.isPlaying = false;
+    }
   }
 };
 </script>
@@ -193,7 +200,7 @@ header{
 
 }
 audio{
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
 }
 .album-container{
@@ -205,8 +212,10 @@ audio{
 .lp{
     width: 300px;
     height: 100%;
-    animation: spin 2s infinite linear;   
     z-index: -1;
+}
+.spinning {
+  animation: spin 2s infinite linear;
 }
 .album-cover{
     width: 300px;
