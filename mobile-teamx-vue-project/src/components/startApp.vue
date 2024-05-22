@@ -53,8 +53,8 @@
     </header>
 
     <div class="container">
-        <img src="@/assets/img/Ellipse-top.png" alt="">
-        <img src="@/assets/img/Ellipse-bottom.png" alt="">
+        <img class="ellipse top" src="@/assets/img/Ellipse-top.png" alt="">
+        <img class="ellipse bottom" src="@/assets/img/Ellipse-bottom.png" alt="">
     </div>
     <div class="text-container">
       <div class="watchMV" @click="onClickMoveWatchPage">
@@ -71,8 +71,17 @@
 
 
 <style scoped>
+.help-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .help{
   width:100vw;
+  height: 100vh;
+  /* object-fit: cover; */
+
+
 }
 .help-off{
   width:100px;
@@ -85,10 +94,36 @@
   padding: 5px 10px;
   cursor: pointer;
 }
+
+header{
+    position: fixed;
+    width:100%;
+}
+.logo-container{
+    display: flex;
+    width: 100vw;
+    justify-content: space-between;
+    align-items: center;
+}
 .logo{
     width:30px;
     margin-top:20px;
     margin-left:5%;
+}
+button{
+    background: none;
+    border: none;
+}
+.fa-solid{
+  color: white;
+  font-size: 30px;
+  margin-right:0.8em;
+  padding-top:15px;
+}
+hr {
+  border: none;
+  border-top: 1px solid white; /* 수평선 스타일 설정 */
+  width: 90%;
 }
 
 .container {
@@ -107,42 +142,19 @@
 .container img:nth-child(1) {
     top: 0;
     left: 0;
+    height: 50%;
 }
 
 .container img:nth-child(2) {
     bottom: 0;
     right: 0;
+    height: 50%;
+}
+.ellipse {
+    position: absolute;
+    width: 100%;
 }
 
-
-header{
-    position: fixed;
-
-}
-.logo-container{
-    display: flex;
-    width: 100vw;
-    justify-content: space-between;
-}
-
-button{
-    background: none;
-    border: none;
-  
-}
-.fa-solid{
-  color: white;
-  font-size: 30px;
-  margin-right:15px;
-  padding-top:15px;
-}
-
-hr {
-  border: none;
-  border-top: 1px solid white; /* 수평선 스타일 설정 */
-  width: 90%;
-
-}
 .text-container{
   display: flex;
   flex-direction: column;
@@ -152,16 +164,102 @@ hr {
   color:white;
   font-size:20px;
   text-align: center;
+  padding: 20px 0;
+}
+
+.text-container .watchMV,
+.text-container .ListenMusic {
+    padding: 20px;
+    cursor: pointer;
 }
 
 .text-container .watchMV {
   margin-top:140px;
-  padding: 20px;
 }
-
 .text-container .ListenMusic {
   margin-bottom: 70px;
-  padding: 20px;
+}
+
+@media (min-width: 600px) and (max-width: 768px) {
+    .logo {
+        width: 35px;
+    }
+    .fa-solid {
+        font-size: 35px;
+    }
+    .text-container {
+        font-size: 22px;
+    }
+    .text-container .watchMV {
+        margin-top: 160px;
+    }
+    .text-container .ListenMusic {
+        margin-bottom: 90px;
+    }
+    .container img:nth-child(1) {
+      height: 45%;
+    }
+    .container img:nth-child(2) {
+      height: 45%;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .logo {
+        width: 40px;
+    }
+    .fa-solid {
+        font-size: 35px;
+    }
+    .text-container {
+        font-size: 22px;
+    }
+    .text-container .watchMV {
+        margin-top: 160px;
+    }
+    .text-container .ListenMusic {
+        margin-bottom: 90px;
+    }
+    .container img:nth-child(1) {
+      height: 45%;
+    }
+    .container img:nth-child(2) {
+      height: 45%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .logo {
+        width: 50px;
+    }
+    .fa-solid {
+        font-size: 40px;
+    }
+    .text-container {
+        font-size: 24px;
+    }
+    .text-container .watchMV {
+        margin-top: 180px;
+    }
+    .text-container .ListenMusic {
+        margin-bottom: 110px;
+    }
+    .container img:nth-child(1) {
+      top: 0;
+      left: 0;
+      /* height: 40%; */
+    }
+    .container img:nth-child(2) {
+      bottom: 0;
+      right: 0;
+      /* height: 40%; */
+    }
+}
+
+@media (min-width: 768px) {
+    .help{
+        content: url('@/assets/img/help-ipad.png');
+    }
 }
 
 </style>

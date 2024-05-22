@@ -4,14 +4,13 @@
     </header>
 
     <div class="container" :style="{ '--bg-image': 'url(' + albumImage + ')' }">
-        <!-- <img class="box" src="../assets/img/Ellipse.png" alt=""> -->
         <div class="album-container">
             <img class="lp" src="../assets/img/lp.png" alt="">
-            <!-- <img class="album-cover" src="../assets/img/kim_mujin_cocktail.png" alt=""> -->
             <img class="album-cover" :src="albumImage" alt="">
         </div>
         <div class="audio-player">
-          <audio ref="audioPlayer" controls autoplay>
+          <!-- <audio ref="audioPlayer" controls autoplay> -->
+          <audio ref="audioPlayer" controls>
             <source v-if="musicSource" :src="musicSource" type="audio/mpeg">
           </audio>
         </div>
@@ -146,7 +145,7 @@ header{
   z-index:10;
 }
 .logo{
-  width:25px;
+  width:30px;
   margin-top: 20px;
   padding-left: 20px;
   z-index:10;
@@ -237,8 +236,8 @@ audio{
 .detail{
     margin-top: 4px;
     line-height: 25px;
-    font-size: 15px;
-    color: black
+    font-size: 1.0em;
+    color: black;
 }
 .qr-container{
   display: flex;
@@ -324,5 +323,23 @@ a:visited, a:active {
     100% {
         transform: rotate(360deg);
     }
+}
+
+
+@media (min-width: 768px) {
+  .logo{
+    width: 40px;
+  }
+  .footer-logo{
+    width: 60px;
+  }
+}
+@media (min-width: 1024px) {
+  .logo{
+    width: 50px;
+  }
+  .footer-logo{
+    width: 80px;
+  }
 }
 </style>

@@ -3,10 +3,9 @@
       <img class="logo" src="../assets/img/logo.png" @click="goToMainPage" alt="">
     </header>
     <div class="container">
-      <!-- <img class="box" src="../assets/img/Ellipse_top.png" alt=""> -->
       <div class="video-container">
-        <video v-if="videoSource" :src="videoSource" controls autoplay loop></video>
-        <!-- <video v-if="videoSource" :src="videoSource" controls></video> -->
+        <!-- <video v-if="videoSource" :src="videoSource" controls autoplay loop></video> -->
+        <video v-if="videoSource" :src="videoSource" controls></video>
         <div v-else>
           <p>비디오를 찾을 수 없습니다.</p>
         </div>
@@ -22,9 +21,9 @@
       </div>
       <div class="detail-container">
         <div class="detail-title">뮤직비디오 해석</div>
-        <img class="poster" :src="artistImage" :alt="singerName">
-        <p class="detail" v-for="i in 10" :key="i">
-            이무진의 officially missing you 뮤직비디오 설명입니다
+        <img class="poster" :src="poster" :alt="singerName">
+        <p class="detail">
+            {{ mvInterpretation }}
         </p> 
     </div>
       <div class="behind-container">
@@ -64,9 +63,9 @@
       return {
         originArtist: '', // 원곡 아티스트
         albumDescription: '', // 앨범 설명
-        instaqrImage: '', // QR 이미지 배열
-        ytubeqrImage: '',
-        artistImage: '' // 가수 이미지
+        mvInterpretation: '',
+        artistImage: '', // 가수 이미지
+        poster: ''
       };
     },
     computed: {
@@ -89,9 +88,9 @@
           const albumInfo = await this.fetchAlbumInfo(); // 비동기로 데이터를 받아오는 함수 호출
           this.originArtist = albumInfo.originArtist;
           this.albumDescription = albumInfo.albumDescription;
-          this.instaqrImage = albumInfo.instaqrImage;
+          this.mvInterpretation = albumInfo.mvInterpretation
           this.artistImage = albumInfo.artistImage
-          this.ytubeqrImage = albumInfo.ytubeqrImage
+          this.poster = albumInfo.poster
         } catch (error) {
           console.error('데이터를 가져오는 도중 오류가 발생했습니다:', error);
           // 에러 처리
@@ -100,30 +99,29 @@
       fetchAlbumInfo() {
         // 가수와 앨범 정보를 기반으로 데이터를 가져오는 비동기 함수
         return new Promise((resolve, reject) => {
-          // 가수와 앨범 정보를 기반으로 데이터를 가져오는 로직을 구현해주세요.
           if (this.singerId === 'kim' && this.albumId === '10cm') {
             resolve({
               originArtist: '원곡 아티스트: 10cm',
               albumDescription: '원곡 10cm의 폰서트 김광석 버전의 앨범 설명입니다.',
-              instaqrImage: require('../assets/img/kim_10cm_insta_qr.png'),
-              ytubeqrImage: require('../assets/img/kim_10cm_ytube_qr.png'),
-              artistImage: require('../assets/img/kim_10cm.png'),
+              mvInterpretation: '',
+              artistImage: require('@/assets/img/kim_10cm.png'),
+              poster: ''
             });
           } else if(this.singerId === 'mujin' && this.albumId === 'shin') {
             resolve({
               originArtist: '원곡 아티스트: 신해철',
               albumDescription: '원곡 신해철의 그대에게 이무진 버전의 앨범 설명입니다.',
-              instaqrImage: require('../assets/img/mujin_shin_insta_qr.png'),
-              ytubeqrImage: require('../assets/img/mujin_shin_ytube_qr.png'),
-              artistImage: require('../assets/img/mujin_shin.jpeg'),
+              mvInterpretation: '',
+              artistImage: require('@/assets/img/mujin_shin.jpeg'),
+              poster: ''
             });
           } else if(this.singerId === 'mujin' && this.albumId === 'geeks') {
             resolve({
               originArtist: '원곡 아티스트: 긱스',
               albumDescription: '완벽한 사랑의 노래 속 숨겨진 충격적인 이야기, 연인을 그리워하는 내용의 Officially Missing You를 team X가 재해석했다. 새로운 서사 속 감성의 미학가, 이무진 싱어송라이터의  Officially Missing You는 어떤 모습일까?',
-              instaqrImage: require('../assets/img/mujin_shin_insta_qr.png'),
-              ytubeqrImage: require('../assets/img/mujin_shin_ytube_qr.png'),
-              artistImage: require('../assets/img/mujin_shin.jpeg'),
+              mvInterpretation: '이무진의 officially missing you 뮤직비디오 설명입니다. 이무진의 officially missing you 뮤직비디오 설명입니다. 이무진의 officially missing you 뮤직비디오 설명입니다.이무진의 officially missing you 뮤직비디오 설명입니다.이무진의 officially missing you 뮤직비디오 설명입니다.',
+              artistImage: require('@/assets/img/mujin_shin.jpeg'),
+              poster: require('@/assets/img/mujin_shin_poster.png')
             });
           } else {
             reject(new Error('가수와 앨범 정보에 해당하는 데이터를 찾을 수 없습니다.'));
@@ -145,9 +143,9 @@ header{
     position: fixed;
 }
 .logo{
-    width:25px;
+    width:30px;
     margin-top: 20px;
-    padding-left: 20px;
+    margin-left: 20px;
     z-index: 2;
 }
 .container {
@@ -161,7 +159,6 @@ header{
     justify-content: center;
     align-items: center;
 }
-  
 .video-container {
     /* z-index: 2; */
     margin-top:70px;
@@ -170,22 +167,22 @@ header{
     justify-content: center;
     align-items: center;
 }
-  
 video{
     width:100vw;
 }
-
 .song-title{
     text-align: center;
     margin-top:30px;
     color: #7782FF;
+    font-size: 1.2em;
 }
 .origin-artist{
     color: #7782FF;
-    font-size: 15px;
+    font-size: 1em;
     text-align: center;
     margin-top: 10px;
 }
+
 .video-text{
     margin-top: 50px;
     display: flex;
@@ -198,23 +195,23 @@ video{
     justify-content: center;
 }
 .album-cover{
-    width: 200px;
-    height: 200px;
+    width: 50vw;
+    height: 50vw;
     z-index: 1;
 }
 .lp{
-    width: 200px;
-    margin-left: -100px;
-    height: 200px;
+    width: 50vw;
+    margin-left: -25vw;
+    height: 50vw;
     z-index: 0;
 }
-
 .snps{
     margin-top: 20px;
     color: white;
-    font-size: 14px;
-    text-align: center;
+    font-size: 0.9em;
+    text-align: justify;
     line-height: 25px;
+    width:80%;
 }
 
 .detail-container{
@@ -225,22 +222,22 @@ video{
 }
 .detail-title{
     color:#7782FF;
-    font-size: 20px;
-    width:85%;
+    font-size: 1.3em;
+    width:80%;
     margin-bottom: 20px;
 }
 .poster{
-    width:300px;
-    height: 200px;
+    width:80%;
+    /* height: 200px; */
     object-fit: cover;
     border-radius: 18px;
-    margin-bottom:50px;
+    margin-bottom:30px;
 }
-
 .detail{
-
     color:white;
     line-height: 20px;
+    font-size:0.9em;
+    width:80%
 }
 
 .behind-container{
@@ -248,7 +245,7 @@ video{
     flex-direction: column;
     color: #7782FF;
     margin-top:100px;
-    font-size:20px;
+    font-size:1.3em;
     width:80%;
 }
 .behindimg-container{
@@ -261,18 +258,15 @@ video{
 .behindimg-container img {
     margin-bottom: 10px; 
     border-radius: 18px;
-    height:150px;
+    height:30vh;
     object-fit: cover;
 }
-  
 .behindimg-container img:nth-child(1) {
     width: 40%;
 }
-
 .behindimg-container img:nth-child(2){
     width: 55%;
 }
-
 .behindimg-container img:nth-child(3){
     width: 60%;
 }
@@ -292,36 +286,18 @@ video{
     color:#7782FF;
     flex-direction: column;
     align-items: center;
-    font-size:20px;
+    font-size:1.3em;
 }
-  
 .qrimg-container{
     margin-top:20px;
 }
-  
 .fa-instagram{
-    font-size: 60px;
+    font-size: 3em;
     padding: 10px;
 }
-  
 .fa-youtube{
-    font-size: 60px;
+    font-size: 3em;
     padding: 10px;
-}
-  
-  
-button{
-    margin-top: 50px;
-    font-size: 16px;
-    padding: 15px;
-    border-radius: 45px;
-    color:white;
-    border-color: #172BFF;
-    background-color: #172BFF;
-}
-  
-.goto-main{
-    margin-bottom: 50px;
 }
   
 .footer-logo{
@@ -329,27 +305,24 @@ button{
     width: 50px;
     margin-bottom:50px;
 }
-  .box, .end-ellipse {
-    width: 100vw;
-    height:  auto;
-    pointer-events: none;
-  }
-  .box{
-    margin-top:-80px;
-    z-index: 1;
-  }
-  .end-ellipse {
-    width: 100vw;
-    height:  auto;
-  }
 
 a {
     color: inherit; /* Inherit color from parent element */
     text-decoration: none; /* Remove underline */
 }
-
 a:visited, a:active {
     color: inherit; /* Keep the same color when visited or active */
+}
+
+@media (min-width: 768px) {
+  .footer-logo{
+    width: 60px;
+  }
+}
+@media (min-width: 1024px) {
+  .footer-logo{
+    width: 80px;
+  }
 }
   </style>
   
