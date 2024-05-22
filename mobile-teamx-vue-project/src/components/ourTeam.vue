@@ -118,6 +118,12 @@ export default {
 </script>
 
 <style scoped>
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
+header, .intro,.hello,.detail,.team-container,.slider {
+	font-family: 'Pretendard', sans-serif;
+}
+
 .logo{
   width:30px;
   margin-top: 20px;

@@ -34,10 +34,10 @@
 </script>
 
 <template>
-    <div class="help-container">
+    <!-- <div class="help-container">
       <img v-if="showHelpImage" class="help" src="@/assets/img/help.jpg" alt="">
       <button v-if="showHelpImage" class="help-off" @click="hideHelpImg">도움말 끄기</button>
-    </div>
+    </div> -->
 
     <audio ref="audioPlayer" autoplay loop>
         <source src="../assets/music/intro.wav" type="audio/mpeg">
@@ -71,6 +71,12 @@
 
 
 <style scoped>
+@import url('https://webfontworld.github.io/gmarket/GmarketSans.css');
+
+.text-container {
+  font-family: 'GmarketSans', sans-serif;
+}
+
 .help-container{
   display: flex;
   align-items: center;
