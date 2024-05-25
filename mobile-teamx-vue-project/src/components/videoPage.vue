@@ -139,8 +139,6 @@
   </script>
   
 <style scoped>
-@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
-
 header,.video-container,.video-text,.detail-container,.behind-container {
 	font-family: 'Pretendard', sans-serif;
 }

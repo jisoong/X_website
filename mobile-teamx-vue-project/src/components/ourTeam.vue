@@ -33,45 +33,14 @@
             </pre>
         </div>
         <div class="team-container">
-            <div class="profile-container">
-                <img class="profile" src="../assets/img/jin.png" alt="">
-                <p class="K name">유진</p>
-                <p class="name">Jin Yoo</p>
-                <p class="R role">AI 엔지니어</p>
-                <p class="role">앱 엔지니어</p>
-                <p class="insta">@beluga.jin</p>
-            </div>
-            <div class="profile-container">
-              <img class="profile" src="../assets/img/mingu.png" alt="">
-              <p class="K name">강민구</p>
-              <p class="name">Mingu Kang</p>
-              <p class="R role">3D 디자이너</p>
-              <p class="F role">none</p>
-              <p class="insta">@mg_0718_</p>
-            </div>
-            <div class="profile-container">
-              <img class="profile" src="../assets/img/jisu.png" alt="">
-              <p class="K name">강지수</p>
-              <p class="name">Jisu Kang</p>
-              <p class="R role">웹 엔지니어</p>
-              <p class="F role">none</p>
-              <p class="insta">@ganz1._.su</p>
-            </div>
-            <div class="profile-container">
-              <img class="profile" src="../assets/img/jio.png" alt="">
-              <p class="K name">백지오</p>
-              <p class="name">Jio Baek</p>
-              <p class="R role">2D 디자이너</p>
-              <p class="role">PM</p>
-              <p class="insta">@_jiographic_</p>
-            </div>
-            <div class="profile-container">
-              <img class="profile" src="../assets/img/subeom.png" alt="">
-              <p class="K name">서수범</p>
-              <p class="name">Subeom Seo</p>
-              <p class="R role">음향 디자이너</p>
-              <p class="F role">none</p>
-              <p class="insta">@tjtn1507</p>
+            <div class="profile-container" v-for="member in teamMembers" :key="member.name">
+                <img class="profile" :src="member.image" alt="">
+                <p class="K name">{{ member.koreanName }}</p>
+                <p class="name">{{ member.name }}</p>
+                <p class="R role">{{ member.role1 }}</p>
+                <p class="role" v-if="member.role2 !== 'none'">{{ member.role2 }}</p>
+                <p class="F role" v-else> none </p>
+                <p class="insta">{{ member.insta }}</p>
             </div>
         </div>
         <div class="slider">
@@ -100,13 +69,55 @@
 export default {
   data() {
       return {
-        images: [
-          { url: require('../assets/img/work1.png') },
-          { url: require('../assets/img/work2.png') }, 
-          { url: require('../assets/img/work3.png') },
-          { url: require('../assets/img/work4.png') },
-            // Add more images as needed
-        ],
+        teamMembers: [
+        {
+          koreanName: '유진',
+          name: 'Jin Yoo',
+          role1: 'AI 엔지니어',
+          role2: 'none',
+          insta: '@beluga.jin',
+          image: require('@/assets/img/jin.png')
+        },
+        {
+          koreanName: '강민구',
+          name: 'Mingu Kang',
+          role1: '3D 디자이너',
+          role2: 'none',
+          insta: '@mg_0718_',
+          image: require('@/assets/img/mingu.png')
+        },
+        {
+          koreanName: '강지수',
+          name: 'Jisu Kang',
+          role1: '웹 엔지니어',
+          role2: 'none',
+          insta: '@ganz1._.su',
+          image: require('@/assets/img/jisu.png')
+        },
+        {
+          koreanName: '백지오',
+          name: 'Jio Baek',
+          role1: '2D 디자이너',
+          role2: 'PM',
+          insta: '@_jiographic_',
+          image: require('@/assets/img/jio.png')
+        },
+        {
+          koreanName: '서수범',
+          name: 'Subeom Seo',
+          role1: '음향 디자이너',
+          role2: 'none',
+          insta: '@tjtn1507',
+          image: require('@/assets/img/subeom.png')
+        }
+      ],
+      images: [
+        { url: require('../assets/img/work1.png') },
+        { url: require('../assets/img/work2.png') }, 
+        { url: require('../assets/img/work3.png') },
+        { url: require('../assets/img/work4.png') },
+          // Add more images as needed
+      ],
       };
     },
     methods: {
@@ -118,8 +129,6 @@ export default {
 </script>
 
 <style scoped>
-@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
-
 header, .intro,.hello,.detail,.team-container,.slider {
 	font-family: 'Pretendard', sans-serif;
 }

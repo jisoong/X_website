@@ -38,41 +38,41 @@
       <img v-if="showHelpImage" class="help" src="@/assets/img/help.jpg" alt="">
       <button v-if="showHelpImage" class="help-off" @click="hideHelpImg">도움말 끄기</button>
     </div> -->
-
     <audio ref="audioPlayer" autoplay loop>
         <source src="../assets/music/intro.wav" type="audio/mpeg">
     </audio>
-    <header>
-      <div class="logo-container">
-        <img class="logo" src="@/assets/img/whitelogo.png" @click="onClickMoveOurPage" alt="">
-        <button :class="{ 'soundBtt': true, 'sound-on': isPlaying, 'sound-off': !isPlaying }" @click="toggleSound">
-          <i :class="{ 'fa-solid fa-volume-xmark': isPlaying, 'fa-solid fa-volume-high': !isPlaying }"></i>
-        </button>
+    <div>
+      <header>
+        <div class="logo-container">
+          <img class="logo" src="@/assets/img/whitelogo.png" @click="onClickMoveOurPage" alt="">
+          <button :class="{ 'soundBtt': true, 'sound-on': isPlaying, 'sound-off': !isPlaying }" @click="toggleSound">
+            <i :class="{ 'fa-solid fa-volume-xmark': isPlaying, 'fa-solid fa-volume-high': !isPlaying }"></i>
+          </button>
+        </div>
+        <hr>
+      </header>
+      <div class="container">
+          <img class="ellipse top" src="@/assets/img/Ellipse-top.png" alt="">
+          <img class="ellipse bottom" src="@/assets/img/Ellipse-bottom.png" alt="">
+          <div class="text-container">
+          <div class="watchMV" @click="onClickMoveWatchPage">
+            <div>Watch</div>
+            <div>M/V</div>
+          </div>
+          <div class="ListenMusic" @click="onClickMoveListenPage">
+            <div>Listen</div>
+            <div>Music</div>
+          </div>
+        </div>
       </div>
-      <hr>
-    </header>
 
-    <div class="container">
-        <img class="ellipse top" src="@/assets/img/Ellipse-top.png" alt="">
-        <img class="ellipse bottom" src="@/assets/img/Ellipse-bottom.png" alt="">
     </div>
-    <div class="text-container">
-      <div class="watchMV" @click="onClickMoveWatchPage">
-        <div>Watch</div>
-        <div>M/V</div>
-      </div>
-      <div class="ListenMusic" @click="onClickMoveListenPage">
-        <div>Listen</div>
-        <div>Music</div>
-      </div>
-    </div>
+    
 </template>
 
 
 
 <style scoped>
-@import url('https://webfontworld.github.io/gmarket/GmarketSans.css');
-
 .text-container {
   font-family: 'GmarketSans', sans-serif;
 }
@@ -85,9 +85,6 @@
 .help{
   width:100vw;
   height: 100vh;
-  /* object-fit: cover; */
-
-
 }
 .help-off{
   width:100px;
@@ -104,6 +101,7 @@
 header{
     position: fixed;
     width:100%;
+    /* height: 600px; */
 }
 .logo-container{
     display: flex;
@@ -165,7 +163,7 @@ hr {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height:100vh;
+  height: 100%;
   justify-content: space-between;
   color:white;
   font-size:20px;

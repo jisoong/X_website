@@ -56,8 +56,6 @@ export default {
 </script>
 
 <style scoped>
-@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
-
 * {
 	font-family: 'Pretendard', sans-serif;
 }
@@ -90,7 +88,8 @@ header{
 
 .title{
     color:#172BFF;
-    font-size: 1.4em;
+    font-size: 1.0em;
+    font-weight: 200;
 }
 .img-container{
     display: grid;
@@ -121,6 +120,8 @@ header{
     margin-top: 5px;
     font-size: 0.9em;
     font-weight: bold;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 .selected{
     background-color: blue;
@@ -142,12 +143,14 @@ header{
 .next{
     width:0;
     height:0;
+    object-fit: contain;
 }
 .next.btt_abled{
     width:100px;
     height:auto;
     margin-right:30px;
     margin-bottom:20px;
+    object-fit: contain;
 }
 
 @media (min-width: 768px) {

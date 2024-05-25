@@ -107,13 +107,13 @@ export default {
           image: require('@/assets/img/subeom.png')
         }
       ],
-        images: [
-          { url: require('@/assets/img/work1.png') },
-          { url: require('@/assets/img/work2.png') }, 
-          { url: require('@/assets/img/work3.png') },
-          { url: require('@/assets/img/work4.png') },
-            // Add more images as needed
-        ],
+      images: [
+        { url: require('@/assets/img/work1.png') },
+        { url: require('@/assets/img/work2.png') }, 
+        { url: require('@/assets/img/work3.png') },
+        { url: require('@/assets/img/work4.png') },
+          // Add more images as needed
+      ],
       };
     },
     methods: {

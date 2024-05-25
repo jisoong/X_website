@@ -79,8 +79,6 @@ export default {
 </script>
 
 <style scoped>
-@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
-
 * {
 	font-family: 'Pretendard', sans-serif;
 }

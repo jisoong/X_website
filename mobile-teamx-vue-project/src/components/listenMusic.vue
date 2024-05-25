@@ -147,8 +147,6 @@ export default {
 
 
 <style scoped>
-@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
-
 header,.album-container,.audio-player,.text-container {
 	font-family: 'Pretendard', sans-serif;
 }
