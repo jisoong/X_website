@@ -10,7 +10,7 @@
         <div class="box big-box" :class="{ 'disabled': !isSectionClicked }"></div>
         <div class="scrollable" :class="{ 'disabled': isSectionClicked }">
           <div class="album" v-for="album in albums" :key="album.id">
-            <img class="coverimg" :src="album.cover" @click="selectAlbum(album);" :class="{ selected: album === selectedAlbum }">
+            <img class="coverimg" :src="album.cover" @click="selectAlbum(album);" :class="{ selected: album === selectedAlbum}">
             <p class="song-title">{{ album.song }}</p>
           </div>
         </div>
@@ -37,17 +37,17 @@ export default {
       selectedAlbum: null,
       isSectionClicked: false, 
       albums: [
-        { id: '10cm', cover: require('../assets/img/10cm.jpeg'), alt: '10cm album cover', song: '폰서트' },
-        { id: 'shin', cover: require('../assets/img/shin.jpg'), alt: 'Shin album cover', song: '그대에게' },
-        { id: 'choi', cover: require('../assets/img/choi.jpeg'), alt: 'Choi album cover', song: '숲' },
-        { id: 'geeks', cover: require('../assets/img/geeks.jpeg'), alt: 'Geeks album cover', song: 'officially missing you' },
-        { id: 'bluesky', cover: require('../assets/img/bluesky.jpeg'), alt: 'Bluesky album cover', song: 'Mr. Blue Sky' },
+        { id: '10cm', cover: require('@/assets/img/10cm.jpeg'), alt: '10cm album cover', song: '폰서트' },
+        { id: 'plastic', cover: require('@/assets/img/plastic.jpeg'), alt: 'Shin album cover', song: 'plastic love' },
+        { id: 'choi', cover: require('@/assets/img/choi.jpeg'), alt: 'Choi album cover', song: '숲' },
+        { id: 'geeks', cover: require('@/assets/img/geeks.jpeg'), alt: 'Geeks album cover', song: 'officially missing you' },
+        { id: 'bluesky', cover: require('@/assets/img/bluesky.jpeg'), alt: 'Bluesky album cover', song: 'Mr. Blue Sky' },
       ],
       singers: [
-      { id: 'kim', image: require('../assets/img/kim.jpeg'), alt: 'Kim singer', name: '김광석' },
-      { id: 'mujin', image: require('../assets/img/mujin.jpeg'), alt: 'Mujin singer', name: '이무진' },
-      { id: 'yerin', image: require('../assets/img/yerin.jpeg'), alt: 'Yerin singer', name: '백예린'},
-      { id: 'bibi', image: require('../assets/img/bibi.jpeg'), alt: 'IU singer', name: '비비'}
+      { id: 'kim', image: require('@/assets/img/kim.jpeg'), alt: 'Kim singer', name: '김광석' },
+      { id: 'mujin', image: require('@/assets/img/mujin.jpeg'), alt: 'Mujin singer', name: '이무진' },
+      { id: 'yerin', image: require('@/assets/img/yerin.jpeg'), alt: 'Yerin singer', name: '백예린'},
+      { id: 'bibi', image: require('@/assets/img/bibi.jpeg'), alt: 'IU singer', name: '비비'}
       ]
     };
   },
@@ -61,17 +61,30 @@ export default {
   },
   methods: {
     selectSinger(singer) {
-      this.selectedSinger = singer;
+      if (this.selectedSinger === singer) {
+        this.selectedSinger = null;
+      } else {
+        this.selectedSinger = singer;
+      }
     },
     selectAlbum(album) {
-      this.selectedAlbum = album;
-      this.isSectionClicked = true;
+      if (album.id === 'bluesky') {
+        return; // Prevent selection of the "coming soon" album
+      }
+      if (this.selectedAlbum === album) {
+        this.selectedAlbum = null;
+        this.isSectionClicked = false;
+      } else {
+        this.selectedAlbum = album;
+        this.isSectionClicked = true;
+      }
     },
     albumClick() {
       // 가수 선택하기전까지 앨범으로 못넘어감
       if (this.selectedSinger !== null) {
         this.isSectionClicked = false;
       }
+
       // this.isSectionClicked = false;
     },
     artistClick() {
@@ -142,9 +155,16 @@ header {
   padding: 10px;
 }
 
-.scrollable img {
+.album img {
   object-fit: cover;
   border-radius: 20%;
+  padding: 5px;
+  transition: width 0.7s, height 0.7s;
+}
+
+.artist img {
+  object-fit: cover;
+  border-radius: 50%;
   padding: 5px;
   transition: width 0.7s, height 0.7s;
 }
@@ -170,14 +190,15 @@ header {
 
 .album {
   width: 100%;
-  height: 80%;
+  /* height: 80%; */
   display: flex;
   align-items: center;
+  padding-bottom:10px;
 }
 
 .coverimg {
-  width: 20vw;
-  height: 20vw;
+  width: 13vw;
+  height: 13vw;
   max-width: 250px;
   max-height: 250px;
   padding: 5px;
@@ -204,9 +225,10 @@ header {
 
 .artist {
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   display: flex;
   align-items: center;
+  padding-bottom:10px;
 }
 
 .scrollable.disabled .artist {
@@ -217,10 +239,10 @@ header {
 }
 
 .singerimg {
-  width: 25vw;
-  height: 25vw;
-  max-width: 300px;
-  max-height: 300px;
+  width: 13vw;
+  height: 13vw;
+  max-width: 250px;
+  max-height: 250px;
   padding: 5px;
 }
 

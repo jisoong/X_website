@@ -49,7 +49,7 @@
             <i :class="{ 'fa-solid fa-volume-xmark': isPlaying, 'fa-solid fa-volume-high': !isPlaying }"></i>
             {{ soundButtonText }}
           </button>
-          <audio ref="audioPlayer" autoplay>
+          <audio ref="audioPlayer" autoplay loop>
               <source src="../assets/music/intro.wav" type="audio/mpeg">
           </audio>
           <p class="intro_text">원하는 서비스를 선택해 해주세요</p>
@@ -126,8 +126,7 @@ button {
   padding: 0.5em 1em;
   border-radius: 30px;
   color: white;
-  border-color: #172BFF;
-  background-color: #172BFF; 
+  /* background-color: #172BFF;  */
   z-index: 10;
   margin-bottom: 3%;
 }
@@ -135,11 +134,14 @@ button {
   color: #172BFF;
   background-color: white;
   border-color: #172BFF;
+  /* border:none; */
 }
 
 .sound-off {
   color: white;
   background-color: #172BFF;
+  /* border:none; */
+  border-color: #172BFF;
 }
 .fa-volume-xmark, .fa-volume-high{
   margin-right: 0.5em;

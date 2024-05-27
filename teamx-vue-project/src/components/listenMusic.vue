@@ -77,7 +77,7 @@ methods: {
     // 가수와 앨범 정보를 기반으로 데이터를 가져오는 비동기 함수
     return new Promise((resolve, reject) => {
       // 가수와 앨범 정보를 기반으로 데이터를 가져오는 로직을 구현해주세요.
-      if (this.singerIds === 'kim,mujin' && this.albumId === 'cocktail') {
+      if (this.singerIds === 'IU,mujin' && this.albumId === 'cocktail') {
         resolve({
           originArtist: '마로니에',
           albumDescription:` 
@@ -98,7 +98,7 @@ methods: {
 한 편의 시가 있는 전시회장도 가고
 밤새도록 그리움에 편질 쓰고파
 모차르트 피아노 협주곡 21번`,
-          albumImage: require('../assets/img/kim_mujin_cocktail.png'),
+          albumImage: require('../assets/img/cocktail.jpeg'),
         });
       } else if(this.singerIds === 'mujin,yerin' && this.albumId === 'akmu') {
         resolve({
@@ -222,7 +222,7 @@ audio{
   margin-top: 4px;
   line-height: 25px;
   font-size: 16px;
-  color: white;
+  color: black;
   white-space: pre-wrap;
   text-align: center;
 }
