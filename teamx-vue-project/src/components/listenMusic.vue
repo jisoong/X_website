@@ -6,11 +6,11 @@
   <div class="container" :style="{ '--bg-image': 'url(' + albumImage + ')' }">
       <img class="box" src="../assets/img/Ellipse.png" alt="">
       <div class="album-container">
-          <img class="lp" src="../assets/img/lp.png" alt="">
+          <img :class="['lp', { spinning: isPlaying }]" src="../assets/img/lp.png" alt="">
           <img class="album-cover" :src="albumImage" alt="">
       </div>
       <div class="audio-player">
-        <audio ref="audioPlayer" controls autoplay>
+        <audio ref="audioPlayer" controls autoplay controlsList="nodownload" @play="onPlay" @pause="onPause">
           <source v-if="musicSource" :src="musicSource" type="audio/mpeg">
         </audio>
       </div>
@@ -40,6 +40,7 @@ export default {
 props: ['singerIds', 'singerNames', 'albumId', 'albumName'],
 data() {
   return {
+    isPlaying: false,
     originArtist: '', // 원곡 아티스트
     albumDescription: '', // 앨범 설명
     albumImage: '' 
@@ -50,7 +51,7 @@ computed: {
     const singerIdArray = this.singerIds.split(',');
 
     if (singerIdArray.length > 0 && this.albumId !== undefined) {
-      return require(`../assets/music/${singerIdArray[0]}_${singerIdArray[1]}_${this.albumId}.mp3`);
+      return require(`../assets/music/${singerIdArray[0]}_${singerIdArray[1]}_${this.albumId}.wav`);
     } else {
       console.log(this.singerIds[0]);
       return require('../assets/music/intro.wav');
@@ -77,7 +78,7 @@ methods: {
     // 가수와 앨범 정보를 기반으로 데이터를 가져오는 비동기 함수
     return new Promise((resolve, reject) => {
       // 가수와 앨범 정보를 기반으로 데이터를 가져오는 로직을 구현해주세요.
-      if (this.singerIds === 'IU,mujin' && this.albumId === 'cocktail') {
+      if (this.albumId === 'cocktail') {
         resolve({
           originArtist: '마로니에',
           albumDescription:` 
@@ -97,14 +98,63 @@ methods: {
 향기로운 칵테일에 취해도 보고
 한 편의 시가 있는 전시회장도 가고
 밤새도록 그리움에 편질 쓰고파
-모차르트 피아노 협주곡 21번`,
+모차르트 피아노 협주곡 21번
+그 음악을 내귓가에 속삭여주며
+아침햇살 눈부심에 나를깨워줄
+그런 연인이 내게있으면
+나는 아직 순수함을 느끼고 싶어
+어느 작은 우체국 앞 계단에 앉아
+프리지아 꽃향기를 내게 안겨줄
+그런 연인을 만나봤으면
+마음 울적한 날엔 거리를 걸어보고
+향기로운 칵테일에 취해도보고
+한편의 시가 있는 전시회장도 가고
+밤새도록 그리움에 편질 쓰고파
+창밖에는 우울한 비가 내리고 있어
+내 마음도 그 비따라 우울해지네
+누가 내게 눈부신 사랑을 가져줄까
+이세상은 나로 인해 아름다운데
+마음 울적한 날엔 거리를 걸어보고
+향기로운 칵테일에 취해도보고
+한편의 시가 있는 전시회장도 가고
+밤새도록 그리움에 편질 쓰고파`,
           albumImage: require('../assets/img/cocktail.jpeg'),
         });
-      } else if(this.singerIds === 'mujin,yerin' && this.albumId === 'akmu') {
+      } else if(this.albumId === 'akmu') {
         resolve({
-          originArtist: '악뮤',
-          albumDescription: '원곡 악뮤의 어떻게 이별까지 사랑하겠어, 널 사랑하는거지 이무진,백예린 버전의 앨범 설명입니다.',
-          albumImage: require('../assets/img/mujin_yerin_akmu.png'),
+          originArtist: 'AKMU',
+          albumDescription: `
+일부러 몇 발자국 물러나
+내가 없이 혼자 걷는 널 바라본다
+옆자리 허전한 너의 풍경
+흑백 거리 가운데 넌 뒤돌아본다
+그때 알게 되었어
+난 널 떠날 수 없단 걸
+우리 사이에 그 어떤 힘든 일도
+이별보단 버틸 수 있는 것들이었죠
+어떻게 이별까지 사랑하겠어
+널 사랑하는 거지
+사랑이라는 이유로 서로를 포기하고
+찢어질 것같이 아파할 수 없어 난
+두세 번 더 길을 돌아갈까
+적막 짙은 도로 위에 걸음을 포갠다
+아무 말 없는 대화 나누며
+주마등이 길을 비춘 먼 곳을 본다
+그때 알게 되었어
+난 더 갈 수 없단 걸
+한 발 한 발 이별에 가까워질수록
+너와 맞잡은 손이 사라지는 것 같죠
+어떻게 이별까지 사랑하겠어
+널 사랑하는 거지
+사랑이라는 이유로 서로를 포기하고
+찢어질 것같이 아파할 수 없어 난
+어떻게 내가 어떻게 너를
+이후에 우리 바다처럼 깊은 사랑이
+다 마를 때까지 기다리는 게 이별일 텐데
+어떻게 내가 어떻게 너를
+이후에 우리 바다처럼 깊은 사랑이
+다 마를 때까지 기다리는 게 이별일 텐데`,
+          albumImage: require('../assets/img/akmu.jpg'),
         });
       } else {
         reject(new Error('가수와 앨범 정보에 해당하는 데이터를 찾을 수 없습니다.'));
@@ -117,6 +167,14 @@ methods: {
   goToMainPage() {
     this.$router.push('/');
   },
+  // lp회전
+    onPlay() {
+      this.isPlaying = true;
+    },
+    onPause() {
+      this.isPlaying = false;
+    }
+
 }
 };
 </script>
@@ -177,9 +235,12 @@ header{
 .lp{
   width: 300px;
   height: 100%;
-  animation: spin 2s infinite linear;   
   z-index: -1;
 }
+.spinning {
+  animation: spin 2s infinite linear;
+}
+
 .album-cover{
   width: 300px;
   height: 100%;

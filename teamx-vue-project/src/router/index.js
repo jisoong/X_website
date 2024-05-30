@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory} from 'vue-router'
+import store from '../store';
 
 const routes = [
     {
@@ -35,16 +36,51 @@ const routes = [
         name: 'ourTeam',
         component:()=>import('../components/ourTeam.vue'),
     },
+    {
+        path: '/loading',
+        name: 'Loading',
+        component:()=>import('../components/loadingPage.vue'),
+    }
 ]
+
+// const router = createRouter({
+//     history: createWebHistory(),
+//     base: process.env.BASE_URL,
+//     routes,
+//     scrollBehavior() {
+//         // always scroll to top
+//         return { top: 0 }
+//     },
+// })
+
+// export default router
 
 const router = createRouter({
     history: createWebHistory(),
-    base: process.env.BASE_URL,
-    routes,
-    scrollBehavior() {
-        // always scroll to top
-        return { top: 0 }
-    },
-})
-
-export default router
+    routes
+  });
+  
+  router.beforeEach((to, from, next) => {
+    if (from.name === 'selectWatch' && to.name === 'videoPage') {
+      store.dispatch('setLoading', true);
+    }
+    else if(from.name === 'selectListen' && to.name === 'listenMusic') {
+        store.dispatch('setLoading', true);
+    }
+    next();
+  });
+  
+  router.afterEach((to, from) => {
+    if (from.name === 'selectWatch' && to.name === 'videoPage') {
+      setTimeout(() => {
+        store.dispatch('setLoading', false);
+      }, 1000); // 예: 2초 후 로딩 상태를 false로 설정
+    }
+    else if(from.name === 'selectListen' && to.name === 'listenMusic') {
+        setTimeout(() => {
+            store.dispatch('setLoading', false);
+        }, 1000); // 예: 2초 후 로딩 상태를 false로 설정
+    }
+  });
+  
+  export default router;

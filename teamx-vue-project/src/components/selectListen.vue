@@ -2,8 +2,8 @@
     <header>
       <img class="logo" src="@/assets/img/logo.png" @click="goToMain" alt="">
     </header>
-    <img class="box" src="@/assets/img/Ellipse_top.png" alt="">
     <div class="container">
+      <img class="box" src="@/assets/img/Ellipse_top.png" alt="" :class="{ellipse_h: isAlbumSelected}">
       <h2 class="title">{{ selectTitleText }}</h2>
         <div class="album-container" v-if="!isAlbumSelected">
           <div class="album" v-for="album in albums" :key="album.id">
@@ -61,8 +61,8 @@
         selectedSingers: [],
         albums: [
           { id: 'cocktail', cover: require('@/assets/img/cocktail.jpeg'), alt: 'cocktail album cover', song: '칵테일 사랑', singer: '마로니에' },
-          { id: 'akmu', cover: require('@/assets/img/akmu.jpeg'), alt: 'akmu album cover', song: '어떻게 이별까지 사랑하겠어, 널 사랑하는 거지', singer: 'AKMU' },
-          { id: 'bubble', cover: require('@/assets/img/bubble.jpeg'), alt: 'Bubble album cover', song: 'Bubble Gum', singer: 'NewJeans' },
+          { id: 'akmu', cover: require('@/assets/img/akmu.jpg'), alt: 'akmu album cover', song: '어떻게 이별까지 사랑하겠어, 널 사랑하는 거지', singer: 'AKMU' },
+          // { id: 'bubble', cover: require('@/assets/img/bubble.jpeg'), alt: 'Bubble album cover', song: 'Bubble Gum', singer: 'NewJeans' },
         ],
         maleSingers: {
           cocktail: [
@@ -235,7 +235,18 @@ header{
     padding: 20px;
 }
 
-.box, .end-ellipse {
+.box{
+  width: 100%;
+  height:  180px;
+  pointer-events: none;
+
+}
+
+.ellipse_h{
+  height:  13vh;
+}
+
+.end-ellipse {
   width: 100%;
   height:  180px;
   pointer-events: none;
@@ -245,6 +256,7 @@ header{
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100vh;
 }
 
 .title {
@@ -349,8 +361,8 @@ hr{
 }
 
 .next_btt {
-  font-size: 1em;
-  padding: 15px;
+  font-size: 0.8em;
+  padding: 10px;
   border-radius: 45px;
   color: #172BFF;
   border-color: #172BFF;
@@ -358,7 +370,7 @@ hr{
   display: block;
   margin: 20px auto;
   box-shadow: none;
-  margin-top: 80px;
+  margin-top: 50px;
 }
 
 .next_btt:hover {

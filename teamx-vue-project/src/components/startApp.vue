@@ -89,6 +89,7 @@
   width:100vw;
   height:100vh;
   position: absolute;
+  overflow: hidden;
 }
 .back{
   z-index: 1; 
@@ -182,13 +183,29 @@ button {
 .team{
   display: flex;
   flex-direction: column;
-  margin-top:-13vh;
   align-items:center;
   font-size:1.5em;
   color: #172BFF;
   cursor: pointer;
   pointer-events: auto;
+
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
 }
+
+.team p {
+    margin: 0;
+    display: inline-block;
+    vertical-align: middle;
+}
+.team i {
+    display: inline-block;
+    vertical-align: middle;
+}
+
 .fa-chevron-left{
   margin-right:10px;
   font-size: 2em;

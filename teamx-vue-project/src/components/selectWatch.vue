@@ -38,10 +38,10 @@ export default {
       isSectionClicked: false, 
       albums: [
         { id: '10cm', cover: require('@/assets/img/10cm.jpeg'), alt: '10cm album cover', song: '폰서트' },
-        { id: 'plastic', cover: require('@/assets/img/plastic.jpeg'), alt: 'Shin album cover', song: 'plastic love' },
+        // { id: 'plastic', cover: require('@/assets/img/plastic.jpeg'), alt: 'Shin album cover', song: 'plastic love' },
         { id: 'choi', cover: require('@/assets/img/choi.jpeg'), alt: 'Choi album cover', song: '숲' },
         { id: 'geeks', cover: require('@/assets/img/geeks.jpeg'), alt: 'Geeks album cover', song: 'officially missing you' },
-        { id: 'bluesky', cover: require('@/assets/img/bluesky.jpeg'), alt: 'Bluesky album cover', song: 'Mr. Blue Sky' },
+        // { id: 'bluesky', cover: require('@/assets/img/bluesky.jpeg'), alt: 'Bluesky album cover', song: 'Mr. Blue Sky' },
       ],
       singers: [
       { id: 'kim', image: require('@/assets/img/kim.jpeg'), alt: 'Kim singer', name: '김광석' },
@@ -68,9 +68,6 @@ export default {
       }
     },
     selectAlbum(album) {
-      if (album.id === 'bluesky') {
-        return; // Prevent selection of the "coming soon" album
-      }
       if (this.selectedAlbum === album) {
         this.selectedAlbum = null;
         this.isSectionClicked = false;

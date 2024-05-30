@@ -10,7 +10,7 @@
         </div>
         <div class="audio-player">
           <!-- <audio ref="audioPlayer" controls autoplay> -->
-          <audio ref="audioPlayer" controls @play="onPlay" @pause="onPause">
+          <audio ref="audioPlayer" controls autoplay @play="onPlay" @pause="onPause">
             <source v-if="musicSource" :src="musicSource" type="audio/mpeg">
           </audio>
         </div>
@@ -52,8 +52,6 @@ export default {
       isPlaying: false,
       originArtist: '', // 원곡 아티스트
       albumDescription: '', // 앨범 설명
-      instaqrImage: '', // QR 이미지 배열
-      ytubeqrImage: '',
       albumImage: '' 
     };
   },
@@ -79,9 +77,7 @@ export default {
         const albumInfo = await this.fetchAlbumInfo(); // 비동기로 데이터를 받아오는 함수 호출
         this.originArtist = albumInfo.originArtist;
         this.albumDescription = albumInfo.albumDescription;
-        this.instaqrImage = albumInfo.instaqrImage;
         this.albumImage = albumInfo.albumImage
-        this.ytubeqrImage = albumInfo.ytubeqrImage
       } catch (error) {
         console.error('데이터를 가져오는 도중 오류가 발생했습니다:', error);
         // 에러 처리
@@ -112,16 +108,12 @@ export default {
 한 편의 시가 있는 전시회장도 가고
 밤새도록 그리움에 편질 쓰고파
 모차르트 피아노 협주곡 21번`,
-            instaqrImage: require('../assets/img/kim_mujin_cocktail_insta_qr.png'),
-            ytubeqrImage: require('../assets/img/kim_mujin_cocktail_ytube_qr.png'),
             albumImage: require('../assets/img/kim_mujin_cocktail.png'),
           });
         } else if(this.singerIds === 'mujin,yerin' && this.albumId === 'akmu') {
           resolve({
             originArtist: '악뮤',
             albumDescription: '원곡 악뮤의 어떻게 이별까지 사랑하겠어, 널 사랑하는거지 이무진,백예린 버전의 앨범 설명입니다.',
-            instaqrImage: require('../assets/img/mujin_yerin_akmu_insta_qr.png'),
-            ytubeqrImage: require('../assets/img/mujin_yerin_akmu_ytube_qr.png'),
             albumImage: require('../assets/img/mujin_yerin_akmu.png'),
           });
         } else {

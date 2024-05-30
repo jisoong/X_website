@@ -5,7 +5,7 @@
   <div class="container">
     <img class="box" src="../assets/img/Ellipse_top.png" alt="">
     <div class="video-container">
-      <video v-if="videoSource" :src="videoSource" controls autoplay loop></video>
+      <video v-if="videoSource" :src="videoSource" controls autoplay controlsList="nodownload"></video>
       <!-- <video v-if="videoSource" :src="videoSource" controls></video> -->
       <div v-else>
         <p>비디오를 찾을 수 없습니다.</p>
@@ -34,12 +34,7 @@
         제작 과정 / 비하인드 컷
       </div>
       <div class="behindimg-container">
-        <img :src="artistImage" :alt="singerName">
-        <img :src="artistImage" :alt="singerName">
-        <img :src="artistImage" :alt="singerName">
-        <img :src="artistImage" :alt="singerName">
-        <img :src="artistImage" :alt="singerName">
-        <img :src="artistImage" :alt="singerName">
+        <img v-for="(img, index) in behindSources" :key="index" :src="img" :alt="singerName">
       </div>
     </div>
     <div class="qr-container">
@@ -75,6 +70,13 @@ export default {
       } else {
         return require('../assets/video/test.mp4');
       }
+    },
+    behindSources() {
+      let images = [];
+      for (let i = 1; i <= 6; i++) {
+        images.push(require(`@/assets/img/${this.albumId}/behind${i}.png`));
+      }
+      return images;
     }
   },
   created() {
@@ -103,21 +105,63 @@ export default {
             originArtist: '원곡 아티스트: 10cm',
             albumDescription: '원곡 10cm의 폰서트 김광석 버전의 앨범 설명입니다.',
             mvInterpretation: '폰서트 김광석 버전의 뮤비 해석입니다.',
-            artistImage: require('../assets/img/kim_10cm.png'),
+            // artistImage: require('../assets/img/kim_10cm.png'),
           });
-        } else if(this.singerId === 'mujin' && this.albumId === 'shin') {
+        } else if(this.singerId === 'mujin' && this.albumId === '10cm') {
           resolve({
-            originArtist: '원곡 아티스트: 신해철',
+            originArtist: '원곡 아티스트: 10cm',
             albumDescription: '원곡 신해철의 그대에게 이무진 버전의 앨범 설명입니다.',
             mvInterpretation: '폰서트 김광석 버전의 뮤비 해석입니다.',
-            artistImage: require('../assets/img/mujin_shin.jpeg'),
+            // artistImage: require('../assets/img/mujin_10cm.jpeg'),
+          });
+        } else if(this.singerId === 'yerin' && this.albumId === '10cm') {
+          resolve({
+            originArtist: '원곡 아티스트: 10cm',
+            albumDescription: '원곡 신해철의 그대에게 이무진 버전의 앨범 설명입니다.',
+            mvInterpretation: '폰서트 김광석 버전의 뮤비 해석입니다.',
+            // artistImage: require('../assets/img/yerin_10cm.jpeg'),
+          });
+        } else if(this.singerId === 'bibi' && this.albumId === '10cm') {
+          resolve({
+            originArtist: '원곡 아티스트: 10cm',
+            albumDescription: '원곡 신해철의 그대에게 이무진 버전의 앨범 설명입니다.',
+            mvInterpretation: '폰서트 김광석 버전의 뮤비 해석입니다.',
+            // artistImage: require('../assets/img/bibi_10cm.jpeg'),
+          });
+        } else if(this.singerId === 'kim' && this.albumId === 'choi') {
+          resolve({
+            originArtist: '원곡 아티스트: 10cm',
+            albumDescription: '원곡 신해철의 그대에게 이무진 버전의 앨범 설명입니다.',
+            mvInterpretation: '폰서트 김광석 버전의 뮤비 해석입니다.',
+            artistImage: require('../assets/img/kim_choi.jpg'),
+          });
+        } else if(this.singerId === 'mujin' && this.albumId === 'choi') {
+          resolve({
+            originArtist: '원곡 아티스트: 10cm',
+            albumDescription: '원곡 신해철의 그대에게 이무진 버전의 앨범 설명입니다.',
+            mvInterpretation: '폰서트 김광석 버전의 뮤비 해석입니다.',
+            artistImage: require('../assets/img/mujin_choi.jpg'),
+          });
+        } else if(this.singerId === 'yerin' && this.albumId === 'choi') {
+          resolve({
+            originArtist: '원곡 아티스트: 10cm',
+            albumDescription: '원곡 신해철의 그대에게 이무진 버전의 앨범 설명입니다.',
+            mvInterpretation: '폰서트 김광석 버전의 뮤비 해석입니다.',
+            artistImage: require('../assets/img/yerin_choi.jpg'),
+          });
+        } else if(this.singerId === 'bibi' && this.albumId === 'choi') {
+          resolve({
+            originArtist: '원곡 아티스트: 10cm',
+            albumDescription: '원곡 신해철의 그대에게 이무진 버전의 앨범 설명입니다.',
+            mvInterpretation: '폰서트 김광석 버전의 뮤비 해석입니다.',
+            artistImage: require('../assets/img/bibi_choi.jpg'),
           });
         } else if(this.singerId === 'mujin' && this.albumId === 'geeks') {
           resolve({
             originArtist: '원곡 아티스트: 긱스',
             albumDescription: '완벽한 사랑의 노래 속 숨겨진 충격적인 이야기, 연인을 그리워하는 내용의 Officially Missing You를 team X가 재해석했다. 새로운 서사 속 감성의 미학가, 이무진 싱어송라이터의  Officially Missing You는 어떤 모습일까?',
             mvInterpretation: 'OMY 리무진 버전의 뮤비 해석입니다.OMY 리무진 버전의 뮤비 해석입니다.OMY 리무진 버전의 뮤비 해석입니다.',
-            artistImage: require('../assets/img/mujin_shin.jpeg'),
+            // artistImage: require('../assets/img/mujin_geeks.jpeg'),
           });
         } else {
           reject(new Error('가수와 앨범 정보에 해당하는 데이터를 찾을 수 없습니다.'));
@@ -281,6 +325,8 @@ video{
   margin-bottom: 10px; 
   border-radius: 18px;
   height:auto;
+  max-height: 400px;
+  /* object-fit: contain; */
   object-fit: cover;
 }
 .behindimg-container img:nth-child(1) {

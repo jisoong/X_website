@@ -7,6 +7,7 @@
       </div>
     </transition>
     <div v-show="!showSplash" name="next">
+      <Loading />
       <router-view/>
     </div>
     <!-- <div >
@@ -16,7 +17,12 @@
 </template>
 
 <script>
+import Loading from './components/loadingPage.vue';
+
 export default {
+  components: {
+    Loading
+  },
   data() {
     return {
       showSplash: true,
