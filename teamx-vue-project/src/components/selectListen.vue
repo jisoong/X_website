@@ -61,7 +61,7 @@
         selectedSingers: [],
         albums: [
           { id: 'cocktail', cover: require('@/assets/img/cocktail.jpeg'), alt: 'cocktail album cover', song: '칵테일 사랑', singer: '마로니에' },
-          { id: 'akmu', cover: require('@/assets/img/akmu.jpg'), alt: 'akmu album cover', song: '어떻게 이별까지 사랑하겠어, 널 사랑하는 거지', singer: 'AKMU' },
+          { id: 'akmu', cover: require('@/assets/img/akmu.jpg'), alt: 'akmu album cover', song: `어떻게 이별까지 사랑하겠어, 널 사랑하는 거지`, singer: 'AKMU' },
           // { id: 'bubble', cover: require('@/assets/img/bubble.jpeg'), alt: 'Bubble album cover', song: 'Bubble Gum', singer: 'NewJeans' },
         ],
         maleSingers: {
@@ -222,6 +222,11 @@
   </script>
   
 <style scoped>
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+header, .container {
+	font-family: 'Pretendard', sans-serif;
+}
+
 header{
   position: fixed;
   width: 100%;
@@ -310,8 +315,17 @@ header{
 }
 
 .song-title{
-  font-size: 0.9em;
+  font-size: 1em;
+  /* width: 100%; */
+  text-align: center;
+  font-weight: bold;
+  margin-top:10px;
 }
+.singer{
+  font-size: 0.9em;
+  margin-top:10px;
+}
+
 .selected {
   border: 4px solid #172BFF;
 }

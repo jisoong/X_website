@@ -98,6 +98,11 @@ export default {
 </script>
 
 <style scoped>
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+.page {
+	font-family: 'Pretendard', sans-serif;
+}
+
 .page {
   display: flex;
   flex-direction: column;

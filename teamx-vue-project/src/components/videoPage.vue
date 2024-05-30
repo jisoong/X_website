@@ -59,7 +59,7 @@ export default {
       originArtist: '', // 원곡 아티스트
       albumDescription: '', // 앨범 설명
       mvInterpretation: '',
-      artistImage: '' // 가수 이미지
+      artistImage: '' // 가수 이미지#
     };
   },
   computed: {
@@ -74,7 +74,7 @@ export default {
     behindSources() {
       let images = [];
       for (let i = 1; i <= 6; i++) {
-        images.push(require(`@/assets/img/${this.albumId}/behind${i}.png`));
+        images.push(require(`@/assets/img/behind${i}.png`));
       }
       return images;
     }
@@ -179,6 +179,11 @@ export default {
 </script>
 
 <style scoped>
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+header, .container {
+	font-family: 'Pretendard', sans-serif;
+}
+
 header{
   position: fixed;
   width: 100%;

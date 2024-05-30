@@ -22,7 +22,10 @@ export default {
 </script>
 
 <style scoped>
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
 .loading-overlay {
+  font-family: 'Pretendard', sans-serif;
   position: fixed;
   top: 0;
   left: 0;

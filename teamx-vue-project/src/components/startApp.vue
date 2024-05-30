@@ -85,6 +85,11 @@
   
   
 <style scoped>
+@import url('https://webfontworld.github.io/gmarket/GmarketSans.css');
+.container {
+  font-family: 'GmarketSans', sans-serif;
+}
+
 .container{
   width:100vw;
   height:100vh;
