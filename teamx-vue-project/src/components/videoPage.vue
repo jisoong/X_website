@@ -15,19 +15,19 @@
     </div>
     <div class="video-text-container">
       <div class="album-container">
-        <img class="album-cover" :src="artistImage" :alt="singerName">
+        <img class="album-cover" :src="albumCover" :alt="singerName">
         <img class="lp" src="../assets/img/lp.png" alt="">
       </div>
-      <p class="snps"> {{ albumDescription }} </p>
+      <p class="snps"> {{ snps }} </p>
     </div>
     <div class="detail-container">
       <div>
         <div class="detail-title">뮤직비디오 해석</div>
-        <p class="detail" v-for="i in 10" :key="i">
+        <pre class="detail">
           {{ mvInterpretation }}
-        </p>
+        </pre>
       </div>
-      <img class="poster" :src="artistImage" :alt="singerName">
+      <img class="poster" :src="poster" :alt="singerName">
     </div>
     <div class="behind-container">
       <div class="behind-title">
@@ -57,9 +57,10 @@ export default {
   data() {
     return {
       originArtist: '', // 원곡 아티스트
-      albumDescription: '', // 앨범 설명
-      mvInterpretation: '',
-      artistImage: '' // 가수 이미지#
+      snps: '', // 시놉시스
+      mvInterpretation: '', //앨범해석
+      albumCover: '', // 앨범커버
+      poster: '', //포스터
     };
   },
   computed: {
@@ -88,9 +89,10 @@ export default {
       try {
         const albumInfo = await this.fetchAlbumInfo(); // 비동기로 데이터를 받아오는 함수 호출
         this.originArtist = albumInfo.originArtist;
-        this.albumDescription = albumInfo.albumDescription;
-        this.mvInterpretation = albumInfo.mvInterpretation;
-        this.artistImage = albumInfo.artistImage
+        this.snps = albumInfo.snps;
+        this.mvInterpretation = this.getMvInterpretation(this.albumId); // albumId에 따른 해석 설정
+        this.albumCover = albumInfo.albumCover
+        this.poster = albumInfo.poster
       } catch (error) {
         console.error('데이터를 가져오는 도중 오류가 발생했습니다:', error);
         // 에러 처리
@@ -103,70 +105,147 @@ export default {
         if (this.singerId === 'kim' && this.albumId === '10cm') {
           resolve({
             originArtist: '원곡 아티스트: 10cm',
-            albumDescription: '원곡 10cm의 폰서트 김광석 버전의 앨범 설명입니다.',
-            mvInterpretation: '폰서트 김광석 버전의 뮤비 해석입니다.',
-            // artistImage: require('../assets/img/kim_10cm.png'),
+            snps: '내가 좋아하는 아티스트가 어느날 나에게 영상통화를 걸었다. 연인과의 사랑을 담은 내용의 폰서트를 team X가 재해석했다. 김광석... 좋아하세요? 감성의 노래 선장, 김광석 아티스트의 숲은 어떤 모습일까?',
+            albumCover: require('@/assets/img/kim_10cm.jpg'),
+            // poster: require('@/assets/img/kim_10cm_poster.jpg')
           });
         } else if(this.singerId === 'mujin' && this.albumId === '10cm') {
           resolve({
             originArtist: '원곡 아티스트: 10cm',
-            albumDescription: '원곡 신해철의 그대에게 이무진 버전의 앨범 설명입니다.',
-            mvInterpretation: '폰서트 김광석 버전의 뮤비 해석입니다.',
-            // artistImage: require('../assets/img/mujin_10cm.jpeg'),
+            snps: '내가 좋아하는 아티스트가 어느날 나에게 영상통화를 걸었다. 연인과의 사랑을 담은 내용의 폰서트를 team X가 재해석했다.이무진... 좋아하세요? 감성의 미학가, 이무진 싱어송라이터의 숲은 어떤 모습일까?',
+            albumCover: require('../assets/img/mujin_10cm.jpg'),
+            // poster: require('@/assets/img/mujin_10cm_poster.jpg')
           });
         } else if(this.singerId === 'yerin' && this.albumId === '10cm') {
           resolve({
             originArtist: '원곡 아티스트: 10cm',
-            albumDescription: '원곡 신해철의 그대에게 이무진 버전의 앨범 설명입니다.',
-            mvInterpretation: '폰서트 김광석 버전의 뮤비 해석입니다.',
-            // artistImage: require('../assets/img/yerin_10cm.jpeg'),
+            snps: '내가 좋아하는 아티스트가 어느날 나에게 영상통화를 걸었다. 연인과의 사랑을 담은 내용의 폰서트를 team X가 재해석했다. 백예린... 좋아하세요? 감성을 빚어내는 예술가, 백예린 아티스트의 숲은 어떤 모습일까?',
+            albumCover: require('../assets/img/yerin_10cm.jpg'),
+            // poster: require('@/assets/img/yerin_10cm_poster.jpg')
           });
         } else if(this.singerId === 'bibi' && this.albumId === '10cm') {
           resolve({
             originArtist: '원곡 아티스트: 10cm',
-            albumDescription: '원곡 신해철의 그대에게 이무진 버전의 앨범 설명입니다.',
-            mvInterpretation: '폰서트 김광석 버전의 뮤비 해석입니다.',
-            // artistImage: require('../assets/img/bibi_10cm.jpeg'),
+            snps: '내가 좋아하는 아티스트가 어느날 나에게 영상통화를 걸었다. 연인과의 사랑을 담은 내용의 폰서트를 team X가 재해석했다. 비비... 좋아하세요? 올라운더 아티스트, 가수 비비의 숲은 어떤 모습일까?',
+            albumCover: require('../assets/img/bibi_10cm.jpg'),
+            // poster: require('@/assets/img/bibi_10cm_poster.jpg')
+            poster: require('@/assets/img/bibi_geeks_poster.jpg')
           });
         } else if(this.singerId === 'kim' && this.albumId === 'choi') {
           resolve({
             originArtist: '원곡 아티스트: 10cm',
-            albumDescription: '원곡 신해철의 그대에게 이무진 버전의 앨범 설명입니다.',
-            mvInterpretation: '폰서트 김광석 버전의 뮤비 해석입니다.',
-            artistImage: require('../assets/img/kim_choi.jpg'),
+            snps: `우리 마음속 '빙봉' 애착인형을 다들 기억하시나요?  team X는 최유리의 숲을 곰인형과 아이간의 애정을 담은 노래로 재해석 했다. 아련한 서사 속 감성의 노래 선장, 김광석 아티스트의 숲은 어떤 모습일까?`,
+            albumCover: require('../assets/img/kim_choi.jpg'),
+            // poster: require('@/assets/img/kim_choi_poster.jpg')
           });
         } else if(this.singerId === 'mujin' && this.albumId === 'choi') {
           resolve({
             originArtist: '원곡 아티스트: 10cm',
-            albumDescription: '원곡 신해철의 그대에게 이무진 버전의 앨범 설명입니다.',
-            mvInterpretation: '폰서트 김광석 버전의 뮤비 해석입니다.',
-            artistImage: require('../assets/img/mujin_choi.jpg'),
+            snps: `우리 마음속 '빙봉' 애착인형을 다들 기억하시나요?  team X는 최유리의 숲을 곰인형과 아이간의 애정을 담은 노래로 재해석 했다. 아련한 서사 속 감성의 미학가, 이무진 싱어송라이터의 숲은 어떤 모습일까?`,
+            albumCover: require('../assets/img/mujin_choi.jpg'),
+            // poster: require('@/assets/img/mujin_choi_poster.jpg')
           });
         } else if(this.singerId === 'yerin' && this.albumId === 'choi') {
           resolve({
             originArtist: '원곡 아티스트: 10cm',
-            albumDescription: '원곡 신해철의 그대에게 이무진 버전의 앨범 설명입니다.',
-            mvInterpretation: '폰서트 김광석 버전의 뮤비 해석입니다.',
-            artistImage: require('../assets/img/yerin_choi.jpg'),
+            snps: `우리 마음속 '빙봉' 애착인형을 다들 기억하시나요?  team X는 최유리의 숲을 곰인형과 아이간의 애정을 담은 노래로 재해석 했다. 아련한 서사 속 감성을 빚어내는 예술가, 백예린 아티스트의 숲은 어떤 모습일까?`,
+            albumCover: require('../assets/img/yerin_choi.jpg'),
+            // poster: require('@/assets/img/yerin_choi_poster.jpg')
           });
         } else if(this.singerId === 'bibi' && this.albumId === 'choi') {
           resolve({
             originArtist: '원곡 아티스트: 10cm',
-            albumDescription: '원곡 신해철의 그대에게 이무진 버전의 앨범 설명입니다.',
-            mvInterpretation: '폰서트 김광석 버전의 뮤비 해석입니다.',
-            artistImage: require('../assets/img/bibi_choi.jpg'),
+            snps: `우리 마음속 '빙봉' 애착인형을 다들 기억하시나요?  team X는 최유리의 숲을 곰인형과 아이간의 애정을 담은 노래로 재해석 했다. 아련한 서사 속 올라운더 아티스트, 가수 비비의 숲은 어떤 모습일까?`,
+            albumCover: require('../assets/img/bibi_choi.jpg'),
+            // poster: require('@/assets/img/bibi_choi_poster.jpg')
+            poster: require('@/assets/img/bibi_geeks_poster.jpg')
+
+          });
+        } else if(this.singerId === 'kim' && this.albumId === 'geeks') {
+          resolve({
+            originArtist: '원곡 아티스트: 긱스',
+            snps: '완벽한 사랑의 노래 속 숨겨진 충격적인 이야기, 연인을 그리워하는 내용의 Officially Missing You를 team X가 재해석했다. 새로운 서사 속 감성의 노래 선장, 김광석 아티스트의  Officially Missing You는 어떤 모습일까?',
+            albumCover: require('../assets/img/kim_geeks.jpg'),
+            // poster: require('@/assets/img/kim_geeks_poster.jpg')
           });
         } else if(this.singerId === 'mujin' && this.albumId === 'geeks') {
           resolve({
             originArtist: '원곡 아티스트: 긱스',
-            albumDescription: '완벽한 사랑의 노래 속 숨겨진 충격적인 이야기, 연인을 그리워하는 내용의 Officially Missing You를 team X가 재해석했다. 새로운 서사 속 감성의 미학가, 이무진 싱어송라이터의  Officially Missing You는 어떤 모습일까?',
-            mvInterpretation: 'OMY 리무진 버전의 뮤비 해석입니다.OMY 리무진 버전의 뮤비 해석입니다.OMY 리무진 버전의 뮤비 해석입니다.',
-            // artistImage: require('../assets/img/mujin_geeks.jpeg'),
+            snps: '완벽한 사랑의 노래 속 숨겨진 충격적인 이야기, 연인을 그리워하는 내용의 Officially Missing You를 team X가 재해석했다. 새로운 서사 속 감성의 미학가, 이무진 싱어송라이터의  Officially Missing You는 어떤 모습일까?',
+            albumCover: require('../assets/img/mujin_geeks.jpg'),
+            // poster: require('@/assets/img/mujin_geeks_poster.jpg')
+
+          });
+        } else if(this.singerId === 'yerin' && this.albumId === 'geeks') {
+          resolve({
+            originArtist: '원곡 아티스트: 긱스',
+            snps: '완벽한 사랑의 노래 속 숨겨진 충격적인 이야기, 연인을 그리워하는 내용의 Officially Missing You를 team X가 재해석했다. 새로운 서사 속 감성을 빚어내는 예술가, 백예린 아티스트의  Officially Missing You는 어떤 모습일까?',
+            albumCover: require('../assets/img/yerin_geeks.jpg'),
+            // poster: require('@/assets/img/yerin_geeks_poster.jpg')
+
+          });
+        } else if(this.singerId === 'bibi' && this.albumId === 'geeks') {
+          resolve({
+            originArtist: '원곡 아티스트: 긱스',
+            snps: '완벽한 사랑의 노래 속 숨겨진 충격적인 이야기, 연인을 그리워하는 내용의 Officially Missing You를 team X가 재해석했다. 새로운 서사 속  올라운더 아티스트, 가수 비비의  Officially Missing You는 어떤 모습일까?',
+            albumCover: require('../assets/img/bibi_geeks.jpg'),
+            poster: require('@/assets/img/bibi_geeks_poster.jpg')
+
           });
         } else {
           reject(new Error('가수와 앨범 정보에 해당하는 데이터를 찾을 수 없습니다.'));
         }
       });
+    },
+    getMvInterpretation(albumId) {
+      const interpretations = {
+        '10cm': `
+TeamX는 폰서트를 어떻게 하면 더 좋은 스토리로 풀어나갈 수 있을지 고민하였다. 
+좋은 스토리를 위해 원곡자인 10cm의 영상 자료를 여러 번 분석하였다. 
+본래 폰서트의 원곡은 연인에게 영상통화를 하는 내용을 담고 있다. 
+하지만 10cm의 공연 영상을 보면 마치 관객이 본인의 연인인 것처럼, 다정하게 공연하는 모습을 확인할 수 있었다. 
+TeamX는 이를 보고 최근 유행하는 영상통화 팬 사인회를 떠올렸다. 
+코로나19로 비대면 활동이 본격화되면서 등장한 새로운 팬 사인회 방식으로, 폰서트의 가사와 매우 잘 어울린다고 판단하였다.
+하지만 팬 사인회 역시 행사의 성격이 강하다는 점에서 너무나도 달달한 폰서트의 가사와 약간의 괴리감이 있다고 느꼈다. 
+'더욱 개인적인 상황, 더욱 아티스트와의 긴밀함을 강조하려면 어떻게 해야 할까?' 
+우리는 영상통화 팬 사인회가 아닌, 정말 그 아티스트가 나에게 영상통화를 건다는 상황을 상정하고 영상을 기획하였다. 
+중간중간 다양한 효과와 3D 애니메이션을 배치하여 이런 꿈같은 상황을 더욱 극대화하고, 
+영상통화라는 특성을 살리기 위해 따뜻하고 채도가 약간 높은 색감을 설정하였다.
+TeamX만의 폰서트 영상은 타 영상에 비해 큰 스토리를 담지 않았지만, 그만큼 편안한 시청이 가능하다. 
+별 해석 없이 아티스트들의 폰서트를 즐기길 바란다.`,
+
+        'choi': `
+TeamX가 해석한 최유리의 숲은 인간 대 인간의 사랑 이야기를 넘어, 우리가 아낀 사물과 그 사물 간의 사랑이었다.
+우리 팀은 그중 애착 인형에 주목하였다. 유년기 우리들은 모두 애착 인형과 함께 자라왔다. 
+같은 인형이라도 지금의 그 인형이 아니면 안 되는, 찢어질 때까지 껴안고 있던 애착 인형. 어디서 산지도 모를 그 인형. 
+인간이 갖는 사물 중 가장 ‘사랑’하는 것을 꼽으라면 애착 인형이 아닐까? 
+TeamX는 애착 인형과 인간의 사랑 중 애착 인형 쪽에서 갖는 사랑을 이야기하고자 한다. 
+인형이 처음 아이의 품에 안겨지던 순간부터 함께 놀던 순간을 놀이공원이라는 추억의 공간에서 보여준다.
+스토리를 구상하며 애착 인형과 사람과의 애정은 인형 입장에서는 마냥 달콤하지는 않을 거라고 생각했다. 
+인형이라 겪는 차원적 한계가 인간을 사랑하기 어려운 장애물로 느껴지기 때문이다. 
+그렇다고 애착 인형이 인간을 사랑하길 포기했냐고 묻는다면 그건 아닐 것이다. 
+인형과 사람의 사랑은 플라토닉 러브로 미지근하게 오래 유지될 테니까.
+그래서 뮤직비디오 내에서도 곰 인형이 본인이 곰 인형임을 인지했지만 계속해서 인간을 사랑하는 내용을 담았다. 
+이를 통해 잊고 있던 애착 인형과의 추억을 떠올리고 순수했던 그 시절을 상기하여 보는 이에게 뭉클한 감동을 주고자 한다.
+“애착 인형과 인간의 사랑은 어쩌면 우리 모두의 첫사랑이 아닐까?”하는 소소한 질문을 던지며 이만 글을 마친다.`,
+
+        'geeks': `
+TeamX가 해석한 최유리의 숲은 인간 대 인간의 사랑 이야기를 넘어, 우리가 아낀 사물과 그 사물 간의 사랑이었다.
+우리 팀은 그중 애착 인형에 주목하였다. 유년기 우리들은 모두 애착 인형과 함께 자라왔다. 
+같은 인형이라도 지금의 그 인형이 아니면 안 되는, 찢어질 때까지 껴안고 있던 애착 인형. 어디서 산지도 모를 그 인형. 
+인간이 갖는 사물 중 가장 ‘사랑’하는 것을 꼽으라면 애착 인형이 아닐까? 
+TeamX는 애착 인형과 인간의 사랑 중 애착 인형 쪽에서 갖는 사랑을 이야기하고자 한다. 
+인형이 처음 아이의 품에 안겨지던 순간부터 함께 놀던 순간을 놀이공원이라는 추억의 공간에서 보여준다.
+스토리를 구상하며 애착 인형과 사람과의 애정은 인형 입장에서는 마냥 달콤하지는 않을 거라고 생각했다. 
+인형이라 겪는 차원적 한계가 인간을 사랑하기 어려운 장애물로 느껴지기 때문이다. 
+그렇다고 애착 인형이 인간을 사랑하길 포기했냐고 묻는다면 그건 아닐 것이다. 
+인형과 사람의 사랑은 플라토닉 러브로 미지근하게 오래 유지될 테니까.
+그래서 뮤직비디오 내에서도 곰 인형이 본인이 곰 인형임을 인지했지만 계속해서 인간을 사랑하는 내용을 담았다. 
+이를 통해 잊고 있던 애착 인형과의 추억을 떠올리고 순수했던 그 시절을 상기하여 보는 이에게 뭉클한 감동을 주고자 한다.
+“애착 인형과 인간의 사랑은 어쩌면 우리 모두의 첫사랑이 아닐까?”하는 소소한 질문을 던지며 이만 글을 마친다.`,
+      };
+
+      return interpretations[albumId] || '앨범에 대한 해석 정보를 찾을 수 없습니다.';
     },
     goToSelectPage() {
       this.$router.push('/selectWatch')
@@ -200,7 +279,8 @@ header{
   height: auto;
   margin: 0;
   /* padding-top: 80px; */
-  background-color: black; /* 배경색 지정 */
+  /* background-color: black; */
+  background-color: white; 
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -235,11 +315,11 @@ video{
 .song-title{
   margin-top:50px;
   font-size: 2em;
-  color: #7782FF;
+  color: #172BFF;
   text-align: center;
 }
 .origin-artist{
-  color: #7782FF;
+  color: #172BFF;
   margin-top: 10px;
   font-size: 1em;
   text-align: center;
@@ -249,7 +329,9 @@ video{
   margin-top: 30px;
   padding: 20px;
   display: flex;
-  width:50%;
+  width:65vw;
+  min-width: 600px;
+  max-width: 1800px;
   justify-content: space-between;
   align-items: center;
 }
@@ -273,7 +355,8 @@ video{
 .snps{
   margin-left: 90px;
   margin-top: 20px;
-  color: white;
+  /* color: white; */
+  color: black;
   font-size: 1em;
   width: 70%;
   text-align: justify;
@@ -286,18 +369,21 @@ video{
   display: flex;
   padding: 20px;
   margin-top: 50px;
-  width:50%;
+  width:65vw;
+  min-width: 600px;
+  max-width: 1800px;
   justify-content: space-between;
   align-items: center;
 }
 .detail-title{
-  color:#7782FF;
+  color:#172BFF;
   font-size: 1.5em;
   margin-bottom: 20px;
 }
 .detail{
-  color:white;
-  line-height: 1.5em;
+  /* color:white; */
+  color:black;
+  line-height: 40px;
   text-align: justify;
   width: 100%;
   min-width: 250px;
@@ -314,7 +400,7 @@ video{
 .behind-container{
   display: flex;
   flex-direction: column;
-  color: #7782FF;
+  color: #172BFF;
   margin-top:100px;
   font-size:1.25em;
   width:80%;
@@ -356,7 +442,7 @@ video{
 .qr-container{
   display: flex;
   margin-top: 100px;
-  color: #7782FF;
+  color: #172BFF;
   flex-direction: column;
   align-items: center;
   font-size:1em;
@@ -376,6 +462,8 @@ video{
 .footer-logo{
   margin-top: 100px;
   width: 50px;
+  margin-bottom:-100px;
+  z-index: 1;
 }
 
 

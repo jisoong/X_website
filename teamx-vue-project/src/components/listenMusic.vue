@@ -218,7 +218,8 @@ header{
   height: calc(100% + 80px);
   background-image: var(--bg-image);
   background-size: cover;
-  filter: blur(40px); 
+  filter: blur(40px) brightness(0.3); /* blur와 brightness를 함께 사용 */
+  /* filter: blur(40px);  */
   z-index: -1;
 }
 
@@ -276,12 +277,12 @@ audio{
   max-width: 600px;
 }
 .title{
-  color: #172BFF;
+  color: #7782FF;
   font-size: 24px;
   font-weight: bolder;
 }
 .origin-artist{
-  color: #172BFF;
+  color: #7782FF;
   margin-top: 10px;
   font-size: 18px;
 }
@@ -289,7 +290,7 @@ audio{
   margin-top: 4px;
   line-height: 25px;
   font-size: 16px;
-  color: black;
+  color: white;
   white-space: pre-wrap;
   text-align: center;
 }
@@ -299,7 +300,7 @@ audio{
   flex-direction: column;
   align-items: center;
   margin-top: 50px;
-  color:#172BFF;
+  color:#7782FF;
   font-size:18px;
 }
 .qrimg-container{
