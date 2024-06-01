@@ -10,7 +10,7 @@
           <img class="album-cover" :src="albumImage" alt="">
       </div>
       <div class="audio-player">
-        <audio ref="audioPlayer" controls autoplay controlsList="nodownload" @play="onPlay" @pause="onPause">
+        <audio ref="audioPlayer" controls controlsList="nodownload" @play="onPlay" @pause="onPause">
           <source v-if="musicSource" :src="musicSource" type="audio/mpeg">
         </audio>
       </div>
@@ -280,6 +280,8 @@ audio{
   color: #7782FF;
   font-size: 24px;
   font-weight: bolder;
+  width:100vw;
+  text-align: center;
 }
 .origin-artist{
   color: #7782FF;
@@ -312,6 +314,7 @@ audio{
   width: 150px;
   height: auto;
   margin: 0 10px;
+  border-radius: 10%;
 }
 
 .footer-logo{
@@ -421,9 +424,11 @@ audio{
   .qr-container {
     margin-top: 20px;
     font-size: 14px;
+
   }
   .insta-qr, .ytube-qr {
     width: 80px;
+
   }
 
   .footer-logo {
