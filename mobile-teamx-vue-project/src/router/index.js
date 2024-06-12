@@ -15,7 +15,8 @@ const routes = [
     {
         path: '/selectListen',
         name: 'selectListen',
-        component:()=>import('../components/selectListen.vue')
+        component:()=>import('../components/selectListen.vue'),
+        props: true
     },
     {
         path: '/selectSinger/:albumId/:albumName',

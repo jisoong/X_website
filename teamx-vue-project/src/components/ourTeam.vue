@@ -14,15 +14,11 @@
 
             </pre>
             <div>
-              저희는 딥페이크 및 ai 기술을 활용한 개인화된 뮤직비디오를 제공합니다. 
-              현대의 음악 산업과 엔터테인먼트 분야는 기술의 발전과 함께 급속도로 변화하고 있습니다. 
-              특히, AI 기술의 진보는 음악 제작과 감상 방식에 혁신을 가져왔습니다.
-              AI를 활용한 음성 변환 기술과 딥페이크 기술은 이제 사용자가 원하는 어떤 가수든지 그들의 목소리와 모습으로 곡을 커버할 수 있는 가능성을 열었습니다. 
-              이러한 기술적 진보에도 불구하고, 대부분의 음악 감상 서비스는 여전히 단순한 오디오 스트리밍에 집중하고 있으며, 청각적 경험 외에 시각적 경험을 통합하는 데에는 한계가 있습니다.
-              저희는 이 점에 주목하여 딥페이크 및 ai 기술을 활용한 뮤직비디오를 제작하였습니다. 
-              이에 Personality, Visible, Originality를 세 가지 주요 키워드로 제시합니다. 
-              사용자는 자신이 원하는 아티스트의 목소리로 원하는 음악을 들을 수 있도록 직접 선택하여 개인화된 뮤직비디오를 감상할 수 있습니다. 
-              사용자가 선택한 가수가 실제로 내 눈앞에서 노래를 부르는듯한 시각적인 경험을 할 수 있게 합니다. 
+              Team X의 X는 "나의 아티스트가 원하는 곡을 불러준다면"이라는 상상에서 출발한 프로젝트다. 
+              웹에서 아티스트와 곡을 선택하고, 직접 제작한 영상 콘텐츠를 즐기는 형태로 진행된다. 
+              X는 시각적인 요소가 배제된 기존의 AI커버를 입체적으로 재창작하는 것에서 의의를 가진다.
+              곡을 재해석한 스토리, 촬영본에 딥페이크 활용하여 만든 뮤직비디오, AI학습과 사운드 디자인을 통해 만든 음원, 영상미를 높여줄 3D프로덕션, 
+              그리고 이 콘텐츠와 유저를 연결해주는 웹. X는 각 분야의 다양한 기술이 결합된 예술공학적인 프로젝트라고 할 수 있다.
             </div>
             <pre>
 
@@ -38,7 +34,9 @@
                 <p class="R role">{{ member.role1 }}</p>
                 <p class="role" v-if="member.role2 !== 'none'">{{ member.role2 }}</p>
                 <p class="F role" v-else> none </p>
-                <p class="insta">{{ member.insta }}</p>
+                <p class="insta">
+                <!-- <i class="fa-brands fa-instagram"></i> -->
+                @{{ member.insta }}</p>
             </div>
         </div>
         <div class="slider">
@@ -49,8 +47,14 @@
         </div>
         </div>
         <div class="qr-container"> 
-          <img class="qr" src="../assets/img/teamxinsta_qr.png" alt="">
-          <img class="qr" src="../assets/img/teamxytube_qr.png" alt="">
+          <div class="insta-qr-container">
+          <img src="../assets/img/teamxinsta_qr.png" class="insta-qr qr"> 
+          <p>insta</p>
+        </div>
+        <div class="ytube-qr-container">
+          <img src="../assets/img/teamxytube_qr.png" class="ytube-qr qr">
+          <p>youtube</p>
+        </div>
         </div>
         <img class="footer-logo" src="../assets/img/BI.png" alt="">
     </div>
@@ -69,7 +73,7 @@ export default {
           name: 'Jin Yoo',
           role1: 'AI 엔지니어',
           role2: '팀장',
-          insta: '@beluga.jin',
+          insta: 'beluga.jin',
           image: require('@/assets/img/jin.jpeg')
         },
         {
@@ -77,7 +81,7 @@ export default {
           name: 'Mingu Kang',
           role1: '3D 디자이너',
           role2: 'none',
-          insta: '@mg_0718_',
+          insta: 'mg_0718_',
           image: require('@/assets/img/mingu.jpeg')
         },
         {
@@ -85,7 +89,7 @@ export default {
           name: 'Jisu Kang',
           role1: '웹 엔지니어',
           role2: 'none',
-          insta: '@ganz1._.su',
+          insta: 'ganz1._.su',
           image: require('@/assets/img/jisu.jpg')
         },
         {
@@ -93,7 +97,7 @@ export default {
           name: 'Jio Baek',
           role1: '2D 디자이너',
           role2: 'PM',
-          insta: '@_jiographic_',
+          insta: '_jiographic_',
           image: require('@/assets/img/jio.jpeg')
         },
         {
@@ -101,7 +105,7 @@ export default {
           name: 'Subeom Seo',
           role1: '음향 디자이너',
           role2: 'none',
-          insta: '@tjtn1507',
+          insta: 'tjtn1507',
           image: require('@/assets/img/subeom.jpeg')
         }
       ],
@@ -168,8 +172,8 @@ header, .container {
     width: 100%;
     max-width: 1000px;
     overflow: hidden;
-    line-height: 30px;
-    font-size: 14px;
+    line-height: 32px;
+    font-size: 18px;
     text-align: justify;
 }
 
@@ -246,12 +250,23 @@ header, .container {
   justify-content: center;
 }
 .qr{
-  margin-right:15px;
   width: 100%;
   max-width: 300px;
   height: auto;
 }
-
+.insta-qr-container, .ytube-qr-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 15px;
+  width:150px;
+  margin: 0 30px;
+}
+/* .insta-qr, .ytube-qr {
+  width: 8vw;
+  height: auto;
+  margin: 0 20px;
+} */
 .footer-logo{
   margin-top: 60px;
   padding-top: 80px;

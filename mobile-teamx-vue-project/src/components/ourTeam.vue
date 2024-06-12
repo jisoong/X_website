@@ -76,7 +76,7 @@ export default {
           role1: 'AI 엔지니어',
           role2: 'none',
           insta: '@beluga.jin',
-          image: require('@/assets/img/jin.png')
+          image: require('@/assets/img/jin.jpeg')
         },
         {
           koreanName: '강민구',
@@ -84,7 +84,7 @@ export default {
           role1: '3D 디자이너',
           role2: 'none',
           insta: '@mg_0718_',
-          image: require('@/assets/img/mingu.png')
+          image: require('@/assets/img/mingu.jpeg')
         },
         {
           koreanName: '강지수',
@@ -92,7 +92,7 @@ export default {
           role1: '웹 엔지니어',
           role2: 'none',
           insta: '@ganz1._.su',
-          image: require('@/assets/img/jisu.png')
+          image: require('@/assets/img/jisu.jpg')
         },
         {
           koreanName: '백지오',
@@ -100,7 +100,7 @@ export default {
           role1: '2D 디자이너',
           role2: 'PM',
           insta: '@_jiographic_',
-          image: require('@/assets/img/jio.png')
+          image: require('@/assets/img/jio.jpeg')
         },
         {
           koreanName: '서수범',
@@ -108,7 +108,7 @@ export default {
           role1: '음향 디자이너',
           role2: 'none',
           insta: '@tjtn1507',
-          image: require('@/assets/img/subeom.png')
+          image: require('@/assets/img/subeom.jpeg')
         }
       ],
       images: [

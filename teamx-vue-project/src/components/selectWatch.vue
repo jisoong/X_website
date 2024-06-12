@@ -10,7 +10,7 @@
         <div class="box big-box" :class="{ 'disabled': !isSectionClicked }"></div>
         <div class="scrollable" :class="{ 'disabled': isSectionClicked }">
           <div class="album" v-for="album in albums" :key="album.id">
-            <img class="coverimg" :src="album.cover" @click="selectAlbum(album);" :class="{ selected: album === selectedAlbum}">
+            <img class="coverimg" :src="album.cover" @click="selectAlbum(album, $event)" :class="{ selected: album === selectedAlbum}">
             <p class="song-title">{{ album.song }}</p>
           </div>
         </div>
@@ -18,7 +18,7 @@
       <div class="artist_container" @click="artistClick">
         <div class="box big-box" :class="{ 'disabled': !isSectionClicked }"></div>
         <div class="scrollable" :class="{ 'disabled': !isSectionClicked }">
-          <div class="artist" v-for="singer in singers" :key="singer.id">
+          <div class="artist" v-for="singer in filteredSingers" :key="singer.id">
             <img class="singerimg" :src="singer.image" @click="selectSinger(singer)" :class="{ selected: singer === selectedSinger }">
             <p class="artist-name">{{ singer.name }}</p>
           </div>
@@ -37,17 +37,17 @@ export default {
       selectedAlbum: null,
       isSectionClicked: false, 
       albums: [
+        // { id: 'bluesky', cover: require('@/assets/img/bluesky.jpeg'), alt: 'Bluesky album cover', song: 'Mr. Blue Sky' },
         { id: '10cm', cover: require('@/assets/img/10cm.jpeg'), alt: '10cm album cover', song: '폰서트' },
-        // { id: 'plastic', cover: require('@/assets/img/plastic.jpeg'), alt: 'Shin album cover', song: 'plastic love' },
+        { id: 'plastic', cover: require('@/assets/img/plastic.jpeg'), alt: 'Plastic album cover', song: 'plastic love' },
         { id: 'choi', cover: require('@/assets/img/choi.jpeg'), alt: 'Choi album cover', song: '숲' },
         { id: 'geeks', cover: require('@/assets/img/geeks.jpeg'), alt: 'Geeks album cover', song: 'officially missing you' },
-        // { id: 'bluesky', cover: require('@/assets/img/bluesky.jpeg'), alt: 'Bluesky album cover', song: 'Mr. Blue Sky' },
       ],
       singers: [
-      { id: 'kim', image: require('@/assets/img/kim.jpeg'), alt: 'Kim singer', name: '김광석' },
-      { id: 'mujin', image: require('@/assets/img/mujin.jpeg'), alt: 'Mujin singer', name: '이무진' },
-      { id: 'yerin', image: require('@/assets/img/yerin.jpeg'), alt: 'Yerin singer', name: '백예린'},
-      { id: 'bibi', image: require('@/assets/img/bibi.jpeg'), alt: 'IU singer', name: '비비'}
+      { id: 'kim', image: require('@/assets/img/kim.jpeg'), alt: 'Kim singer', name: '김광석', albums: ['10cm', 'choi', 'geeks','plastic'] },
+      { id: 'mujin', image: require('@/assets/img/mujin.jpeg'), alt: 'Mujin singer', name: '이무진', albums: ['10cm', 'choi', 'geeks'] },
+      { id: 'yerin', image: require('@/assets/img/yerin.jpeg'), alt: 'Yerin singer', name: '백예린', albums: ['10cm', 'choi', 'geeks']},
+      { id: 'bibi', image: require('@/assets/img/bibi.jpeg'), alt: 'IU singer', name: '비비', albums: ['10cm', 'choi', 'geeks']}
       ]
     };
   },
@@ -56,8 +56,14 @@ export default {
       return this.selectedSinger === null || this.selectedAlbum === null;
     },
     selectText() {
-        return this.isSectionClicked ? '원하는 아티스트를 골라주세요' : '원하는 음악을 골라주세요';
+      return this.isSectionClicked ? '원하는 아티스트를 골라주세요' : '원하는 음악을 골라주세요';
+    },
+    filteredSingers() {
+      if (!this.selectedAlbum) {
+        return this.singers;
       }
+      return this.singers.filter(singer => singer.albums.includes(this.selectedAlbum.id));
+    }
   },
   methods: {
     selectSinger(singer) {
@@ -67,7 +73,11 @@ export default {
         this.selectedSinger = singer;
       }
     },
-    selectAlbum(album) {
+
+    selectAlbum(album, event) {
+      if (event) {
+        event.stopPropagation();
+      }
       if (this.selectedAlbum === album) {
         this.selectedAlbum = null;
         this.isSectionClicked = false;
@@ -77,12 +87,8 @@ export default {
       }
     },
     albumClick() {
-      // 가수 선택하기전까지 앨범으로 못넘어감
-      if (this.selectedSinger !== null) {
-        this.isSectionClicked = false;
-      }
-
-      // this.isSectionClicked = false;
+      this.isSectionClicked = false;
+      console.log("digh")
     },
     artistClick() {
       this.isSectionClicked = true;
@@ -155,6 +161,8 @@ header {
   max-height: 400px;
   overflow: auto;
   padding: 10px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .album img {

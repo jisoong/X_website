@@ -2,15 +2,17 @@
   <header>
     <img class="logo" src="../assets/img/logo.png" @click="goToMainPage" alt="">
   </header>
-
-  <div class="container" :style="{ '--bg-image': 'url(' + albumImage + ')' }">
+  <div v-if="loading" class="loading-spinner">
+      <!-- 로딩 스피너 또는 로딩 화면 -->
+  </div>
+  <div v-else class="container" :style="{ '--bg-image': 'url(' + albumImage + ')' }">
       <img class="box" src="../assets/img/Ellipse.png" alt="">
       <div class="album-container">
           <img :class="['lp', { spinning: isPlaying }]" src="../assets/img/lp.png" alt="">
           <img class="album-cover" :src="albumImage" alt="">
       </div>
       <div class="audio-player">
-        <audio ref="audioPlayer" controls controlsList="nodownload" @play="onPlay" @pause="onPause">
+        <audio ref="audioPlayer" controls autoplay controlsList="nodownload" @play="onPlay" @pause="onPause">
           <source v-if="musicSource" :src="musicSource" type="audio/mpeg">
         </audio>
       </div>
@@ -26,8 +28,14 @@
           teamX가 궁금하다면
         </div>
         <div class="qrimg-container">
-          <img src="../assets/img/teamxinsta_qr.png" class="insta-qr">
-          <img src="../assets/img/teamxytube_qr.png" class="ytube-qr">
+          <div class="insta-qr-container">
+            <img src="../assets/img/teamxinsta_qr_white.png" class="insta-qr"> 
+            <p>insta</p>
+          </div>
+          <div class="ytube-qr-container">
+            <img src="../assets/img/teamxytube_qr_white.png" class="ytube-qr">
+            <p>youtube</p>
+          </div>
         </div>
       </div>
       <img class="footer-logo" src="../assets/img/BI.png" alt="" @click="goToMainPage">
@@ -36,6 +44,9 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+import { nextTick } from 'vue';
+
 export default {
 props: ['singerIds', 'singerNames', 'albumId', 'albumName'],
 data() {
@@ -47,6 +58,9 @@ data() {
   };
 },
 computed: {
+  ...mapState({
+      loading: state => state.loading
+  }),
   musicSource() {
     const singerIdArray = this.singerIds.split(',');
 
@@ -58,6 +72,17 @@ computed: {
     }
   }
 },
+watch: {
+    loading(newVal) {
+      if (!newVal) {
+        nextTick(() => {
+          if (this.$refs.video) {
+            this.$refs.video.play();
+          }
+        });
+      }
+    },
+  },
 created() {
   // 컴포넌트가 생성될 때, 가수와 앨범 정보를 기반으로 데이터를 가져옴
   this.getAlbumInfo();
@@ -109,14 +134,6 @@ methods: {
 마음 울적한 날엔 거리를 걸어보고
 향기로운 칵테일에 취해도보고
 한편의 시가 있는 전시회장도 가고
-밤새도록 그리움에 편질 쓰고파
-창밖에는 우울한 비가 내리고 있어
-내 마음도 그 비따라 우울해지네
-누가 내게 눈부신 사랑을 가져줄까
-이세상은 나로 인해 아름다운데
-마음 울적한 날엔 거리를 걸어보고
-향기로운 칵테일에 취해도보고
-한편의 시가 있는 전시회장도 가고
 밤새도록 그리움에 편질 쓰고파`,
           albumImage: require('../assets/img/cocktail.jpeg'),
         });
@@ -147,13 +164,7 @@ methods: {
 어떻게 이별까지 사랑하겠어
 널 사랑하는 거지
 사랑이라는 이유로 서로를 포기하고
-찢어질 것같이 아파할 수 없어 난
-어떻게 내가 어떻게 너를
-이후에 우리 바다처럼 깊은 사랑이
-다 마를 때까지 기다리는 게 이별일 텐데
-어떻게 내가 어떻게 너를
-이후에 우리 바다처럼 깊은 사랑이
-다 마를 때까지 기다리는 게 이별일 텐데`,
+찢어질 것같이 아파할 수 없어 난`,
           albumImage: require('../assets/img/akmu.jpg'),
         });
       } else {
@@ -199,7 +210,6 @@ header{
 }
 
 .container {
-  
   position: relative;
   display: flex;
   flex-direction: column;
@@ -303,18 +313,26 @@ audio{
   align-items: center;
   margin-top: 50px;
   color:#7782FF;
-  font-size:18px;
+  font-size:1em;
 }
 .qrimg-container{
-  margin-top:20px;
+  margin-top:30px;
   display: flex;
   justify-content: center;
+  color: white;
 }
+
+.insta-qr-container, .ytube-qr-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 14px;
+}
+
 .insta-qr, .ytube-qr {
-  width: 150px;
+  width: 8vw;
   height: auto;
-  margin: 0 10px;
-  border-radius: 10%;
+  margin: 0 20px;
 }
 
 .footer-logo{

@@ -4,13 +4,32 @@
   </header>
   <img class="box" src="@/assets/img/top-ellipse.png" alt="">
   <div class="container">
-      <div class="title">원하는 아티스트를 골라주세요</div>
-      <div class="img-container">
-          <div class="artist" v-for="singer in singers" :key="singer.id" @click="selectSinger(singer)" :class="{ selected: isSelectedSinger(singer) }">
-              <img class="singerimg" :src="singer.image">
+      <div class="title">원하는 아티스트를 각각 한명 골라주세요</div>
+      <div class="singer-list">
+        <div class="man-list">
+          <div class="select-text">{{ selectText_man }}</div>
+          <hr>
+          <img class="blureffect" src="@/assets/img/blureffect.png" alt="">
+          <div class="singer-container">
+            <div class="artist" v-for="singer in filteredMaleSingers" :key="singer.id">
+              <img class="singerimg" :src="singer.image" :alt="singer.alt" @click="selectMaleSinger(singer);" :class="{ selected: singer === selectedMalesinger}">
               <p class="artist-name">{{ singer.name }}</p>
+            </div>
           </div>
-      </div>
+        </div>
+        <div class="woman-list">
+          <div class="select-text">{{ selectText_woman }}</div>
+          <hr>
+          <img class="blureffect" src="@/assets/img/blureffect.png" alt="">
+          <div class="singer-container">
+            <div class="artist" v-for="singer in filteredFemaleSingers" :key="singer.id">
+              <img class="singerimg" :src="singer.image" :alt="singer.alt" @click="selectFemaleSinger(singer);" :class="{ selected: singer === selectedFemalesinger}">
+              <p class="artist-name">{{ singer.name }}</p>
+            </div>
+          </div>
+        </div>
+      </div> 
+
       <div class="btt-container">
         <img class="back" src="@/assets/img/back.png" alt="" @click="goToPrevPage">
         <img class="next" src="@/assets/img/next.png" alt="" @click="goToNextPage" :class="{ 'btt_abled': isButtonDisabled }">
@@ -21,36 +40,139 @@
 
 <script>
 export default {
+  props: {
+    albumId: {
+      type: String,
+      required: true
+    },
+    albumName: {
+      type: String,
+      required: true
+    }
+  },
   data() {
     return {
+        selectedMalesinger: null,
+        selectedFemalesinger: null,
         selectedSingers: [],
-        singers: [
-            { id: 'kim', image: require('../assets/img/kim.jpeg'), alt: 'Kim singer', name: '김광석' },
-            { id: 'mujin', image: require('../assets/img/mujin.jpeg'), alt: 'Mujin singer', name: '이무진' },
-            { id: 'yerin', image: require('../assets/img/yerin.jpeg'), alt: 'Yerin singer', name: '백예린'},
-            { id: 4, image: require('../assets/img/bibi.jpeg'), alt: 'Bibi singer', name: '비비'}
-            ]
-        };
+        maleSingers: {
+          cocktail: [
+            { id: 'jannabi', image: require('@/assets/img/jannabi.jpeg'), alt: 'Jannabi singer', name: '최정훈' },
+            { id: 'mujin', image: require('@/assets/img/mujin.jpeg'), alt: 'Mujin singer', name: '이무진' },
+            { id: 'dean', image: require('@/assets/img/dean.jpeg'), alt: 'Dean singer', name: '딘' }
+          ],
+          akmu: [
+            { id: 'kim', image: require('@/assets/img/kim.jpeg'), alt: 'Kim singer', name: '김광석' },
+            { id: 'park', image: require('@/assets/img/park.jpeg'), alt: 'Park singer', name: '박효신' },
+            { id: 'naul', image: require('@/assets/img/naul.jpeg'), alt: 'Naul singer', name: '나얼' }
+          ],
+          bubble: [
+            { id: 'bibi', image: require('@/assets/img/bibi.jpeg'), alt: 'Bibi singer', name: '비비' },
+            { id: 'ariana', image: require('@/assets/img/ariana.jpeg'), alt: 'Ariana singer', name: '아리아나 그란데' },
+            { id: 'jennie', image: require('@/assets/img/jennie.jpeg'), alt: 'Jennie singer', name: '제니' },
+            { id: 'dean', image: require('@/assets/img/dean.jpeg'), alt: 'Dean singer', name: '딘' },
+            { id: 'bruno', image: require('@/assets/img/bruno.jpeg'), alt: 'Bruno singer', name: '브루노마스' }
+          ]
+        },
+        femaleSingers: {
+          cocktail: [
+            { id: 'yerin', image: require('@/assets/img/yerin.jpeg'), alt: 'Yerin singer', name: '백예린' },
+            { id: 'IU', image: require('@/assets/img/IU.jpeg'), alt: 'IU singer', name: 'IU' },
+            { id: 'suhyun', image: require('@/assets/img/suhyun.jpeg'), alt: 'suhyun singer', name: '이수현' }
+          ],
+          akmu: [
+            { id: 'yerin', image: require('@/assets/img/yerin.jpeg'), alt: 'Yerin singer', name: '백예린' },
+            { id: 'taeyeon', image: require('@/assets/img/taeyeon.jpeg'), alt: 'Taeyeon singer', name: '태연' },
+            { id: 'billie', image: require('@/assets/img/billie.jpeg'), alt: 'billie singer', name: '빌리아일리시' }
+          ],
+          bubble: [
+            { id: 'bibi', image: require('@/assets/img/bibi.jpeg'), alt: 'Bibi singer', name: '비비' },
+            { id: 'ariana', image: require('@/assets/img/ariana.jpeg'), alt: 'Ariana singer', name: '아리아나 그란데' },
+            { id: 'jennie', image: require('@/assets/img/jennie.jpeg'), alt: 'Jennie singer', name: '제니' },
+            { id: 'dean', image: require('@/assets/img/dean.jpeg'), alt: 'Dean singer', name: '딘' },
+            { id: 'bruno', image: require('@/assets/img/bruno.jpeg'), alt: 'Bruno singer', name: '브루노마스' }
+          ]
+        }
+      };
   },
   computed: {
     isButtonDisabled() {
         return this.selectedSingers.length == 2
+    },
+    selectText_man() {
+      switch (this.albumId) {
+        case 'cocktail':
+        case 'akmu':
+          return 'MAN';
+        case 'bubble':
+          return 'Part 01';
+        default:
+          return 'Part 01';
+      }
+    },
+    selectText_woman() {
+      switch (this.albumId) {
+        case 'cocktail':
+        case 'akmu':
+          return 'WOMAN';
+        case 'bubble':
+          return 'Part 02';
+        default:
+          return 'Part 02';
+      }
+    },
+    isAlbumSelected() {
+      return this.selectedAlbum !== null;
+    },
+    filteredMaleSingers() {
+      return this.albumId ? this.maleSingers[this.albumId] : [];
+    },
+    filteredFemaleSingers() {
+      return this.albumId ? this.femaleSingers[this.albumId] : [];
     }
   },
   methods: {
-    selectSinger(singer) {
-        // 이미 선택된 가수인지 확인
-        const index = this.selectedSingers.findIndex(item => item.id === singer.id);
-        if (index === -1) {
-          // 선택된 가수 배열에 추가
-          this.selectedSingers.push(singer);
-        } else {
-          // 이미 선택된 가수이면 선택 해제
-          this.selectedSingers.splice(index, 1);
-        }
+    selectMaleSinger(singer) {
+      if (this.isSelectedSinger(singer)) {
+        return;
+      }
+      if (this.selectedMalesinger === singer) {
+        this.selectedMalesinger = null;
+        this.removeSelectedSinger(singer);
+      } else {
+        this.selectedMalesinger = singer;
+        this.updateSelectedSingers();
+      }
+    },
+    selectFemaleSinger(singer) {
+      if (this.isSelectedSinger(singer)) {
+        return;
+      }
+      if (this.selectedFemalesinger === singer) {
+        this.selectedFemalesinger = null;
+        this.removeSelectedSinger(singer);
+      } else {
+        this.selectedFemalesinger = singer;
+        this.updateSelectedSingers();
+      }
+    },
+    updateSelectedSingers() {
+      this.selectedSingers = [];
+      if (this.selectedMalesinger) {
+        this.selectedSingers.push(this.selectedMalesinger);
+      }
+      if (this.selectedFemalesinger) {
+        this.selectedSingers.push(this.selectedFemalesinger);
+      }
+    },
+    removeSelectedSinger(singer) {
+      const index = this.selectedSingers.findIndex(item => item.id === singer.id);
+      if (index !== -1) {
+        this.selectedSingers.splice(index, 1);
+      }
     },
     isSelectedSinger(singer) {
-        return this.selectedSingers.some(selectedSinger => selectedSinger.id === singer.id);
+      return this.selectedSingers.some(selectedSinger => selectedSinger.id === singer.id);
     },
     goToPrevPage() {
       this.$router.push({ name: 'selectListen'});
@@ -82,8 +204,6 @@ export default {
 * {
 	font-family: 'Pretendard', sans-serif;
 }
-
-
 header{
   position: fixed;
 }
@@ -111,42 +231,72 @@ header{
 }
 .title{
     color:#172BFF;
-    font-size: 1.4em;
+    font-size: 1.1em;
 }
-.img-container{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 10px;
-    justify-items: center;
-    /* width: 100%; */
-    padding: 10px;
-    box-sizing: border-box;
+
+.man-list,
+.woman-list {
+  white-space: nowrap;
+  /* min-width:100%; */
+}
+
+ .singer-list{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+ }
+.select-text{
+  color:#172BFF;
+}
+.selected {
+  border: 4px solid #172BFF;
+}
+
+.singer-container{
+  width: 80vw;
+  display: flex;
+  justify-content: space-evenly;
+  height: auto;
+  overflow-y: hidden;
+  overflow-x: scroll;
 }
 .artist{
-    padding: 8px;
-    border: 1px solid #172BFF;
-    border-radius: 10px;
-    width:110px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 5px;
 }
 .singerimg{
-    width:100%;
-    height:18vh;
-    border-radius: 5px;
-    object-fit: cover;
+  width: 18vw;
+  height: 18vw;
+  max-width: 250px;
+  max-height: 250px;
+  padding: 5px;
+  border-radius: 50%;
+  object-fit: cover;
 }
+
 .artist-name{
-    margin-top: 5px;
-    font-size: 0.9em;
-    font-weight: bold;
+  font-size: 0.9em;
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
-.selected{
-    background-color: blue;
-    color:white;
+
+hr{
+  margin: 0;
+  padding: 0;
 }
+
+.blureffect{
+  width:100%;
+  height:30px;
+}
+
+.woman-list{
+  margin-top:50px;
+}
+
+
 .btt-container{
   display: flex;
   width:100vw;

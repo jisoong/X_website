@@ -71,7 +71,7 @@
               </div>
           </div>
           <div class="team" @click="onClickMoveOurPage">
-              <p>About us</p>
+              <p>Our Team</p>
               <i class="fa-solid fa-chevron-down"></i>
           </div>
     </div>
@@ -86,10 +86,13 @@
   
 <style scoped>
 @import url('https://webfontworld.github.io/gmarket/GmarketSans.css');
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
 .container {
   font-family: 'GmarketSans', sans-serif;
 }
-
+.intro_text{
+	font-family: 'Pretendard', sans-serif;
+}
 .container{
   width:100vw;
   height:100vh;

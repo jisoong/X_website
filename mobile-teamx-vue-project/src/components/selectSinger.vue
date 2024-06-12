@@ -29,7 +29,7 @@ export default {
         { id: 'kim', image: require('../assets/img/kim.jpeg'), alt: 'Kim singer', name: '김광석' },
         { id: 'mujin', image: require('../assets/img/mujin.jpeg'), alt: 'Mujin singer', name: '이무진' },
         { id: 'yerin', image: require('../assets/img/yerin.jpeg'), alt: 'Yerin singer', name: '백예린'},
-        { id: 4, image: require('../assets/img/bibi.jpeg'), alt: 'IU singer', name: '비비'}
+        { id: 'bibi', image: require('../assets/img/bibi.jpeg'), alt: 'IU singer', name: '비비'}
         ]
     };
   },

@@ -71,15 +71,12 @@ const router = createRouter({
   });
   
   router.afterEach((to, from) => {
-    if (from.name === 'selectWatch' && to.name === 'videoPage') {
+    if ((from.name === 'selectWatch' && to.name === 'videoPage') || 
+        (from.name === 'selectListen' && to.name === 'listenMusic')) {
+      store.dispatch('setLoading', true); // 로딩 시작
       setTimeout(() => {
-        store.dispatch('setLoading', false);
-      }, 1000); // 예: 2초 후 로딩 상태를 false로 설정
-    }
-    else if(from.name === 'selectListen' && to.name === 'listenMusic') {
-        setTimeout(() => {
-            store.dispatch('setLoading', false);
-        }, 1000); // 예: 2초 후 로딩 상태를 false로 설정
+        store.dispatch('setLoading', false); // 예: 1초 후 로딩 상태를 false로 설정
+      }, 2000); // 1초 지연
     }
   });
   

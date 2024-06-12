@@ -2,8 +2,11 @@
   <header>
     <img class="logo" src="../assets/img/logo.png" @click="goToMainPage" alt="">
   </header>
-  <div class="container">
-    <img class="box" src="../assets/img/Ellipse_top.png" alt="">
+  <div v-if="loading" class="loading-spinner">
+      <!-- 로딩 스피너 또는 로딩 화면 -->
+  </div>
+  <div v-else class="container">
+    <!-- <<img class="box" src="../assets/img/Ellipse_top.png" alt=""> -->
     <div class="video-container">
       <video v-if="videoSource" :src="videoSource" controls autoplay controlsList="nodownload"></video>
       <!-- <video v-if="videoSource" :src="videoSource" controls></video> -->
@@ -34,7 +37,7 @@
         제작 과정 / 비하인드 컷
       </div>
       <div class="behindimg-container">
-        <img v-for="(img, index) in behindSources" :key="index" :src="img" :alt="singerName">
+        <img v-for="(img, index) in behindSources" :key="index" :src="img" :alt="singerName"  @click="openModal(img)">
       </div>
     </div>
     <div class="qr-container">
@@ -42,16 +45,30 @@
         teamX가 궁금하다면
       </div>
       <div class="qrimg-container">
-        <img src="../assets/img/teamxinsta_qr.png" class="insta-qr">
-        <img src="../assets/img/teamxytube_qr.png" class="ytube-qr">
+        <div class="insta-qr-container">
+          <img src="../assets/img/teamxinsta_qr.png" class="insta-qr"> 
+          <p>insta</p>
+        </div>
+        <div class="ytube-qr-container">
+          <img src="../assets/img/teamxytube_qr.png" class="ytube-qr">
+          <p>youtube</p>
+        </div>
       </div>
     </div>
     <img class="footer-logo" src="../assets/img/BI.png" @click="goToMainPage" alt="">
     <img class="end-ellipse" src="../assets/img/Ellipse_bottom.png" alt="">
   </div>
+
+  <div v-if="showModal" class="modal" @click="closeModal">
+    <img :src="currentImage" class="modal-content" @click.stop>
+  </div>
+
 </template>
 
 <script>
+import { mapState } from 'vuex';
+import { nextTick } from 'vue';
+
 export default {
   props: ['singerId', 'singerName','albumId', 'albumName'],
   data() {
@@ -61,9 +78,14 @@ export default {
       mvInterpretation: '', //앨범해석
       albumCover: '', // 앨범커버
       poster: '', //포스터
+      showModal: false,
+      currentImage: '',
     };
   },
   computed: {
+    ...mapState({
+      loading: state => state.loading
+    }),
     videoSource() {
       if (this.singerId !== undefined && this.albumId !== undefined) {
         return require(`../assets/video/${this.singerId}_${this.albumId}.mp4`);
@@ -79,6 +101,17 @@ export default {
       }
       return images;
     }
+  },
+  watch: {
+    loading(newVal) {
+      if (!newVal) {
+        nextTick(() => {
+          if (this.$refs.video) {
+            this.$refs.video.play();
+          }
+        });
+      }
+    },
   },
   created() {
     // 컴포넌트가 생성될 때, 가수와 앨범 정보를 기반으로 데이터를 가져옴
@@ -128,37 +161,35 @@ export default {
             originArtist: '원곡 아티스트: 10cm',
             snps: '내가 좋아하는 아티스트가 어느날 나에게 영상통화를 걸었다. 연인과의 사랑을 담은 내용의 폰서트를 team X가 재해석했다. 비비... 좋아하세요? 올라운더 아티스트, 가수 비비의 숲은 어떤 모습일까?',
             albumCover: require('../assets/img/bibi_10cm.jpg'),
-            poster: require('@/assets/img/bibi_10cm_poster.jpg')
+            poster: require('@/assets/img/bibi_10cm_poster.jpeg')
           });
         } else if(this.singerId === 'kim' && this.albumId === 'choi') {
           resolve({
             originArtist: '원곡 아티스트: 10cm',
             snps: `우리 마음속 '빙봉' 애착인형을 다들 기억하시나요?  team X는 최유리의 숲을 곰인형과 아이간의 애정을 담은 노래로 재해석 했다. 아련한 서사 속 감성의 노래 선장, 김광석 아티스트의 숲은 어떤 모습일까?`,
             albumCover: require('../assets/img/kim_choi.jpg'),
-            // poster: require('@/assets/img/kim_choi_poster.jpg')
+            poster: require('@/assets/img/kim_choi_poster.jpg')
           });
         } else if(this.singerId === 'mujin' && this.albumId === 'choi') {
           resolve({
             originArtist: '원곡 아티스트: 10cm',
             snps: `우리 마음속 '빙봉' 애착인형을 다들 기억하시나요?  team X는 최유리의 숲을 곰인형과 아이간의 애정을 담은 노래로 재해석 했다. 아련한 서사 속 감성의 미학가, 이무진 싱어송라이터의 숲은 어떤 모습일까?`,
             albumCover: require('../assets/img/mujin_choi.jpg'),
-            // poster: require('@/assets/img/mujin_choi_poster.jpg')
+            poster: require('@/assets/img/mujin_choi_poster.jpg')
           });
         } else if(this.singerId === 'yerin' && this.albumId === 'choi') {
           resolve({
             originArtist: '원곡 아티스트: 10cm',
             snps: `우리 마음속 '빙봉' 애착인형을 다들 기억하시나요?  team X는 최유리의 숲을 곰인형과 아이간의 애정을 담은 노래로 재해석 했다. 아련한 서사 속 감성을 빚어내는 예술가, 백예린 아티스트의 숲은 어떤 모습일까?`,
             albumCover: require('../assets/img/yerin_choi.jpg'),
-            // poster: require('@/assets/img/yerin_choi_poster.jpg')
+            poster: require('@/assets/img/yerin_choi_poster.jpg')
           });
         } else if(this.singerId === 'bibi' && this.albumId === 'choi') {
           resolve({
             originArtist: '원곡 아티스트: 10cm',
             snps: `우리 마음속 '빙봉' 애착인형을 다들 기억하시나요?  team X는 최유리의 숲을 곰인형과 아이간의 애정을 담은 노래로 재해석 했다. 아련한 서사 속 올라운더 아티스트, 가수 비비의 숲은 어떤 모습일까?`,
             albumCover: require('../assets/img/bibi_choi.jpg'),
-            // poster: require('@/assets/img/bibi_choi_poster.jpg')
-            poster: require('@/assets/img/bibi_geeks_poster.jpg')
-
+            poster: require('@/assets/img/bibi_choi_poster.jpg')
           });
         } else if(this.singerId === 'kim' && this.albumId === 'geeks') {
           resolve({
@@ -173,7 +204,6 @@ export default {
             snps: '완벽한 사랑의 노래 속 숨겨진 충격적인 이야기, 연인을 그리워하는 내용의 Officially Missing You를 team X가 재해석했다. 새로운 서사 속 감성의 미학가, 이무진 싱어송라이터의  Officially Missing You는 어떤 모습일까?',
             albumCover: require('../assets/img/mujin_geeks.jpg'),
             poster: require('@/assets/img/mujin_geeks_poster.jpg')
-
           });
         } else if(this.singerId === 'yerin' && this.albumId === 'geeks') {
           resolve({
@@ -181,7 +211,6 @@ export default {
             snps: '완벽한 사랑의 노래 속 숨겨진 충격적인 이야기, 연인을 그리워하는 내용의 Officially Missing You를 team X가 재해석했다. 새로운 서사 속 감성을 빚어내는 예술가, 백예린 아티스트의  Officially Missing You는 어떤 모습일까?',
             albumCover: require('../assets/img/yerin_geeks.jpg'),
             poster: require('@/assets/img/yerin_geeks_poster.jpg')
-
           });
         } else if(this.singerId === 'bibi' && this.albumId === 'geeks') {
           resolve({
@@ -189,7 +218,34 @@ export default {
             snps: '완벽한 사랑의 노래 속 숨겨진 충격적인 이야기, 연인을 그리워하는 내용의 Officially Missing You를 team X가 재해석했다. 새로운 서사 속  올라운더 아티스트, 가수 비비의  Officially Missing You는 어떤 모습일까?',
             albumCover: require('../assets/img/bibi_geeks.jpg'),
             poster: require('@/assets/img/bibi_geeks_poster.jpg')
-
+          });
+        } else if(this.singerId === 'kim' && this.albumId === 'plastic') {
+          resolve({
+            originArtist: '원곡 아티스트: 타케우치 마리야',
+            snps: '"짝사랑하는 순간만큼은 어떤 만화보다 더 만화같은 인생이 펼쳐진다." 시티팝의 대표주자 Plastic Love를 team X가 재해석 했다. 만화같은 사랑을 노래하는 감성의 노래 선장, 김광석 아티스트의 Plastic Love는 어떤 모습일까?',
+            // albumCover: require('../assets/img/kim_plastic.jpg'),
+            // poster: require('@/assets/img/kim_plastic_poster.jpg')
+          });
+        } else if(this.singerId === 'mujin' && this.albumId === 'plastic') {
+          resolve({
+            originArtist: '원곡 아티스트: 타케우치 마리야',
+            snps: '"짝사랑하는 순간만큼은 어떤 만화보다 더 만화같은 인생이 펼쳐진다." 시티팝의 대표주자 Plastic Love를 team X가 재해석 했다. 만화같은 사랑을 노래하는 감성의 미학가, 이무진 싱어송라이터의 Plastic Love는 어떤 모습일까?',
+            // albumCover: require('../assets/img/mujin_plastic.jpg'),
+            // poster: require('@/assets/img/mujin_plastic_poster.jpg')
+          });
+        } else if(this.singerId === 'yerin' && this.albumId === 'plastic') {
+          resolve({
+            originArtist: '원곡 아티스트: 타케우치 마리야',
+            snps: '"짝사랑하는 순간만큼은 어떤 만화보다 더 만화같은 인생이 펼쳐진다." 시티팝의 대표주자 Plastic Love를 team X가 재해석 했다. 만화같은 사랑을 노래하다. 감성을 빚어내는 예술가, 백예린 아티스트의 Plastic Love는 어떤 모습일까?',            
+            // albumCover: require('../assets/img/yerin_plastic.jpg'),
+            // poster: require('@/assets/img/yerin_plastic_poster.jpg')
+          });
+        } else if(this.singerId === 'bibi' && this.albumId === 'plastic') {
+          resolve({
+            originArtist: '원곡 아티스트: 타케우치 마리야',
+            snps: '"짝사랑하는 순간만큼은 어떤 만화보다 더 만화같은 인생이 펼쳐진다." 시티팝의 대표주자 Plastic Love를 team X가 재해석 했다. 만화같은 사랑을 노래하는 올라운더 아티스트, 가수 비비의 Plastic Love는 어떤 모습일까?',            
+            // albumCover: require('../assets/img/bibi_plastic.jpg'),
+            // poster: require('@/assets/img/bibi_plastic_poster.jpg')
           });
         } else {
           reject(new Error('가수와 앨범 정보에 해당하는 데이터를 찾을 수 없습니다.'));
@@ -255,6 +311,14 @@ Officially missing you 원곡은 평범한 이별 스토리를 담은 노래다.
 
       return interpretations[albumId] || '앨범에 대한 해석 정보를 찾을 수 없습니다.';
     },
+    openModal(img) {
+      this.currentImage = img;
+      this.showModal = true;
+    },
+    closeModal() {
+      this.showModal = false;
+      this.currentImage = '';
+    },
     goToSelectPage() {
       this.$router.push('/selectWatch')
     },
@@ -282,6 +346,14 @@ header{
   width:50px;
   margin: 20px;
 }
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 .container {
   width: 100%;
   height: auto;
@@ -310,7 +382,7 @@ header{
 }
 
 .video-container {
-  margin-top:-150px;
+  /*margin-top:-150px;*/
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -318,7 +390,10 @@ header{
   width: 100%;
 }
 video{
-  width:100vw;
+  width: 80vw;
+  padding-left: 10vw;
+  padding-right: 10vw;
+  background-color:black;
 }
 
 .song-title{
@@ -457,15 +532,25 @@ video{
   font-size:1em;
 }
 .qrimg-container{
-  margin-top:20px;
+  margin-top:30px;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  color: black;
 }
-.qrimg-container img {
-  width: 10vw;
+
+.insta-qr-container, .ytube-qr-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 14px;
+}
+
+
+.insta-qr, .ytube-qr {
+  width: 8vw;
   height: auto;
-  margin: 10px;
+  margin: 0 20px;
 }
 
 .footer-logo{
@@ -475,6 +560,24 @@ video{
   z-index: 1;
 }
 
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.8);
+}
+
+.modal-content {
+  max-width: 90%;
+  max-height: 90%;
+}
 
 @media (max-width: 768px) {
   .song-title {

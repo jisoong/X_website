@@ -34,10 +34,10 @@
 </script>
 
 <template>
-    <!-- <div class="help-container">
+    <div class="help-container">
       <img v-if="showHelpImage" class="help" src="@/assets/img/help.jpg" alt="">
       <button v-if="showHelpImage" class="help-off" @click="hideHelpImg">도움말 끄기</button>
-    </div> -->
+    </div>
     <audio ref="audioPlayer" autoplay loop>
         <source src="../assets/music/intro.wav" type="audio/mpeg">
     </audio>
@@ -85,6 +85,7 @@
 .help{
   width:100vw;
   height: 100vh;
+  object-fit: contain;
 }
 .help-off{
   width:100px;

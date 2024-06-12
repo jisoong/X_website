@@ -12,9 +12,6 @@
                 <p class="singer"> -{{ album.singer }}</p>
             </div>
         </div>
-        <div class="button-container">
-          <img class="next" src="@/assets/img/next.png" alt="" @click="goToNextPage" :class="{ 'btt_abled': isButtonDisabled }">
-        </div>
     </div>
 
 </template>
@@ -26,24 +23,15 @@ export default {
       selectedAlbum: null,
       albums: [
           { id: 'cocktail', cover: require('../assets/img/cocktail.jpeg'), alt: 'cocktail album cover', song: '칵테일 사랑', singer: '마로니에'},
-          { id: 'akmu', cover: require('../assets/img/akmu.jpeg'), alt: 'akmu album cover', song: '어떻게 이별까지 사랑하겠어, 널 사랑하는 거지', singer: 'akmu'},
-          { id: 3, cover: require('../assets/img/Y.jpeg'), alt: 'Y album cover', song: 'Y', singer: '프리스타일' },
-          { id: 4, cover: require('../assets/img/hot.jpeg'), alt: 'hot album cover', song: 'candy', singer: 'H.O.T.' },
-          { id: 5, cover: require('../assets/img/pretty.jpeg'), alt: 'pretty album cover', song: '예뻤어', singer: 'DAY6' },
-          { id: 6, cover: require('../assets/img/idle.jpeg'), alt: 'idle album cover', song: '나는 아픈 건 딱 질색이니까', singer: '(여자)아이들' }
-
+          { id: 'bubble', cover: require('@/assets/img/bubble.jpeg'), alt: 'Bubble album cover', song: 'Bubble Gum', singer: 'NewJeans' },
+          { id: 'akmu', cover: require('../assets/img/akmu.jpeg'), alt: 'akmu album cover', song: `어떻게 이별까지 사랑하겠어, 널 사랑하는 거지`, singer: 'AKMU'},
         ],
     };
-  },
-  computed: {
-    isButtonDisabled() {
-      return this.selectedAlbum != null;
-    }
   },
   methods: {
     selectAlbum(album) {
       this.selectedAlbum = album;
-      this.isSectionClicked = true;
+      this.goToNextPage();
     },
     goToNextPage() {
       this.$router.push({ name: 'selectDuetsinger', params: { albumId: this.selectedAlbum.id, albumName: this.selectedAlbum.song } });
@@ -71,7 +59,7 @@ header{
 }
 .box{
   width:100vw;
-  height: 12vh;
+  height: 18vh;
   pointer-events: none;
   z-index: 1;
 }
@@ -82,33 +70,35 @@ header{
     width: 100vw;
     height: 80vh;
     overflow-x: hidden;
-    justify-content: space-evenly;
-    align-content: center;
 }
 .title{
+    /* margin-top:0px; */
     margin-bottom:30px;
     color:#172BFF;
-    font-size: 1.4em;
+    font-size: 1.0em;
 }
 .img-container{
-  display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 10px;
-    justify-items: center;
-    /* width: 100%; */
-    padding: 10px;
-    box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top:50px;
+  /* width: 100%; */
+  padding: 10px;
+  box-sizing: border-box;
 }
 .album{
-    padding: 8px;
-    border: 1px solid #172BFF;
-    border-radius: 10px;
-    width: 30vw;
+    padding: 10px;
+    width: 40vw;
+    min-width:150px;
     height:auto;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     cursor: pointer;
+    align-items: center;
+}
+.album:nth-child(3) {
+    margin-top:20px;
 }
 .coverimg{
     width: 100%;
@@ -117,32 +107,14 @@ header{
 }
 
 .song-title{
-    margin-top:5px;
-    font-size:0.9em;
-    font-weight: bold;
+  margin-top:5px;
+  font-size:0.75em;
+  font-weight: bold;
+  text-align: center;
 }
 .singer{
     font-size:0.8em;
-}
-.selected{
-    background-color: blue;
-    color:white;
-}
-.button-container{
-  display: flex;
-  width:100vw;
-  justify-content: flex-end;
-  margin-top:20px;
-}
-.next{
-    width:0;
-    height:0;
-}
-.next.btt_abled{
-    width:100px;
-    height:auto;
-    margin-right:30px;
-    margin-bottom:20px;
+    margin-top:5px;
 }
 
 @media (min-height: 600px) and (max-height: 750px) {
@@ -185,10 +157,6 @@ header{
     .title {
         font-size: 1.8em;
     }
-    .next.btt_abled {
-        width: 120px;
-        margin-right: 50px;
-    }
     .img-container {
       grid-gap: 20px;
     }
@@ -209,10 +177,6 @@ header{
     .song-title {
         margin-top:10px;
     }
-    .next.btt_abled {
-        width: 140px;
-        margin-right:150px;
-    }
 
 }
 
@@ -231,10 +195,6 @@ header{
     }
     .song-title {
         margin-top:10px;
-    }
-    .next.btt_abled {
-        width: 160px;
-        margin-right:150px;
     }
 
 }

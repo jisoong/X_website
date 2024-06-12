@@ -62,7 +62,7 @@
         albums: [
           { id: 'cocktail', cover: require('@/assets/img/cocktail.jpeg'), alt: 'cocktail album cover', song: '칵테일 사랑', singer: '마로니에' },
           { id: 'akmu', cover: require('@/assets/img/akmu.jpg'), alt: 'akmu album cover', song: `어떻게 이별까지 사랑하겠어, 널 사랑하는 거지`, singer: 'AKMU' },
-          // { id: 'bubble', cover: require('@/assets/img/bubble.jpeg'), alt: 'Bubble album cover', song: 'Bubble Gum', singer: 'NewJeans' },
+          //{ id: 'bubble', cover: require('@/assets/img/bubble.jpeg'), alt: 'Bubble album cover', song: 'Bubble Gum', singer: 'NewJeans' },
         ],
         maleSingers: {
           cocktail: [
@@ -109,7 +109,7 @@
         return this.selectedSingers.length != 2 || this.selectedAlbum === null;
       },
       selectTitleText() {
-          return this.isSectionClicked ? '원하는 아티스트를 골라주세요' : '원하는 음악을 골라주세요';
+          return this.isSectionClicked ? '원하는 아티스트를 2명 골라주세요' : '원하는 음악을 골라주세요';
       },
       selectText_man() {
         switch (this.selectedAlbum.id) {
@@ -270,6 +270,7 @@ header{
   font-size: 1.2em;
   /* margin-top: 2vh; */
   padding-bottom: 1vh;
+
 }
 
 .album-container{
@@ -286,11 +287,12 @@ header{
   align-items: center;
   padding-bottom:10px;
   margin-right:60px;
+  
 }
 
 .singer-list{
   margin-left:60px;
-
+  
 }
 
 .man-list{
@@ -316,7 +318,7 @@ header{
 
 .song-title{
   font-size: 1em;
-  /* width: 100%; */
+  width: 190px;
   text-align: center;
   font-weight: bold;
   margin-top:10px;
