@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-
+import store from '../store';
 
 const routes = [
     {
@@ -56,12 +56,27 @@ const routes = [
 
 const router = createRouter({
     history: createWebHistory(),
-    base: process.env.BASE_URL,
-    routes,
-    scrollBehavior() {
-        // always scroll to top
-        return { top: 0 }
-    },
-})
+    routes
+  });
+  
+  router.beforeEach((to, from, next) => {
+    if (from.name === 'selectSinger' && to.name === 'videoPage') {
+      store.dispatch('setLoading', true);
+    }
+    else if(from.name === 'selectDuetsinger' && to.name === 'listenMusic') {
+        store.dispatch('setLoading', true);
+    }
+    next();
+  });
+  
+  router.afterEach((to, from) => {
+    if ((from.name === 'selectSinger' && to.name === 'videoPage') || 
+        (from.name === 'selectDuetsinger' && to.name === 'listenMusic')) {
+      store.dispatch('setLoading', true); // 로딩 시작
+      setTimeout(() => {
+        store.dispatch('setLoading', false); // 예: 1초 후 로딩 상태를 false로 설정
+      }, 2000); // 1초 지연
+    }
+  });
 
 export default router

@@ -28,6 +28,12 @@
       },
       hideHelpImg() {
         this.showHelpImage = false;
+        localStorage.setItem('helpImageHidden', 'true');
+      }
+    },
+    mounted() {
+      if (localStorage.getItem('helpImageHidden') === 'true') {
+        this.showHelpImage = false;
       }
     }
   };
@@ -36,7 +42,7 @@
 <template>
     <div class="help-container">
       <img v-if="showHelpImage" class="help" src="@/assets/img/help.jpg" alt="">
-      <button v-if="showHelpImage" class="help-off" @click="hideHelpImg">도움말 끄기</button>
+      <button v-if="showHelpImage" class="help-off"  @click="hideHelpImg">도움말 끄기</button>
     </div>
     <audio ref="audioPlayer" autoplay loop>
         <source src="../assets/music/intro.wav" type="audio/mpeg">
@@ -46,7 +52,7 @@
         <div class="logo-container">
           <img class="logo" src="@/assets/img/whitelogo.png" @click="onClickMoveOurPage" alt="">
           <button :class="{ 'soundBtt': true, 'sound-on': isPlaying, 'sound-off': !isPlaying }" @click="toggleSound">
-            <i :class="{ 'fa-solid fa-volume-xmark': isPlaying, 'fa-solid fa-volume-high': !isPlaying }"></i>
+            <i :class="{ 'fa-solid fa-volume-xmark': !isPlaying, 'fa-solid fa-volume-high': isPlaying }"></i>
           </button>
         </div>
         <hr>
@@ -91,7 +97,8 @@
   width:100px;
   position: absolute;
   bottom: 20px;
-  right: 20px; 
+  left: 50%;
+  transform: translate(-50%, -50%);
   background-color: rgba(255, 255, 255); 
   border: none;
   border-radius: 20px;

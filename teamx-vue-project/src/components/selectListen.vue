@@ -62,7 +62,7 @@
         albums: [
           { id: 'cocktail', cover: require('@/assets/img/cocktail.jpeg'), alt: 'cocktail album cover', song: '칵테일 사랑', singer: '마로니에' },
           { id: 'akmu', cover: require('@/assets/img/akmu.jpg'), alt: 'akmu album cover', song: `어떻게 이별까지 사랑하겠어, 널 사랑하는 거지`, singer: 'AKMU' },
-          //{ id: 'bubble', cover: require('@/assets/img/bubble.jpeg'), alt: 'Bubble album cover', song: 'Bubble Gum', singer: 'NewJeans' },
+          { id: 'bubble', cover: require('@/assets/img/bubble.jpeg'), alt: 'Bubble album cover', song: 'Bubble Gum', singer: 'NewJeans' },
         ],
         maleSingers: {
           cocktail: [
@@ -76,11 +76,9 @@
             { id: 'naul', image: require('@/assets/img/naul.jpeg'), alt: 'Naul singer', name: '나얼' }
           ],
           bubble: [
-            { id: 'bibi', image: require('@/assets/img/bibi.jpeg'), alt: 'Bibi singer', name: '비비' },
             { id: 'ariana', image: require('@/assets/img/ariana.jpeg'), alt: 'Ariana singer', name: '아리아나 그란데' },
-            { id: 'jennie', image: require('@/assets/img/jennie.jpeg'), alt: 'Jennie singer', name: '제니' },
             { id: 'dean', image: require('@/assets/img/dean.jpeg'), alt: 'Dean singer', name: '딘' },
-            { id: 'bruno', image: require('@/assets/img/bruno.jpeg'), alt: 'Bruno singer', name: '브루노마스' }
+            { id: 'winter', image: require('@/assets/img/winter.jpeg'), alt: 'Winter singer', name: '윈터' }
           ]
         },
         femaleSingers: {
@@ -96,9 +94,7 @@
           ],
           bubble: [
             { id: 'bibi', image: require('@/assets/img/bibi.jpeg'), alt: 'Bibi singer', name: '비비' },
-            { id: 'ariana', image: require('@/assets/img/ariana.jpeg'), alt: 'Ariana singer', name: '아리아나 그란데' },
             { id: 'jennie', image: require('@/assets/img/jennie.jpeg'), alt: 'Jennie singer', name: '제니' },
-            { id: 'dean', image: require('@/assets/img/dean.jpeg'), alt: 'Dean singer', name: '딘' },
             { id: 'bruno', image: require('@/assets/img/bruno.jpeg'), alt: 'Bruno singer', name: '브루노마스' }
           ]
         }

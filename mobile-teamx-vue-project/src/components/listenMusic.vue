@@ -10,7 +10,7 @@
         </div>
         <div class="audio-player">
           <!-- <audio ref="audioPlayer" controls autoplay> -->
-          <audio ref="audioPlayer" controls autoplay @play="onPlay" @pause="onPause">
+          <audio ref="audioPlayer" controls @play="onPlay" @pause="onPause">
             <source v-if="musicSource" :src="musicSource" type="audio/mpeg">
           </audio>
         </div>
@@ -45,6 +45,9 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+import { nextTick } from 'vue';
+
 export default {
   props: ['singerIds', 'singerNames', 'albumId', 'albumName'],
   data() {
@@ -52,10 +55,13 @@ export default {
       isPlaying: false,
       originArtist: '', // 원곡 아티스트
       albumDescription: '', // 앨범 설명
-      albumImage: '' 
+      albumImage: '', 
     };
   },
   computed: {
+    ...mapState({
+      loading: state => state.loading
+    }),
     musicSource() {
       const singerIdArray = this.singerIds.split(',');
 
@@ -66,6 +72,17 @@ export default {
         return require('../assets/music/intro.wav');
       }
     }
+  },
+  watch: {
+    loading(newVal) {
+      if (!newVal) {
+        nextTick(() => {
+          if (this.$refs.audioPlayer) {
+            this.$refs.audioPlayer.play();
+          }
+        });
+      }
+    },
   },
   created() {
     // 컴포넌트가 생성될 때, 가수와 앨범 정보를 기반으로 데이터를 가져옴
@@ -125,7 +142,7 @@ export default {
           resolve({
             originArtist: 'AKMU',
             albumDescription: `
-            일부러 몇 발자국 물러나
+일부러 몇 발자국 물러나
 내가 없이 혼자 걷는 널 바라본다
 옆자리 허전한 너의 풍경
 흑백 거리 가운데 넌 뒤돌아본다
@@ -150,6 +167,91 @@ export default {
 사랑이라는 이유로 서로를 포기하고
 찢어질 것같이 아파할 수 없어 난`,
             albumImage: require('../assets/img/akmu.jpeg'),
+          });
+        } else if(this.albumId === 'bubble') {
+          resolve({
+            originArtist: 'NewJeans',
+            albumDescription: `
+You just got my heart pump pumpin'
+Every time that you're here around me
+노랫 소리가 또 흘러나와 yeah
+오늘 오래 걸린 이유
+I'm always so excited to meet you
+내 향기가 널 먼저 찾아가
+눈 감아도 기억나게
+어디라도 따라갈래
+You're so delicate 거품 속에
+숨었네 uh uh uh
+Oh you make my heart melt away
+You're a softie 구름 같아
+이건 말로 설명 못해
+You got me oh oh
+이미 우린
+저기 멀리
+높이 있는
+풍선같이
+Have you right here
+In a basket
+Oh my baby
+Sweet like bubble gum
+Bouncing like playing ball
+더 높이 올려줘
+We're gonna ﬂy away
+Sweet like bubble yum
+So smooth, soft like a hug
+더 멀리 날려줘
+Let's go far away
+You're my favorite flavor
+Bubble gum
+Bubble Bubble Bubble Bubble Bubble Bubble
+Bubble Bubble Bubble Gum
+오늘 오래 걸린 이유
+I'm always so excited to meet you
+내 향기가 널 먼저 찾아가
+나만 알고 싶은 비밀
+All I know is I need this feeling
+내 윤기가 널 먼저 사로잡아 yeah
+눈 감아도 기억나게
+어디라도 따라갈래
+You're so delicate 거품 속에
+숨었네 uh uh uh
+Oh you make my heart melt away
+You're a softie 구름 같아
+이건 말로 설명 못해
+You got me oh oh
+Sweet like bubble gum
+Bouncing like playing ball
+더 높이 올려줘
+We're gonna ﬂy away
+Sweet like bubble yum
+So smooth, soft like a hug
+더 멀리 날려줘
+Let's go far away
+눈 감아도 기억나게
+어디라도 따라갈래
+You're so delicate 거품 속에
+숨었네 uh uh uh
+Oh you make my heart melt away
+You're a softie 구름 같아
+이건 말로 설명 못해
+You got me oh oh
+이미 우린
+저기 멀리
+높이 있는
+풍선같이
+Have you right here
+In a basket
+Oh my baby
+Sweet like bubble gum
+이미 우린
+저기 멀리
+높이 있는
+풍선같이
+Have you right here
+In a basket
+Oh my baby
+Sweet like bubble gum`,
+            albumImage: require('../assets/img/bubble.jpeg'),
           });
         } else {
           reject(new Error('가수와 앨범 정보에 해당하는 데이터를 찾을 수 없습니다.'));

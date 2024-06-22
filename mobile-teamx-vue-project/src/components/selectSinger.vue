@@ -1,23 +1,26 @@
 <template>
-    <header>
-      <img class="logo" src="@/assets/img/logo.png" @click="goToMain" alt="">
-    </header>
-    <img class="box" src="@/assets/img/top-ellipse.png" alt="">
-    <div class="container">
-        <div class="title">원하는 아티스트를 골라주세요</div>
-        <div class="img-container">
-            <div class="artist" v-for="singer in singers" :key="singer.id" @click="selectSinger(singer);" :class="{ selected: singer === selectedSinger }">
-                <img class="singerimg" :src="singer.image">
+  <transition name="fade" mode="out-in">
+    <div v-if="showContent" class="about">
+      <header>
+        <img class="logo" src="@/assets/img/logo.png" @click="goToMain" alt="">
+      </header>
+      <img class="box" src="@/assets/img/top-ellipse.png" alt="">
+      <div class="container">
+          <div class="title">원하는 아티스트를 골라주세요</div>
+          <div class="img-container">
+              <div class="artist" v-for="singer in singers" :key="singer.id" @click="selectSinger(singer);" :class="{ selected: singer === selectedSinger }">
+                  <img class="singerimg" :src="singer.image">
 
-                <p class="artist-name">{{ singer.name }}</p>
-            </div>
-        </div>
-        <div class="btt-container">
-          <img class="back" src="@/assets/img/back.png" alt="" @click="goToPrevPage">
-          <img class="next" src="@/assets/img/next.png" alt="" @click="goToNextPage" :class="{ 'btt_abled': isButtonDisabled }">
-        </div>
+                  <p class="artist-name">{{ singer.name }}</p>
+              </div>
+          </div>
+          <div class="btt-container">
+            <img class="back" src="@/assets/img/back.png" alt="" @click="goToPrevPage">
+            <img class="next" src="@/assets/img/next.png" alt="" @click="goToNextPage" :class="{ 'btt_abled': isButtonDisabled }">
+          </div>
+      </div>
     </div>
-
+  </transition>
 </template>
 
 <script>
@@ -25,6 +28,7 @@ export default {
   data() {
     return {
       selectedSinger: null,
+      showContent: false,
       singers: [
         { id: 'kim', image: require('../assets/img/kim.jpeg'), alt: 'Kim singer', name: '김광석' },
         { id: 'mujin', image: require('../assets/img/mujin.jpeg'), alt: 'Mujin singer', name: '이무진' },
@@ -32,6 +36,12 @@ export default {
         { id: 'bibi', image: require('../assets/img/bibi.jpeg'), alt: 'IU singer', name: '비비'}
         ]
     };
+  },
+  mounted() {
+    this.showContent = true;
+  },
+  beforeUnmount() {
+    this.showContent = false;
   },
   computed: {
     isButtonDisabled() {
@@ -109,6 +119,7 @@ header{
     display: flex;
     flex-direction: column;
     cursor: pointer;
+    transition: background-color 0.5s ease, color 0.5s ease;
 }
 .singerimg{
     width:100%;
@@ -152,7 +163,12 @@ header{
     margin-bottom:20px;
     object-fit: contain;
 }
-
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter-from, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+  opacity: 0;
+}
 @media (min-width: 768px) {
     .logo{
       width:40px;

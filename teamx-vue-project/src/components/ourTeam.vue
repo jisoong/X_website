@@ -3,6 +3,9 @@
         <img class="logo" src="../assets/img/logo.png" @click="goToMain" alt="">
     </header>
     <div class="container">
+      <nav class="menu">
+        <router-link to="/">our team</router-link> | <router-link to="/pipeline">pipeline</router-link>
+      </nav>
         <div class="intro">
             <div class="introduce">INTRODUCE</div>
             <img class="team-img" src="../assets/img/team.jpeg" alt="">
@@ -137,17 +140,20 @@ header, .container {
 
 .logo{
   width:50px;
-  margin-top: -80px;
+  margin-top: 20px;
   padding-left: 20px;
   position: fixed;
 }
 
 .container{
-    margin-top: 100px;
     display: flex;
     flex-direction: column;
     align-items: center;
     overflow-x: hidden;
+}
+.menu{
+  margin-top:100px;
+  margin-bottom:100px;
 }
 .introduce{
     color:#172BFF;

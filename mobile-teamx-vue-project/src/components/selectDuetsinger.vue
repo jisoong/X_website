@@ -1,40 +1,46 @@
 <template>
-  <header>
-    <img class="logo" src="@/assets/img/logo.png" @click="goToMain" alt="">
-  </header>
-  <img class="box" src="@/assets/img/top-ellipse.png" alt="">
-  <div class="container">
-      <div class="title">원하는 아티스트를 각각 한명 골라주세요</div>
-      <div class="singer-list">
-        <div class="man-list">
-          <div class="select-text">{{ selectText_man }}</div>
-          <hr>
-          <img class="blureffect" src="@/assets/img/blureffect.png" alt="">
-          <div class="singer-container">
-            <div class="artist" v-for="singer in filteredMaleSingers" :key="singer.id">
-              <img class="singerimg" :src="singer.image" :alt="singer.alt" @click="selectMaleSinger(singer);" :class="{ selected: singer === selectedMalesinger}">
-              <p class="artist-name">{{ singer.name }}</p>
+  <transition name="fade" mode="out-in">
+    <div v-if="showContent" class="about">
+      <header>
+        <img class="logo" src="@/assets/img/logo.png" @click="goToMain" alt="">
+      </header>
+      <img class="box" src="@/assets/img/top-ellipse.png" alt="">
+      <div class="container">
+          <div class="title">원하는 아티스트를 각각 한명 골라주세요</div>
+          <div class="singer-list">
+            <div class="man-list">
+              <div class="select-text">{{ selectText_man }}</div>
+              <hr>
+              <img class="blureffect" src="@/assets/img/blureffect.png" alt="">
+              <div class="singer-container">
+                <div class="artist" v-for="singer in filteredMaleSingers" :key="singer.id">
+                  <img class="singerimg" :src="singer.image" :alt="singer.alt" @click="selectMaleSinger(singer);" :class="{ selected: singer === selectedMalesinger}">
+                  <p class="artist-name">{{ singer.name }}</p>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        <div class="woman-list">
-          <div class="select-text">{{ selectText_woman }}</div>
-          <hr>
-          <img class="blureffect" src="@/assets/img/blureffect.png" alt="">
-          <div class="singer-container">
-            <div class="artist" v-for="singer in filteredFemaleSingers" :key="singer.id">
-              <img class="singerimg" :src="singer.image" :alt="singer.alt" @click="selectFemaleSinger(singer);" :class="{ selected: singer === selectedFemalesinger}">
-              <p class="artist-name">{{ singer.name }}</p>
+            <div class="woman-list">
+              <div class="select-text">{{ selectText_woman }}</div>
+              <hr>
+              <img class="blureffect" src="@/assets/img/blureffect.png" alt="">
+              <div class="singer-container">
+                <div class="artist" v-for="singer in filteredFemaleSingers" :key="singer.id">
+                  <img class="singerimg" :src="singer.image" :alt="singer.alt" @click="selectFemaleSinger(singer);" :class="{ selected: singer === selectedFemalesinger}">
+                  <p class="artist-name">{{ singer.name }}</p>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </div> 
+          </div> 
 
-      <div class="btt-container">
-        <img class="back" src="@/assets/img/back.png" alt="" @click="goToPrevPage">
-        <img class="next" src="@/assets/img/next.png" alt="" @click="goToNextPage" :class="{ 'btt_abled': isButtonDisabled }">
+          <div class="btt-container">
+            <img class="back" src="@/assets/img/back.png" alt="" @click="goToPrevPage">
+            <img class="next" src="@/assets/img/next.png" alt="" @click="goToNextPage" :class="{ 'btt_abled': isButtonDisabled }">
+          </div>
       </div>
-  </div>
+    </div>
+
+  </transition>
+  
 
 </template>
 
@@ -55,6 +61,7 @@ export default {
         selectedMalesinger: null,
         selectedFemalesinger: null,
         selectedSingers: [],
+        showContent: false,
         maleSingers: {
           cocktail: [
             { id: 'jannabi', image: require('@/assets/img/jannabi.jpeg'), alt: 'Jannabi singer', name: '최정훈' },
@@ -67,11 +74,9 @@ export default {
             { id: 'naul', image: require('@/assets/img/naul.jpeg'), alt: 'Naul singer', name: '나얼' }
           ],
           bubble: [
-            { id: 'bibi', image: require('@/assets/img/bibi.jpeg'), alt: 'Bibi singer', name: '비비' },
             { id: 'ariana', image: require('@/assets/img/ariana.jpeg'), alt: 'Ariana singer', name: '아리아나 그란데' },
-            { id: 'jennie', image: require('@/assets/img/jennie.jpeg'), alt: 'Jennie singer', name: '제니' },
             { id: 'dean', image: require('@/assets/img/dean.jpeg'), alt: 'Dean singer', name: '딘' },
-            { id: 'bruno', image: require('@/assets/img/bruno.jpeg'), alt: 'Bruno singer', name: '브루노마스' }
+            { id: 'winter', image: require('@/assets/img/winter.jpeg'), alt: 'Winter singer', name: '윈터' }
           ]
         },
         femaleSingers: {
@@ -87,13 +92,17 @@ export default {
           ],
           bubble: [
             { id: 'bibi', image: require('@/assets/img/bibi.jpeg'), alt: 'Bibi singer', name: '비비' },
-            { id: 'ariana', image: require('@/assets/img/ariana.jpeg'), alt: 'Ariana singer', name: '아리아나 그란데' },
             { id: 'jennie', image: require('@/assets/img/jennie.jpeg'), alt: 'Jennie singer', name: '제니' },
-            { id: 'dean', image: require('@/assets/img/dean.jpeg'), alt: 'Dean singer', name: '딘' },
             { id: 'bruno', image: require('@/assets/img/bruno.jpeg'), alt: 'Bruno singer', name: '브루노마스' }
           ]
         }
       };
+  },
+  mounted() {
+    this.showContent = true;
+  },
+  beforeUnmount() {
+    this.showContent = false;
   },
   computed: {
     isButtonDisabled() {
@@ -243,6 +252,7 @@ header{
  .singer-list{
   display: flex;
   flex-direction: column;
+  width: 80vw;
   align-items: center;
  }
 .select-text{
@@ -265,6 +275,7 @@ header{
   flex-direction: column;
   align-items: center;
   padding: 0 5px;
+
 }
 .singerimg{
   width: 18vw;
@@ -274,6 +285,7 @@ header{
   padding: 5px;
   border-radius: 50%;
   object-fit: cover;
+
 }
 
 .artist-name{
@@ -319,6 +331,13 @@ hr{
     height:auto;
     margin-right:30px;
     margin-bottom:20px;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter-from, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+  opacity: 0;
 }
 
 @media (min-width: 768px) {

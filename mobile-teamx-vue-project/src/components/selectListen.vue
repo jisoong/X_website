@@ -1,19 +1,22 @@
 <template>
-    <header>
-      <img class="logo" src="@/assets/img/logo.png" @click="goToMain" alt="">
-    </header>
-    <img class="box" src="@/assets/img/top-ellipse.png" alt="">
-    <div class="container">
-        <div class="title">원하는 음악을 골라주세요</div>
-        <div class="img-container">
-            <div class="album" v-for="album in albums" :key="album.id" @click="selectAlbum(album);" :class="{ selected: album === selectedAlbum }">
-                <img class="coverimg" :src="album.cover"  >
-                <div class="song-title">{{ album.song }}</div>
-                <p class="singer"> -{{ album.singer }}</p>
-            </div>
-        </div>
+  <transition name="fade" mode="out-in">
+    <div v-if="showContent" class="about">
+      <header>
+        <img class="logo" src="@/assets/img/logo.png" @click="goToMain" alt="">
+      </header>
+      <img class="box" src="@/assets/img/top-ellipse.png" alt="">
+      <div class="container">
+          <div class="title">원하는 음악을 골라주세요</div>
+          <div class="img-container">
+              <div class="album" v-for="album in albums" :key="album.id" @click="selectAlbum(album);" :class="{ selected: album === selectedAlbum }">
+                  <img class="coverimg" :src="album.cover"  >
+                  <div class="song-title">{{ album.song }}</div>
+                  <p class="singer"> -{{ album.singer }}</p>
+              </div>
+          </div>
+      </div>
     </div>
-
+  </transition>
 </template>
 
 <script>
@@ -21,12 +24,19 @@ export default {
   data() {
     return {
       selectedAlbum: null,
+      showContent: false,
       albums: [
           { id: 'cocktail', cover: require('../assets/img/cocktail.jpeg'), alt: 'cocktail album cover', song: '칵테일 사랑', singer: '마로니에'},
           { id: 'bubble', cover: require('@/assets/img/bubble.jpeg'), alt: 'Bubble album cover', song: 'Bubble Gum', singer: 'NewJeans' },
           { id: 'akmu', cover: require('../assets/img/akmu.jpeg'), alt: 'akmu album cover', song: `어떻게 이별까지 사랑하겠어, 널 사랑하는 거지`, singer: 'AKMU'},
         ],
     };
+  },
+  mounted() {
+    this.showContent = true;
+  },
+  beforeUnmount() {
+    this.showContent = false;
   },
   methods: {
     selectAlbum(album) {
@@ -116,7 +126,12 @@ header{
     font-size:0.8em;
     margin-top:5px;
 }
-
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter-from, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+  opacity: 0;
+}
 @media (min-height: 600px) and (max-height: 750px) {
   .box{
     height: 8vh;

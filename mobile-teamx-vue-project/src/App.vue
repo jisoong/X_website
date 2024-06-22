@@ -6,18 +6,24 @@
         <img v-else-if="currentImage === 'other'" src="@/assets/img/logo.png" alt="Other Image" class="splash-logo"/>
       </div>
     </transition>
-    <div v-show="!showSplash">
+    <div v-show="!showSplash" name="next">
+      <Loading />
       <router-view/>
     </div>
   </div>
 </template>
 
 <script>
+import Loading from './components/loadingPage.vue';
+
 export default {
+  components: {
+    Loading
+  },
   data() {
     return {
       showSplash: true,
-      currentImage: 'logo'
+      currentImage: 'logo',
     };
   },
   mounted() {

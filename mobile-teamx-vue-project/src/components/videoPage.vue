@@ -2,10 +2,13 @@
     <header>
       <img class="logo" src="../assets/img/logo.png" @click="goToMainPage" alt="">
     </header>
-    <div class="container">
+    <div v-if="loading" class="loading-spinner">
+      <!-- 로딩 스피너 또는 로딩 화면 -->
+    </div>
+    <div v-else class="container">
       <div class="video-container">
         <!-- <video v-if="videoSource" :src="videoSource" controls autoplay loop></video> -->
-        <video v-if="videoSource" :src="videoSource" autoplay controls></video>
+        <video ref="video" v-if="videoSource" :src="videoSource" autoplay controls></video>
         <div v-else>
           <p>비디오를 찾을 수 없습니다.</p>
         </div>
@@ -52,6 +55,9 @@
   </template>
   
   <script>
+  import { mapState } from 'vuex';
+  import { nextTick } from 'vue';
+
   export default {
     props: ['singerId', 'singerName','albumId', 'albumName'],
     data() {
@@ -64,6 +70,9 @@
       };
     },
     computed: {
+      ...mapState({
+        loading: state => state.loading
+      }),
       videoSource() {
         if (this.singerId !== undefined && this.albumId !== undefined) {
           return require(`../assets/video/${this.singerId}_${this.albumId}.mp4`);
@@ -79,6 +88,17 @@
         }
         return images;
       }
+    },
+    watch: {
+      loading(newVal) {
+        if (!newVal) {
+          nextTick(() => {
+            if (this.$refs.video) {
+              this.$refs.video.play();
+            }
+          });
+        }
+      },
     },
     created() {
       // 컴포넌트가 생성될 때, 가수와 앨범 정보를 기반으로 데이터를 가져옴
@@ -187,6 +207,34 @@
               albumCover: require('../assets/img/bibi_geeks.jpg'),
               poster: require('@/assets/img/bibi_geeks_poster.jpg')
             });
+          } else if(this.singerId === 'kim' && this.albumId === 'plastic') {
+            resolve({
+              originArtist: '원곡 아티스트: 타케우치 마리야',
+              snps: '"짝사랑하는 순간만큼은 어떤 만화보다 더 만화같은 인생이 펼쳐진다." 시티팝의 대표주자 Plastic Love를 team X가 재해석 했다. 만화같은 사랑을 노래하는 감성의 노래 선장, 김광석 아티스트의 Plastic Love는 어떤 모습일까?',
+              albumCover: require('../assets/img/kim_plastic.jpg'),
+              poster: require('@/assets/img/kim_plastic_poster.jpg')
+            });
+          } else if(this.singerId === 'mujin' && this.albumId === 'plastic') {
+            resolve({
+              originArtist: '원곡 아티스트: 타케우치 마리야',
+              snps: '"짝사랑하는 순간만큼은 어떤 만화보다 더 만화같은 인생이 펼쳐진다." 시티팝의 대표주자 Plastic Love를 team X가 재해석 했다. 만화같은 사랑을 노래하는 감성의 미학가, 이무진 싱어송라이터의 Plastic Love는 어떤 모습일까?',
+              albumCover: require('../assets/img/mujin_plastic.jpg'),
+              poster: require('@/assets/img/mujin_plastic_poster.jpg')
+            });
+          } else if(this.singerId === 'yerin' && this.albumId === 'plastic') {
+            resolve({
+              originArtist: '원곡 아티스트: 타케우치 마리야',
+              snps: '"짝사랑하는 순간만큼은 어떤 만화보다 더 만화같은 인생이 펼쳐진다." 시티팝의 대표주자 Plastic Love를 team X가 재해석 했다. 만화같은 사랑을 노래하다. 감성을 빚어내는 예술가, 백예린 아티스트의 Plastic Love는 어떤 모습일까?',            
+              // albumCover: require('../assets/img/yerin_plastic.jpg'),
+              // poster: require('@/assets/img/yerin_plastic_poster.jpg')
+            });
+          } else if(this.singerId === 'bibi' && this.albumId === 'plastic') {
+            resolve({
+              originArtist: '원곡 아티스트: 타케우치 마리야',
+              snps: '"짝사랑하는 순간만큼은 어떤 만화보다 더 만화같은 인생이 펼쳐진다." 시티팝의 대표주자 Plastic Love를 team X가 재해석 했다. 만화같은 사랑을 노래하는 올라운더 아티스트, 가수 비비의 Plastic Love는 어떤 모습일까?',            
+              albumCover: require('../assets/img/bibi_plastic.jpg'),
+              poster: require('@/assets/img/bibi_plastic_poster.jpg')
+            });
           } else {
             reject(new Error('가수와 앨범 정보에 해당하는 데이터를 찾을 수 없습니다.'));
           }
@@ -247,6 +295,24 @@
   사이렌소리, 문앞에 도착한 경찰. 주인공은 결국 체포되고 영상은 마무리 된다.
   위 스토리를 최대한 영상내에 노출시키지 않고 은유적으로 표현하여 시청에 불편함을 느끼지 않게 하였다. 
   또한 직접 그린 애니메이션을 통해 의미를 더했다. `,
+        'plastic':
+`폰서트, 오피셜리미씽유, 숲 이후 TeamX는 기존 영상과 다른 새로운 시도를 해보기로 했다. 
+이에 시티팝의 대표주자 격인 Plastic Love를 색다르게 연출하였다. 
+Plastic Love는 타 영상과 비교하면 압도적으로 촬영본 분량이 적다. 
+그 이유는 생성형 AI 기술을 활용한 2D 애니메이션을 추가하였기 때문. 
+위 뮤직비디오 내에 단 한 장면도, 직접 그리지 않았다. 
+애니메이션 생성을 위해 눈 감은 모습, 주름 약간 등의 아주 미세한 리터칭 외에는 모두 생성형 AI를 활용하였다. 
+Plastic Love의 줄거리는 짝사랑이다.  
+좋아하는 사람을 만나러 가는 길은 모든 게 다 생소하다. 
+매일 보던 엘리베이터도, 자주 걷던 길목도 모두 낯설다. 
+마치 만화 속 주인공이 된 것처럼 말이다. 
+좋아하는 사람과 만나는 순간은 시간이 멈춘듯하다. 
+상대방의 눈도 마주치지 못하고 무슨 이야기를 하는지 머릿속에 들어오지 않는다. 
+좋아하는 감정은 흘러넘칠 만큼 큰데, 이 감정을 어떻게 다스려야 할지 혼란스러운 주인공은 상대방과의 만남 이후 길을 걸으며 되뇐다. 
+그리고 신호등 초록불이 켜진 듯이 주인공은 이 마음을 상대방에게 고백하기로 결심하며 영상은 마무리된다.
+흔히 말하는 “만화 같은 사랑”은 멀리 있지 않다. 
+누군가를 사랑하고 좋아하는 마음은 어떤 감정보다 순도 높고 아름답고 비현실적이다. 
+이 뮤직비디오를 보며 나의 짝사랑을 추억해보는 건 어떨까?`,
         };
 
         return interpretations[albumId] || '앨범에 대한 해석 정보를 찾을 수 없습니다.';
@@ -364,7 +430,8 @@ video{
     color:black;
     line-height: 20px;
     font-size:0.9em;
-    width:80%
+    width:80%;
+    text-align: justify;
 }
 
 .behind-container{

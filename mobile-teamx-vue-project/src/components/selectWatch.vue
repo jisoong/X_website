@@ -1,22 +1,25 @@
 <template>
-    <header>
-      <img class="logo" src="@/assets/img/logo.png" @click="goToMain" alt="">
-    </header>
-    <img class="box" src="@/assets/img/top-ellipse.png" alt="">
-    <div class="container">
-      <div class="title">원하는 음악을 골라주세요</div>
-      <div class="img-container">
-          <div class="album" v-for="album in albums" :key="album.id" @click="selectAlbum(album);" :class="{ selected: album === selectedAlbum }">
-              <img class="coverimg" :src="album.cover"  >
-              <div class="song-title">{{ album.song }}</div>
-              <p class="singer"> -{{ album.singer }}</p>
-          </div>
-      </div>
-      <div class="button-container">
-        <img class="next" src="@/assets/img/next.png" alt="" @click="goToNextPage" :class="{ 'btt_abled': isButtonDisabled }">
+  <transition name="fade" mode="out-in">
+    <div v-if="showContent" class="about">
+      <header>
+        <img class="logo" src="@/assets/img/logo.png" @click="goToMain" alt="">
+      </header>
+      <img class="box" src="@/assets/img/top-ellipse.png" alt="">
+      <div class="container">
+        <div class="title">원하는 음악을 골라주세요</div>
+        <div class="img-container">
+            <div class="album" v-for="album in albums" :key="album.id" @click="selectAlbum(album);" :class="{ selected: album === selectedAlbum }">
+                <img class="coverimg" :src="album.cover"  >
+                <div class="song-title">{{ album.song }}</div>
+                <p class="singer"> -{{ album.singer }}</p>
+            </div>
+        </div>
+        <div class="button-container">
+          <img class="next" src="@/assets/img/next.png" alt="" @click="goToNextPage" :class="{ 'btt_abled': isButtonDisabled }">
+        </div>
       </div>
     </div>
-
+  </transition>
 </template>
 
 <script>
@@ -24,14 +27,21 @@ export default {
   data() {
     return {
       selectedAlbum: null,
+      showContent: false,
       albums: [
         { id: '10cm', cover: require('../assets/img/10cm.jpeg'), alt: '10cm album cover', song: '폰서트', singer:'10cm' },
         { id: 'plastic', cover: require('../assets/img/plastic.jpeg'), alt: 'Plastic album cover', song: 'plastic love', singer: '타케우치 마리야' },
         { id: 'choi', cover: require('../assets/img/choi.jpeg'), alt: 'Choi album cover', song: '숲', singer: '최유리' },
         { id: 'geeks', cover: require('../assets/img/geeks.jpeg'), alt: 'Geeks album cover', song: 'officially missing you', singer: '긱스' },
-        { id: 'bluesky', cover: require('../assets/img/bluesky.jpeg'), alt: 'Bluesky album cover', song: 'Mr. Blue Sky', singer: 'Electric Light Orchestra' },
+        // { id: 'bluesky', cover: require('../assets/img/bluesky.jpeg'), alt: 'Bluesky album cover', song: 'Mr. Blue Sky', singer: 'Electric Light Orchestra' },
       ]
     };
+  },
+  mounted() {
+    this.showContent = true;
+  },
+  beforeUnmount() {
+    this.showContent = false;
   },
   computed: {
     isButtonDisabled() {
@@ -116,6 +126,7 @@ header{
     flex-direction: column;
     cursor: pointer;
     overflow-y: hidden;
+    transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 .coverimg {
@@ -156,7 +167,12 @@ header{
     margin-right:30px;
     object-fit: contain;
 }
-
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter-from, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+  opacity: 0;
+}
 @media (min-width: 768px) {
     .logo{
       width:40px;

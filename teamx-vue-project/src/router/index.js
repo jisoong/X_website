@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory} from 'vue-router'
 import store from '../store';
 
+
 const routes = [
     {
         path: '/selectWatch',
@@ -37,23 +38,16 @@ const routes = [
         component:()=>import('../components/ourTeam.vue'),
     },
     {
+      path: '/pipeLine',
+      name: 'pipeLine',
+      component:()=>import('../components/pipeLine.vue'),
+    },
+    {
         path: '/loading',
         name: 'Loading',
         component:()=>import('../components/loadingPage.vue'),
     }
 ]
-
-// const router = createRouter({
-//     history: createWebHistory(),
-//     base: process.env.BASE_URL,
-//     routes,
-//     scrollBehavior() {
-//         // always scroll to top
-//         return { top: 0 }
-//     },
-// })
-
-// export default router
 
 const router = createRouter({
     history: createWebHistory(),
