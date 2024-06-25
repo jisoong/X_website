@@ -82,7 +82,7 @@ header{
     overflow-x: hidden;
 }
 .title{
-    /* margin-top:0px; */
+    margin-top:10px;
     margin-bottom:30px;
     color:#172BFF;
     font-size: 1.0em;
@@ -91,15 +91,15 @@ header{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-top:50px;
   /* width: 100%; */
   padding: 10px;
   box-sizing: border-box;
+  align-items: center;
 }
 .album{
     padding: 10px;
-    width: 40vw;
-    min-width:150px;
+    width: 30vw;
+    min-width:140px;
     height:auto;
     box-sizing: border-box;
     display: flex;
@@ -123,7 +123,7 @@ header{
   text-align: center;
 }
 .singer{
-    font-size:0.8em;
+    font-size:0.75em;
     margin-top:5px;
 }
 .fade-enter-active, .fade-leave-active {
@@ -133,19 +133,6 @@ header{
   opacity: 0;
 }
 @media (min-height: 600px) and (max-height: 750px) {
-  .box{
-    height: 8vh;
-  }
-  .container{
-    height: 90vh;
-  }
-  .title {
-    font-size: 1.3em;
-    margin-bottom:20px;
-  }
-  .album{
-    width:90px;
-  }
   .song-title {
     margin-top: 5px;
     font-size: 0.7em;
@@ -164,13 +151,13 @@ header{
         width: 150px;
     }
     .song-title {
-        font-size: 1.3em;
+        font-size: 0.8em;
     }
     .singer {
         font-size: 0.7em;
     }
     .title {
-        font-size: 1.8em;
+        font-size: 1.4em;
     }
     .img-container {
       grid-gap: 20px;
@@ -187,7 +174,7 @@ header{
         height:auto;
     }
     .title {
-        font-size: 1.8em;
+        font-size: 1.3em;
     }
     .song-title {
         margin-top:10px;

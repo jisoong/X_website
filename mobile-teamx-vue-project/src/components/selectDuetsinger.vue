@@ -255,12 +255,7 @@ header{
   width: 80vw;
   align-items: center;
  }
-.select-text{
-  color:#172BFF;
-}
-.selected {
-  border: 4px solid #172BFF;
-}
+
 
 .singer-container{
   width: 80vw;
@@ -285,9 +280,14 @@ header{
   padding: 5px;
   border-radius: 50%;
   object-fit: cover;
-
+  border: 4px solid white;
 }
-
+.select-text{
+  color:#172BFF;
+}
+.selected {
+  border: 4px solid #172BFF;
+}
 .artist-name{
   font-size: 0.9em;
   margin-top: 8px;
@@ -315,6 +315,7 @@ hr{
   justify-content: space-between;
   margin-top:60px;
   align-items: baseline;
+  height: 20px;
 }
 .back{
   width:100px;

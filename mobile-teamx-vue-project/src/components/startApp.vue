@@ -73,7 +73,13 @@
       </div>
 
     </div>
-    
+    <!-- 비디오 들어가야함 -->
+    <!-- <div class="videoRoom">
+      
+      <video src="../assets/video/background.webm" autoplay loop muted playsinline type="video/webm"  preload="auto">
+        
+      </video>
+    </div> -->
 </template>
 
 
@@ -191,7 +197,22 @@ hr {
 .text-container .ListenMusic {
   margin-bottom: 70px;
 }
+.videoRoom{
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
+}
+
+video{
+  width: auto;
+  height:50vh;
+  z-index: -10;
+}
 @media (min-width: 600px) and (max-width: 768px) {
     .logo {
         width: 35px;

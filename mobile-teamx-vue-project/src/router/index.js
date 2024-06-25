@@ -48,6 +48,11 @@ const routes = [
         component:()=>import('../components/ourTeam.vue')
     },
     {
+      path: '/pipeline',
+      name: 'pipeLine',
+      component:()=>import('../components/pipeLine.vue')
+  },
+    {
         path: '/test',
         name: 'testPage',
         component:()=>import('../components/testPage.vue')

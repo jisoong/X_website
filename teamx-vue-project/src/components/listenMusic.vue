@@ -28,14 +28,14 @@
           teamX가 궁금하다면
         </div>
         <div class="qrimg-container">
-          <div class="insta-qr-container">
+          <a class="insta-qr-container" href="https://www.instagram.com/xteamx2024/" target="_blank">
             <img src="../assets/img/teamxinsta_qr_white.png" class="insta-qr"> 
             <p>insta</p>
-          </div>
-          <div class="ytube-qr-container">
+          </a>
+          <a class="ytube-qr-container" href="https://www.youtube.com/@xteamx2024" target="_blank">
             <img src="../assets/img/teamxytube_qr_white.png" class="ytube-qr">
             <p>youtube</p>
-          </div>
+          </a>
         </div>
       </div>
       <img class="footer-logo" src="../assets/img/BI.png" alt="" @click="goToMainPage">
@@ -385,7 +385,7 @@ audio{
 }
 .detail{
   margin-top: 4px;
-  line-height: 25px;
+  line-height: 35px;
   font-size: 16px;
   color: white;
   white-space: pre-wrap;
@@ -399,6 +399,7 @@ audio{
   margin-top: 50px;
   color:#7782FF;
   font-size:1em;
+  font-weight: bold;
 }
 .qrimg-container{
   margin-top:30px;
@@ -424,6 +425,15 @@ audio{
   margin-top: 100px;
   width: 50px;
   z-index: 2;
+}
+
+a {
+    color: inherit; 
+    text-decoration: none;
+}
+
+a:visited, a:active {
+    color: inherit; 
 }
 
 @-webkit-keyframes spin {

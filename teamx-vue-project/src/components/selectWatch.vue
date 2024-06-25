@@ -37,17 +37,17 @@ export default {
       selectedAlbum: null,
       isSectionClicked: false, 
       albums: [
-        // { id: 'bluesky', cover: require('@/assets/img/bluesky.jpeg'), alt: 'Bluesky album cover', song: 'Mr. Blue Sky' },
+        { id: 'geeks', cover: require('@/assets/img/geeks.jpeg'), alt: 'Geeks album cover', song: 'officially missing you' },
+        { id: 'choi', cover: require('@/assets/img/choi.jpeg'), alt: 'Choi album cover', song: '숲' },
         { id: '10cm', cover: require('@/assets/img/10cm.jpeg'), alt: '10cm album cover', song: '폰서트' },
         { id: 'plastic', cover: require('@/assets/img/plastic.jpeg'), alt: 'Plastic album cover', song: 'plastic love' },
-        { id: 'choi', cover: require('@/assets/img/choi.jpeg'), alt: 'Choi album cover', song: '숲' },
-        { id: 'geeks', cover: require('@/assets/img/geeks.jpeg'), alt: 'Geeks album cover', song: 'officially missing you' },
+        { id: 'bluesky', cover: require('@/assets/img/bluesky.jpeg'), alt: 'Bluesky album cover', song: 'Mr. Blue Sky' },
       ],
       singers: [
-      { id: 'kim', image: require('@/assets/img/kim.jpeg'), alt: 'Kim singer', name: '김광석', albums: ['10cm', 'choi', 'geeks','plastic'] },
-      { id: 'mujin', image: require('@/assets/img/mujin.jpeg'), alt: 'Mujin singer', name: '이무진', albums: ['10cm', 'choi', 'geeks'] },
-      { id: 'yerin', image: require('@/assets/img/yerin.jpeg'), alt: 'Yerin singer', name: '백예린', albums: ['10cm', 'choi', 'geeks']},
-      { id: 'bibi', image: require('@/assets/img/bibi.jpeg'), alt: 'IU singer', name: '비비', albums: ['10cm', 'choi', 'geeks']}
+      { id: 'kim', image: require('@/assets/img/kim.jpeg'), alt: 'Kim singer', name: '김광석', albums: ['10cm', 'choi', 'geeks','plastic','bluesky'] },
+      { id: 'mujin', image: require('@/assets/img/mujin.jpeg'), alt: 'Mujin singer', name: '이무진', albums: ['10cm', 'choi', 'geeks','plastic','bluesky'] },
+      { id: 'yerin', image: require('@/assets/img/yerin.jpeg'), alt: 'Yerin singer', name: '백예린', albums: ['10cm', 'choi', 'geeks','plastic','bluesky']},
+      { id: 'bibi', image: require('@/assets/img/bibi.jpeg'), alt: 'IU singer', name: '비비', albums: ['10cm', 'choi', 'geeks','plastic','bluesky']}
       ]
     };
   },
@@ -128,7 +128,7 @@ header {
 .title {
   color: #172BFF;
   text-align: center;
-  font-size: 1.5em;
+  font-size: 1.2em;
   margin-top: 2vh;
   padding-bottom: 1vh;
 }
@@ -212,15 +212,12 @@ header {
   max-width: 250px;
   max-height: 250px;
   padding: 5px;
+  border: 4px solid white;
 }
 
 .song-title {
   padding-left: 50px;
   font-size: 1.5em;
-}
-
-.selected {
-  border: 4px solid #172BFF;
 }
 
 .artist_container .big-box {
@@ -254,6 +251,11 @@ header {
   max-width: 250px;
   max-height: 250px;
   padding: 5px;
+  border: 4px solid white;
+}
+
+.selected {
+  border: 4px solid #172BFF;
 }
 
 .artist-name {
@@ -276,7 +278,6 @@ header {
 .next_btt:hover {
   background-color: #172BFF;
   color: white;
-  border-color: white;
 }
 
 .next_btt.btt_disabled {

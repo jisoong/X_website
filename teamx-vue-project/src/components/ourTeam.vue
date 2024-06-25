@@ -3,21 +3,22 @@
         <img class="logo" src="../assets/img/logo.png" @click="goToMain" alt="">
     </header>
     <div class="container">
+      <div class="introduce">INTRODUCE</div>
+
       <nav class="menu">
-        <router-link to="/">our team</router-link> | <router-link to="/pipeline">pipeline</router-link>
+        <router-link class="ourteam" to="/ourTeam">our team</router-link> | <router-link class="pipeline" to="/pipeline">pipeline</router-link>
       </nav>
-        <div class="intro">
-            <div class="introduce">INTRODUCE</div>
-            <img class="team-img" src="../assets/img/team.jpeg" alt="">
-        </div>
-        <div class="hello"> 안녕하세요, Team X입니다.</div>
+
+      <img class="team-img" src="../assets/img/team.jpeg" alt="">
+
+        <div class="hello"> 안녕하세요, teamX입니다.</div>
         <div class="detail">
             <pre>
               
 
             </pre>
             <div>
-              Team X의 X는 "나의 아티스트가 원하는 곡을 불러준다면"이라는 상상에서 출발한 프로젝트다. 
+              teamX의 X는 "나의 아티스트가 원하는 곡을 불러준다면"이라는 상상에서 출발한 프로젝트다. 
               웹에서 아티스트와 곡을 선택하고, 직접 제작한 영상 콘텐츠를 즐기는 형태로 진행된다. 
               X는 시각적인 요소가 배제된 기존의 AI커버를 입체적으로 재창작하는 것에서 의의를 가진다.
               곡을 재해석한 스토리, 촬영본에 딥페이크 활용하여 만든 뮤직비디오, AI학습과 사운드 디자인을 통해 만든 음원, 영상미를 높여줄 3D프로덕션, 
@@ -50,14 +51,14 @@
         </div>
         </div>
         <div class="qr-container"> 
-          <div class="insta-qr-container">
-          <img src="../assets/img/teamxinsta_qr.png" class="insta-qr qr"> 
-          <p>insta</p>
-        </div>
-        <div class="ytube-qr-container">
-          <img src="../assets/img/teamxytube_qr.png" class="ytube-qr qr">
-          <p>youtube</p>
-        </div>
+          <a class="insta-qr-container" href="https://www.youtube.com/@xteamx2024" target="_blank">
+            <img src="../assets/img/teamxinsta_qr.png" class="insta-qr qr">
+            <p>insta</p>
+          </a>
+          <a class="ytube-qr-container" href="https://www.instagram.com/xteamx2024?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank">
+            <img src="../assets/img/teamxytube_qr.png" class="ytube-qr qr">
+            <p>youtube</p>
+          </a>
         </div>
         <img class="footer-logo" src="../assets/img/BI.png" alt="">
     </div>
@@ -151,14 +152,33 @@ header, .container {
     align-items: center;
     overflow-x: hidden;
 }
-.menu{
-  margin-top:100px;
-  margin-bottom:100px;
+.menu {
+    margin-top: 50px;
+    margin-bottom:100px;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    color: inherit;
 }
+.ourteam{
+  color:#172BFF;
+  text-decoration: none;
+}
+.pipeline{
+  color: #222222;
+  text-decoration: none;
+}
+
+.ourteam:hover, .pipeline:hover {
+  color:#172BFF;
+}
+
+
 .introduce{
     color:#172BFF;
     font-size: 70px;
-    font-weight: bold;
+    /* font-weight: bold; */
+    margin-top:100px;
 }
 .team-img{
     margin-top:40px;
@@ -221,6 +241,7 @@ header, .container {
 .role{
   font-size:20px;
   margin-top:5px;
+  font-weight: 500;
 }
 .insta{
   font-size:20px;
@@ -267,6 +288,8 @@ header, .container {
   font-size: 15px;
   width:150px;
   margin: 0 30px;
+  color: inherit; 
+  text-decoration: none;
 }
 /* .insta-qr, .ytube-qr {
   width: 8vw;
@@ -283,7 +306,14 @@ header, .container {
   padding-right:50vw;
   overflow-x: hidden;
 }
+/* a {
+    color: inherit; 
+    text-decoration: none;
+}
 
+a:visited, a:active {
+    color: inherit; 
+} */
 
 @media (max-width: 768px) {
   .introduce {

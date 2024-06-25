@@ -15,6 +15,11 @@ const routes = [
         component:()=>import('../components/startApp.vue')
     },
     {
+      path: '/test',
+      name: 'testPage',
+      component:()=>import('../components/testPage.vue')
+  },
+    {
         path: '/video/:singerId/:albumId/:albumName/:singerName',
         name: 'videoPage',
         component:()=>import('../components/videoPage.vue'),

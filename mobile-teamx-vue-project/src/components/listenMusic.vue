@@ -15,7 +15,8 @@
           </audio>
         </div>
         <div class="text-container">
-            <div class="title"> {{ albumName }} - {{ singerNames }} </div>
+            <div class="albumName"> {{ albumName }}</div>
+            <div class="singerNames">{{ singerNames }} </div>
             <div class="origin-artist"> 원곡 아티스트: {{ originArtist }} </div>
             <pre>
 
@@ -276,7 +277,7 @@ Sweet like bubble gum`,
 
 
 <style scoped>
-header,.album-container,.audio-player,.text-container {
+header,.container {
 	font-family: 'Pretendard', sans-serif;
 }
 
@@ -368,15 +369,24 @@ audio{
     border-radius: 50px;
     width: 60%
 }
-.title{
+.albumName{
     color: #7782FF;
-    font-size: 20px;
-    font-weight: bolder;
+    font-size: 21px;
+    font-weight: 700;
+    text-align: center;
+}
+.singerNames{
+    color: #7782FF;
+    font-size: 18px;
+    font-weight: 400;
+    text-align: center;
+    margin-top:10px;
 }
 .origin-artist{
     color: #7782FF;
     margin-top: 10px;
-    font-size: 17px;
+    font-size: 15px;
+    font-weight: 300;
 }
 .detail{
     margin-top: 4px;
@@ -393,6 +403,7 @@ audio{
   flex-direction: column;
   align-items: center;
   font-size:20px;
+  font-weight: bold;
 }
 
 .qrimg-container{

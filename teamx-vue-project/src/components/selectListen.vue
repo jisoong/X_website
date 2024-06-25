@@ -324,9 +324,6 @@ header{
   margin-top:10px;
 }
 
-.selected {
-  border: 4px solid #172BFF;
-}
 
 .select-container{
   display: flex;
@@ -351,6 +348,12 @@ header{
   padding: 5px;
   border-radius: 50%;
   object-fit: cover;
+  border: 3px solid white;
+}
+
+
+.selected {
+  border: 3px solid #172BFF;
 }
 
 .artist-name{
@@ -388,7 +391,6 @@ hr{
 .next_btt:hover {
   background-color: #172BFF;
   color: white;
-  border-color: white;
 }
 
 .next_btt.btt_disabled {

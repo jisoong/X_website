@@ -75,12 +75,13 @@
               <i class="fa-solid fa-chevron-down"></i>
           </div>
     </div>
-    <div class="videoRoom">
-      <!-- 비디오 들어가야함 -->
-      <!-- <video src="../assets/video/test.mp4" autoplay loop muted>
+    <!-- 비디오 들어가야함 -->
+    <!-- <div class="videoRoom">
+      
+      <video src="../assets/video/background.webm" autoplay loop muted playsinline>
         
-      </video> -->
-    </div>
+      </video>
+    </div> -->
 </template>
   
   
@@ -228,15 +229,20 @@ button {
 
 .videoRoom{
   display: flex;
-  width: 100vw;
-  height:100vh;
+  /* width: 100vw;
+  height:100vh; */
   justify-content: center;
   overflow: hidden;
-  position: relative;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 video{
-  position: absolute;
+  /* position: absolute; */
+  /* height:auto; */
+  width: 100vw;
   height:auto;
   z-index: -10;
   /* margin-top: 35vh; */

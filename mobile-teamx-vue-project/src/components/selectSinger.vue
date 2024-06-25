@@ -99,7 +99,6 @@ header{
 .title{
     color:#172BFF;
     font-size: 1.0em;
-    font-weight: 200;
 }
 .img-container{
     display: grid;
@@ -144,6 +143,7 @@ header{
   justify-content: space-between;
   margin-top:20px;
   align-items: baseline;
+  height: 40px;
 }
 .back{
   width:100px;

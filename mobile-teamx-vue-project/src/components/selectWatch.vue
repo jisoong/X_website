@@ -29,11 +29,11 @@ export default {
       selectedAlbum: null,
       showContent: false,
       albums: [
+        { id: 'geeks', cover: require('../assets/img/geeks.jpeg'), alt: 'Geeks album cover', song: 'officially missing you', singer: '긱스' },
+        { id: 'choi', cover: require('../assets/img/choi.jpeg'), alt: 'Choi album cover', song: '숲', singer: '최유리' },
         { id: '10cm', cover: require('../assets/img/10cm.jpeg'), alt: '10cm album cover', song: '폰서트', singer:'10cm' },
         { id: 'plastic', cover: require('../assets/img/plastic.jpeg'), alt: 'Plastic album cover', song: 'plastic love', singer: '타케우치 마리야' },
-        { id: 'choi', cover: require('../assets/img/choi.jpeg'), alt: 'Choi album cover', song: '숲', singer: '최유리' },
-        { id: 'geeks', cover: require('../assets/img/geeks.jpeg'), alt: 'Geeks album cover', song: 'officially missing you', singer: '긱스' },
-        // { id: 'bluesky', cover: require('../assets/img/bluesky.jpeg'), alt: 'Bluesky album cover', song: 'Mr. Blue Sky', singer: 'Electric Light Orchestra' },
+        { id: 'bluesky', cover: require('../assets/img/bluesky.jpeg'), alt: 'Bluesky album cover', song: 'Mr. Blue Sky', singer: 'ELO' },
       ]
     };
   },
@@ -103,7 +103,6 @@ header{
     margin-bottom:30px;
     color:#172BFF;
     font-size: 1.0em;
-    font-weight: 200;
 }
 
 .img-container {
@@ -156,6 +155,7 @@ header{
   width:100vw;
   justify-content: flex-end;
   margin-top:20px;
+  height:20px;
 }
 .next{
     width:0;

@@ -1,30 +1,26 @@
 <template>
-    <header>
+      <header>
         <img class="logo" src="../assets/img/logo.png" @click="goToMain" alt="">
-    </header>
-    <div class="container">
-        <div class="intro">
-            <div class="introduce">INTRODUCE</div>
-            <img class="team-img" src="../assets/img/team.jpeg" alt="">
-        </div>
-        <div class="hello"> 안녕하세요, Team X입니다.</div>
+      </header>
+      <div class="container">
+        <div class="introduce">INTRODUCE</div>
+  
+        <nav class="menu">
+          <router-link class="ourteam" to="/ourTeam">our team</router-link> | <router-link class="pipeline" to="/pipeline">pipeline</router-link>
+        </nav>
+        <img class="team-img" src="../assets/img/team.jpeg" alt="">
+        <div class="hello"> 안녕하세요, teamX입니다.</div>
         <div class="detail">
             <pre>
               
 
             </pre>
             <div>
-              딥페이크 및 ai 기술을 활용한 개인화된 뮤직비디오 웹서비스
-
-              현대의 음악 산업과 엔터테인먼트 분야는 기술의 발전과 함께 급속도로 변화하고 있다. 
-              특히, AI 기술의 진보는 음악 제작과 감상 방식에 혁신을 가져왔다.
-              AI를 활용한 음성 변환 기술과 딥페이크 기술은 이제 사용자가 원하는 어떤 가수든지 그들의 목소리와 모습으로 곡을 커버할 수 있는 가능성을 열었다. 
-              이러한 기술적 진보에도 불구하고, 대부분의 음악 감상 서비스는 여전히 단순한 오디오 스트리밍에 집중하고 있으며, 청각적 경험 외에 시각적 경험을 통합하는 데에는 한계가 있다.
-              본 프로젝트는 딥페이크 및 ai 기술을 활용한 뮤직비디오 웹서비스를 제작한다. 
-              이에 Personality, Visible, Originality를 세 가지 주요 키워드로 제시한다. 
-              사용자는 자신이 원하는 아티스트의 목소리로 원하는 음악을 들을 수 있도록 직접 선택하여 개인화된 뮤직비디오를 감상할 수 있다. 
-              사용자가 선택한 가수가 실제로 내 눈앞에서 노래를 부르는듯한 시각적인 경험을 할 수 있게 한다. 
-              기술적인 해결책에만 치우치지 않고 독창적인 콘텐츠를 제작한다.
+              teamX의 X는 "나의 아티스트가 원하는 곡을 불러준다면"이라는 상상에서 출발한 프로젝트다. 
+              웹에서 아티스트와 곡을 선택하고, 직접 제작한 영상 콘텐츠를 즐기는 형태로 진행된다. 
+              X는 시각적인 요소가 배제된 기존의 AI커버를 입체적으로 재창작하는 것에서 의의를 가진다.
+              곡을 재해석한 스토리, 촬영본에 딥페이크 활용하여 만든 뮤직비디오, AI학습과 사운드 디자인을 통해 만든 음원, 영상미를 높여줄 3D프로덕션, 
+              그리고 이 콘텐츠와 유저를 연결해주는 웹. X는 각 분야의 다양한 기술이 결합된 예술공학적인 프로젝트라고 할 수 있다.
             </div>
             <pre>
 
@@ -129,7 +125,7 @@ export default {
 </script>
 
 <style scoped>
-header, .intro,.hello,.detail,.team-container,.slider {
+header, .container {
 	font-family: 'Pretendard', sans-serif;
 }
 
@@ -154,6 +150,23 @@ header, .intro,.hello,.detail,.team-container,.slider {
     text-align: center;
     font-weight: bold;
 }
+.menu {
+  margin-top: 20px;
+  margin-bottom:30px;
+  font-size: 15px;
+  font-weight: bold;
+  text-decoration: none;
+  color: inherit;
+}
+.ourteam{
+  color: #172BFF;
+  text-decoration: none;
+}
+.pipeline{
+  color:#222222;
+  text-decoration: none;
+}
+
 .intro{
     display: flex;
     flex-direction: column;
@@ -176,6 +189,7 @@ header, .intro,.hello,.detail,.team-container,.slider {
     line-height: 30px;
     font-size: 0.8em;
     text-align: justify;
+    font-weight: 200;
 }
 .team-container{
     display: flex;
@@ -216,6 +230,7 @@ header, .intro,.hello,.detail,.team-container,.slider {
 .role{
   font-size:15px;
   margin-top:5px;
+  font-weight: 500;
 }
 .insta{
   font-size:15px;
@@ -261,14 +276,14 @@ header, .intro,.hello,.detail,.team-container,.slider {
     padding: 10px;
     color:#172BFF;
 }
-a {
-    color: inherit; /* Inherit color from parent element */
-    text-decoration: none; /* Remove underline */
+/* a {
+    color: inherit; 
+    text-decoration: none;
 }
 
 a:visited, a:active {
-    color: inherit; /* Keep the same color when visited or active */
-}
+    color: inherit; 
+} */
 .footer-logo{
   margin-top: 0px;
   padding-top: 50px;
