@@ -44,14 +44,14 @@
         teamX가 궁금하다면
       </div>
       <div class="qrimg-container">
-        <a class="insta-qr-container" href="https://www.instagram.com/xteamx2024/" target="_blank">
+        <div class="insta-qr-container">
           <img src="../assets/img/teamxinsta_qr.png" class="insta-qr"> 
           <p>insta</p>
-        </a>
-        <a class="ytube-qr-container" href="https://www.youtube.com/@xteamx2024" target="_blank">
+        </div>
+        <div class="ytube-qr-container">
           <img src="../assets/img/teamxytube_qr.png" class="ytube-qr">
           <p>youtube</p>
-        </a>
+        </div>
       </div>
     </div>
     <img class="footer-logo" src="../assets/img/teamX_mainBI.png" @click="goToMainPage" alt="">

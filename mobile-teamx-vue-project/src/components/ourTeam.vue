@@ -112,6 +112,7 @@ export default {
         { url: require('../assets/img/work2.png') }, 
         { url: require('../assets/img/work3.png') },
         { url: require('../assets/img/work4.png') },
+        { url: require('../assets/img/work5.png') },
           // Add more images as needed
       ],
       };
@@ -247,10 +248,10 @@ header, .container {
   display: inline-block;
   margin-top:100px;
 }
-.slide img{
+.slides img{
     width: 250px;
     height: 150px;
-    object-fit: cover;
+    object-fit: contain;
     padding-left:15px;
     padding-right:15px;
     /* height: auto; */

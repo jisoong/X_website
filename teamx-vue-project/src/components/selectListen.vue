@@ -2,50 +2,53 @@
     <header>
       <img class="logo" src="@/assets/img/logo.png" @click="goToMain" alt="">
     </header>
-    <div class="container">
+    <div class="main-container">
       <img class="box" src="@/assets/img/Ellipse_top.png" alt="" :class="{ellipse_h: isAlbumSelected}">
-      <h2 class="title">{{ selectTitleText }}</h2>
-        <div class="album-container" v-if="!isAlbumSelected">
-          <div class="album" v-for="album in albums" :key="album.id">
-            <img class="coverimg" :src="album.cover" @click="selectAlbum(album);" :class="{ selected: album === selectedAlbum}">
-            <p class="song-title">{{ album.song }}</p>
-            <p class="singer"> -{{ album.singer }} </p>
+      <div class="container">
+        <h2 class="title">{{ selectTitleText }}</h2>
+          <div class="album-container" v-if="!isAlbumSelected">
+            <div class="album" v-for="album in albums" :key="album.id">
+              <img class="coverimg" :src="album.cover" @click="selectAlbum(album);" :class="{ selected: album === selectedAlbum}">
+              <p class="song-title">{{ album.song }}</p>
+              <p class="singer"> -{{ album.singer }} </p>
+            </div>
           </div>
-        </div>
-        <div class="select-container" v-if="isAlbumSelected">
-          <div class="album  animated">
-              <img class="coverimg" :src="selectedAlbum.cover" >
-              <p class="song-title">{{ selectedAlbum.song }}</p>
-              <p class="singer"> -{{ selectedAlbum.singer }} </p>
-          </div>
-          <div class="singer-list">
-            <div class="man-list">
-              <div>{{ selectText_man }}</div>
-              <hr>
-              <img class="blureffect" src="@/assets/img/blureffect.png" alt="">
-              <div class="singer-container">
-                <div class="artist" v-for="singer in filteredMaleSingers" :key="singer.id">
-                  <img class="singerimg" :src="singer.image" :alt="singer.alt" @click="selectMaleSinger(singer);" :class="{ selected: singer === selectedMalesinger}">
-                  <p class="artist-name">{{ singer.name }}</p>
+          <div class="select-container" v-if="isAlbumSelected">
+            <div class="album  animated">
+                <img class="coverimg" :src="selectedAlbum.cover" >
+                <p class="song-title">{{ selectedAlbum.song }}</p>
+                <p class="singer"> -{{ selectedAlbum.singer }} </p>
+            </div>
+            <div class="singer-list">
+              <div class="man-list">
+                <div>{{ selectText_man }}</div>
+                <hr>
+                <img class="blureffect" src="@/assets/img/blureffect.png" alt="">
+                <div class="singer-container">
+                  <div class="artist" v-for="singer in filteredMaleSingers" :key="singer.id">
+                    <img class="singerimg" :src="singer.image" :alt="singer.alt" @click="selectMaleSinger(singer);" :class="{ selected: singer === selectedMalesinger}">
+                    <p class="artist-name">{{ singer.name }}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="woman-list">
-              <div>{{ selectText_woman }}</div>
-              <hr>
-              <img class="blureffect" src="@/assets/img/blureffect.png" alt="">
-              <div class="singer-container">
-                <div class="artist" v-for="singer in filteredFemaleSingers" :key="singer.id">
-                  <img class="singerimg" :src="singer.image" :alt="singer.alt" @click="selectFemaleSinger(singer);" :class="{ selected: singer === selectedFemalesinger}">
-                  <p class="artist-name">{{ singer.name }}</p>
+              <div class="woman-list">
+                <div>{{ selectText_woman }}</div>
+                <hr>
+                <img class="blureffect" src="@/assets/img/blureffect.png" alt="">
+                <div class="singer-container">
+                  <div class="artist" v-for="singer in filteredFemaleSingers" :key="singer.id">
+                    <img class="singerimg" :src="singer.image" :alt="singer.alt" @click="selectFemaleSinger(singer);" :class="{ selected: singer === selectedFemalesinger}">
+                    <p class="artist-name">{{ singer.name }}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div> 
-        </div>
+            </div> 
+          </div>
 
-      
-      <button v-if="isAlbumSelected" class="next_btt" @click="goToSecondPage" :class="{ 'btt_disabled': isButtonDisabled }">선택 완료</button>
+        
+        <button v-if="isAlbumSelected" class="next_btt" @click="goToSecondPage" :class="{ 'btt_disabled': isButtonDisabled }">선택 완료</button>
+      </div>
+      <div class="fake"></div>
     </div>
 
 </template>
@@ -223,12 +226,20 @@ header, .container {
 	font-family: 'Pretendard', sans-serif;
 }
 
+
 header{
   position: fixed;
   width: 100%;
   top: 0;
   left: 0;
   z-index: 1000; /* Keep the header on top */
+}
+
+.main-container{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .logo{
@@ -238,11 +249,13 @@ header{
 
 .box{
   width: 100%;
-  height:  180px;
+  height: 180px;
   pointer-events: none;
 
 }
-
+.fake{
+  height: 180px;
+}
 .ellipse_h{
   height:  13vh;
 }
@@ -257,7 +270,6 @@ header{
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
 }
 
 .title {
@@ -266,7 +278,6 @@ header{
   font-size: 1.2em;
   /* margin-top: 2vh; */
   padding-bottom: 1vh;
-
 }
 
 .album-container{
@@ -283,7 +294,6 @@ header{
   align-items: center;
   padding-bottom:10px;
   margin-right:60px;
-  
 }
 
 .singer-list{

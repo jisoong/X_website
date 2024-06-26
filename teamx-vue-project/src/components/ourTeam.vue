@@ -51,14 +51,14 @@
         </div>
         </div>
         <div class="qr-container"> 
-          <a class="insta-qr-container" href="https://www.youtube.com/@xteamx2024" target="_blank">
+          <div class="insta-qr-container">
             <img src="../assets/img/teamxinsta_qr.png" class="insta-qr qr">
             <p>insta</p>
-          </a>
-          <a class="ytube-qr-container" href="https://www.instagram.com/xteamx2024?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank">
+          </div>
+          <div class="ytube-qr-container">
             <img src="../assets/img/teamxytube_qr.png" class="ytube-qr qr">
             <p>youtube</p>
-          </a>
+          </div>
         </div>
         <img class="footer-logo" src="../assets/img/BI.png" alt="">
     </div>
@@ -119,8 +119,7 @@ export default {
         { url: require('@/assets/img/work3.png') },
         { url: require('@/assets/img/work4.png') },
         { url: require('@/assets/img/work5.png') }, 
-        { url: require('@/assets/img/work6.png') },
-        { url: require('@/assets/img/work7.png') },
+
           // Add more images as needed
       ],
       };
