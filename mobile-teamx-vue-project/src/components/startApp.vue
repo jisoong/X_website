@@ -47,7 +47,7 @@
     <audio ref="audioPlayer" autoplay loop>
         <source src="../assets/music/intro.wav" type="audio/mpeg">
     </audio>
-    <div>
+    <div class="main-container">
       <header>
         <div class="logo-container">
           <img class="logo" src="@/assets/img/whitelogo.png" @click="onClickMoveOurPage" alt="">
@@ -74,12 +74,12 @@
 
     </div>
     <!-- 비디오 들어가야함 -->
-    <!-- <div class="videoRoom">
+    <div class="videoRoom">
       
-      <video src="../assets/video/background.webm" autoplay loop muted playsinline type="video/webm"  preload="auto">
+      <video src="../assets/video/background.mp4" autoplay loop muted playsinline type="video/webm"  preload="auto">
         
       </video>
-    </div> -->
+    </div>
 </template>
 
 
@@ -93,11 +93,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  
 }
 .help{
   width:100vw;
   height: 100vh;
   object-fit: contain;
+  z-index: 1000;
 }
 .help-off{
   width:100px;
@@ -110,12 +112,14 @@
   border-radius: 20px;
   padding: 5px 10px;
   cursor: pointer;
+  z-index: 1000;
 }
 
 header{
     position: fixed;
     width:100%;
     /* height: 600px; */
+    z-index: 30;
 }
 .logo-container{
     display: flex;
@@ -144,11 +148,15 @@ hr {
   width: 90%;
 }
 
+.main-container{
+  /* z-index: 100; */
+}
+
 .container {
     position: fixed;
     width: 100%;
     height: 100%;
-    z-index: -1; 
+    z-index: 10;
 }
 
 .container img {
@@ -210,8 +218,8 @@ hr {
 
 video{
   width: auto;
-  height:50vh;
-  z-index: -10;
+  height:70vh;
+  z-index: -50;
 }
 @media (min-width: 600px) and (max-width: 768px) {
     .logo {

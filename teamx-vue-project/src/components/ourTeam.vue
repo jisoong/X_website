@@ -190,7 +190,7 @@ header, .container {
     color:#172BFF;
     font-size: 30px;
     font-weight: bold;
-    margin-top:60px;
+    margin-top:90px;
     text-align: center;
 }
 .detail{

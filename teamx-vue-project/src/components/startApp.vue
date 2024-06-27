@@ -76,12 +76,12 @@
           </div>
     </div>
     <!-- 비디오 들어가야함 -->
-    <!-- <div class="videoRoom">
+    <div class="videoRoom">
       
-      <video src="../assets/video/background.webm" autoplay loop muted playsinline>
+      <video src="../assets/video/background.mp4" autoplay loop muted playsinline>
         
       </video>
-    </div> -->
+    </div>
 </template>
   
   
@@ -229,8 +229,8 @@ button {
 
 .videoRoom{
   display: flex;
-  /* width: 100vw;
-  height:100vh; */
+  /* width: 100vw; */
+  height:100vh;
   justify-content: center;
   overflow: hidden;
   position: absolute;
@@ -242,7 +242,7 @@ button {
 video{
   /* position: absolute; */
   /* height:auto; */
-  width: 100vw;
+  width: 150vw;
   height:auto;
   z-index: -10;
   /* margin-top: 35vh; */
